@@ -1,0 +1,19 @@
+{
+    "name": "oxcom/zend-twig",
+    "description": "ZendTwig is a module that integrates the Twig templating engine with Zend Framework 3.",
+    "type": "library",
+    "require": {
+        "twig/twig": "^1.27"
+    },
+    "require-dev": {
+        "zendframework/zendframework": "^3.0",
+        "phpunit/phpunit": "^5.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "OxCom",
+            "email": "lancer.oxcom@gmail.com"
+        }
+    ]
+}
