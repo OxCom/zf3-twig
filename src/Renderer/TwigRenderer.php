@@ -155,7 +155,9 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
                 ));
             }
 
-            foreach ($model->getOptions() as $setting => $value) {
+            $options = $model->getOptions();
+            $options = empty($options) ? [] : $options;
+            foreach ($options as $setting => $value) {
                 $method = 'set' . $setting;
                 if (method_exists($this, $method)) {
                     $this->$method($value);

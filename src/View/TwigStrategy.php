@@ -46,8 +46,6 @@ class TwigStrategy implements ListenerAggregateInterface
      */
     public function selectRender(ViewEvent $e)
     {
-        $template = $e->getModel()->getTemplate();
-
         return $this->renderer;
     }
 

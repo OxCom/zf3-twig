@@ -24,6 +24,7 @@ class Bootstrap extends ModuleLoader
                 'module_listener_options' => [
                     'module_paths' => [
                         __DIR__ . '/../src',
+                        __DIR__ . '/../tests',
                         __DIR__ . '/../vendor',
                     ],
                 ],
