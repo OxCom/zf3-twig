@@ -20,6 +20,14 @@ class FallbackFunction extends Twig_SimpleFunction
             'is_safe'           => ['all'],
         ];
 
+        /**
+         * Create callback function for injection of Zend View Helpers
+         *
+         * @param       $env
+         * @param array ...$args
+         *
+         * @return mixed
+         */
         $callable = function ($env, ... $args) {
             $plugin = $env->getExtension(Module::MODULE_NAME)
                           ->getRenderer()
@@ -31,18 +39,5 @@ class FallbackFunction extends Twig_SimpleFunction
         };
 
         parent::__construct($name, $callable, $options);
-    }
-
-    /**
-     * Compiles a function.
-     *
-     * @return string The PHP code for the function
-     */
-    public function compile()
-    {
-        return sprintf(
-            '$this->env->getExtension("' . Module::MODULE_NAME . '")->getRenderer()->plugin("%s")->__invoke',
-            $this->helper
-        );
     }
 }
