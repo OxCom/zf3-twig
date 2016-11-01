@@ -20,20 +20,7 @@ class Bootstrap extends ModuleLoader
     public static function getInstance()
     {
         if (empty(static::$bootstrap)) {
-            $config = [
-                'module_listener_options' => [
-                    'module_paths' => [
-                        __DIR__ . '/../src',
-                        __DIR__ . '/../tests',
-                        __DIR__ . '/../vendor',
-                    ],
-                ],
-                'modules'                 => [
-                    'Zend\Router',
-                    'Zend\Validator',
-                    'ZendTwig',
-                ],
-            ];
+            $config = include(__DIR__ . '/Fixture/config/application.config.php');
 
             static::$bootstrap = new self($config);
         }

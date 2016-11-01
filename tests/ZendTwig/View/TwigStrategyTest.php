@@ -3,6 +3,7 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\ViewEvent;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Test\Bootstrap;
@@ -40,39 +41,33 @@ class TwigStrategyTest extends TestCase
      */
     public function testInjectResponse()
     {
-        $template = '<span>{{ key1 }}</span><span>{{ key2 }}</span>';
-        $expected   = '<span>value1</span><span>value2</span>';
+        $expected = "<span>value1</span><span>value2</span>\n";
 
         $model = new \Zend\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
-
-        $model->setTemplate('template-name');
-        $event = new ViewEvent();
-        $event->setModel($model);
+        $model->setTemplate('View/testInjectResponse');
 
         /**
-         * @var \ZendTwig\View\TwigStrategy $strategy
+         * @var \Zend\View\View $view
          */
-        $strategy = Bootstrap::getInstance()->getServiceManager()->get(TwigStrategy::class);
-        $render   = $strategy->selectRender($event);
+        $strategyTwig = Bootstrap::getInstance()->getServiceManager()->get(TwigStrategy::class);
+        $strategyPHP  = Bootstrap::getInstance()->getServiceManager()->get(PhpRendererStrategy::class);
+        $view         = Bootstrap::getInstance()->getServiceManager()->get('View');
+        $request      = Bootstrap::getInstance()->getServiceManager()->get('Request');
+        $response     = Bootstrap::getInstance()->getServiceManager()->get('Response');
 
-        $loaderMock = $this->getMockBuilder('\ZendTwig\Loader\MapLoader')->getMock();
-        $loaderMock->method('exists')
-            ->will($this->returnValue(true));
+        $e = $view->getEventManager();
+        $strategyPHP->detach($e);
+        $strategyTwig->attach($e);
 
-        $loaderMock->method('getSource')
-            ->will($this->returnValue($template));
+        $view->setEventManager($e)
+            ->setRequest($request)
+            ->setResponse($response)
+            ->render($model);
 
-        /**
-         * @var \Twig_Loader_Chain $loader
-         */
-        $loader = $render->getLoader();
-        $loader->addLoader($loaderMock);
-
-        $render->setLoader($loader);
-        $result = $render->render($model);
+        $result = $view->getResponse()->getContent();
 
         $this->assertEquals($expected, $result);
     }
