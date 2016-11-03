@@ -2,7 +2,6 @@
 namespace ZendTwig\Service;
 
 use Twig_Environment;
-use ZendTwig\Extension\Extension;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
@@ -34,9 +33,6 @@ class TwigRendererFactory implements FactoryInterface
 
         $renderer->setTwigHelpers($container->get(TwigHelperPluginManager::class));
         $renderer->setZendHelpers($container->get('ViewHelperManager'));
-
-        $ext = new Extension($renderer);
-        $env->addExtension($ext);
 
         return $renderer;
     }

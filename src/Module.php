@@ -4,12 +4,50 @@ namespace ZendTwig;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\MvcEvent;
+use Zend\View\Exception\InvalidArgumentException;
+use ZendTwig\Renderer\TwigRenderer;
 
-class Module implements ConfigProviderInterface
+class Module implements ConfigProviderInterface, BootstrapListenerInterface
 {
     const MODULE_NAME = 'zend_twig';
+
+    /**
+     * Listen to the bootstrap event
+     *
+     * @param \Zend\Mvc\MvcEvent|EventInterface $e
+     *
+     * @return array
+     */
+    public function onBootstrap(EventInterface $e)
+    {
+        $app       = $e->getApplication();
+        $container = $app->getServiceManager();
+
+        $config      = $container->get('Configuration');
+        $env         = $container->get('Twig_Environment');
+        $name        = static::MODULE_NAME;
+        $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
+        $extensions  = empty($options['extensions']) ? [] : $options['extensions'];
+        $renderer    = $container->get(TwigRenderer::class);
+
+        // Setup extensions
+        foreach ($extensions as $extension) {
+            // Allows modules to override/remove extensions.
+            if (empty($extension)) {
+                continue;
+            } elseif (is_string($extension)) {
+                if ($container->has($extension)) {
+                    $extension = $container->get($extension);
+                } else {
+                    $extension = new $extension($renderer);
+                }
+            } elseif (!is_object($extension)) {
+                throw new InvalidArgumentException('Extensions should be a string or object.');
+            }
+
+            $env->addExtension($extension);
+        }
+    }
 
     /**
      * Returns configuration to merge with application configuration

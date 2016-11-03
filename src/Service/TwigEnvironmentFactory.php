@@ -7,7 +7,6 @@ use ZendTwig\Module;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Exception\InvalidArgumentException;
 use ZendTwig\View\FallbackFunction;
 
 class TwigEnvironmentFactory implements FactoryInterface
@@ -27,7 +26,6 @@ class TwigEnvironmentFactory implements FactoryInterface
         $envOptions  = empty($options['environment']) ? [] : $options['environment'];
         $loader      = $container->get('Twig_Loader_Chain');
         $env         = new Twig_Environment($loader, $envOptions);
-        $extensions  = empty($options['extensions']) ? [] : $options['extensions'];
         $zendHelpers = empty($options['helpers']['invoke_zend']) ? false : (bool)$options['helpers']['invoke_zend'];
 
         if ($zendHelpers) {
@@ -46,24 +44,6 @@ class TwigEnvironmentFactory implements FactoryInterface
                     return false;
                 }
             );
-        }
-
-        // Setup extensions
-        foreach ($extensions as $extension) {
-            // Allows modules to override/remove extensions.
-            if (empty($extension)) {
-                continue;
-            } elseif (is_string($extension)) {
-                if ($container->has($extension)) {
-                    $extension = $container->get($extension);
-                } else {
-                    $extension = new $extension();
-                }
-            } elseif (!is_object($extension)) {
-                throw new InvalidArgumentException('Extensions should be a string or object.');
-            }
-
-            $env->addExtension($extension);
         }
 
         return $env;

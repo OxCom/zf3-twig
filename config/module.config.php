@@ -3,7 +3,7 @@
 return [
     'view_manager'    => [
         'strategies' => [
-            'ZendTwig\View\TwigStrategy',
+            ZendTwig\View\TwigStrategy::class,
         ],
     ],
     'service_manager' => [
@@ -29,7 +29,7 @@ return [
             \ZendTwig\Loader\StackLoader::class
         ],
         'extensions'   => [
-
+            \ZendTwig\Extension\Extension::class,
         ],
         'helpers'      => [
             'invoke_zend' => true,

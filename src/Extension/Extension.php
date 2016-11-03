@@ -9,20 +9,20 @@ use ZendTwig\Renderer\TwigRenderer;
 class Extension extends Twig_Extension
 {
     /**
-     * @var TwigRenderer
+     * @var \ZendTwig\Renderer\TwigRenderer
      */
     protected $renderer;
 
     /**
      * @param \ZendTwig\Renderer\TwigRenderer $renderer
      */
-    public function __construct(TwigRenderer $renderer)
+    public function __construct(TwigRenderer $renderer = null)
     {
         $this->renderer = $renderer;
     }
 
     /**
-     * @return \Zend\View\HelperPluginManager
+     * @return \ZendTwig\Renderer\TwigRenderer
      */
     public function getRenderer()
     {

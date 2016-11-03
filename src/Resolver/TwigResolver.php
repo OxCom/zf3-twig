@@ -18,7 +18,7 @@ class TwigResolver implements ResolverInterface
      *
      * @param Twig_Environment $environment
      */
-    public function __construct(Twig_Environment $environment)
+    public function __construct(Twig_Environment $environment = null)
     {
         $this->environment = $environment;
     }

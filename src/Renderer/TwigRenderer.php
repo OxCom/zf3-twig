@@ -260,6 +260,8 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     {
         $this->view = $view;
 
+        $view->getEventManager();
+
         return $this;
     }
 
