@@ -39,7 +39,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
                 if ($container->has($extension)) {
                     $extension = $container->get($extension);
                 } else {
-                    $extension = new $extension($renderer);
+                    $extension = new $extension($container, $renderer);
                 }
             } elseif (!is_object($extension)) {
                 throw new InvalidArgumentException('Extensions should be a string or object.');

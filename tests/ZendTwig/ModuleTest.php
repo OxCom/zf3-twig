@@ -7,6 +7,23 @@ use ZendTwig\Module;
 
 class ModuleTest extends TestCase
 {
+    public function testBootstrap()
+    {
+        $e = new \Zend\Mvc\MvcEvent();
+        $e->setApplication(Bootstrap::getInstance()->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
+
+//    public function testBootstrapEmptyConfig()
+//    {
+//        $e = new \Zend\Mvc\MvcEvent();
+//        $e->setApplication(Bootstrap::getInstance()->getApplication());
+//
+//        $module = new Module();
+//        $module->onBootstrap($e);
+//    }
 
     /**
      * Check that module was loaded

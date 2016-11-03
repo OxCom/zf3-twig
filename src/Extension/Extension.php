@@ -3,6 +3,7 @@
 namespace ZendTwig\Extension;
 
 use Twig_Extension;
+use Interop\Container\ContainerInterface;
 use ZendTwig\Module;
 use ZendTwig\Renderer\TwigRenderer;
 
@@ -14,11 +15,18 @@ class Extension extends Twig_Extension
     protected $renderer;
 
     /**
-     * @param \ZendTwig\Renderer\TwigRenderer $renderer
+     * @var \Interop\Container\ContainerInterface
      */
-    public function __construct(TwigRenderer $renderer = null)
+    protected $serviceManager;
+
+    /**
+     * @param \Interop\Container\ContainerInterface $serviceManager
+     * @param \ZendTwig\Renderer\TwigRenderer       $renderer
+     */
+    public function __construct(ContainerInterface $serviceManager, TwigRenderer $renderer = null)
     {
-        $this->renderer = $renderer;
+        $this->serviceManager = $serviceManager;
+        $this->renderer       = $renderer;
     }
 
     /**
@@ -37,5 +45,13 @@ class Extension extends Twig_Extension
     public function getName()
     {
         return Module::MODULE_NAME;
+    }
+
+    /**
+     * @return ServiceLocatorInterface
+     */
+    public function getServiceManager()
+    {
+        return $this->serviceManager;
     }
 }

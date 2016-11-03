@@ -10,30 +10,40 @@ include __DIR__ . "/../vendor/autoload.php";
 class Bootstrap extends ModuleLoader
 {
     /**
-     * @var Bootstrap
+     * @var Bootstrap[]
      */
-    protected static $bootstrap;
+    protected static $instances;
 
     /**
+     * @param array $config
+     *
      * @return Bootstrap
      */
-    public static function getInstance()
+    public static function getInstance($config = [])
     {
-        if (empty(static::$bootstrap)) {
+        if (empty($config)) {
             $config = include(__DIR__ . '/Fixture/config/application.config.php');
-
-            static::$bootstrap = new self($config);
         }
 
-        return static::$bootstrap;
+        $key = md5(serialize($config));
+        if (empty(static::$instances)) {
+
+            static::$instances[$key] = new self($config);
+        }
+
+        return static::$instances[$key];
     }
 
     /**
      * Init bootstrap
+     *
+     * @param array $config
+     *
+     * @return Bootstrap
      */
-    public static function init()
+    public static function init($config = [])
     {
-        static::getInstance();
+        return static::getInstance($config);
     }
 }
 
