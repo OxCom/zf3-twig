@@ -20,7 +20,7 @@ class TwigExtensionFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new Extension($container, $container->get(TwigRenderer::class));
+        return new $requestedName($container, $container->get(TwigRenderer::class));
     }
 
     /**

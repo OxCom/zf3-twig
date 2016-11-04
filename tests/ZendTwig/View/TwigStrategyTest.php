@@ -29,8 +29,9 @@ class TwigStrategyTest extends TestCase
         /**
          * @var \ZendTwig\View\TwigStrategy $strategy
          */
-        $strategy = Bootstrap::getInstance()->getServiceManager()->get(TwigStrategy::class);
-        $renderA  = Bootstrap::getInstance()->getServiceManager()->get(TwigRenderer::class);
+        $sm       = Bootstrap::getInstance()->getServiceManager();
+        $strategy = $sm->get(TwigStrategy::class);
+        $renderA  = $sm->get(TwigRenderer::class);
         $renderB  = $strategy->selectRender($event);
 
         $this->assertSame($renderA, $renderB);
@@ -42,32 +43,32 @@ class TwigStrategyTest extends TestCase
     public function testInjectResponse()
     {
         $expected = "<span>value1</span><span>value2</span>\n";
-
-        $model = new \Zend\View\Model\ViewModel([
+        $model    = new \Zend\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
+
         $model->setTemplate('View/testInjectResponse');
 
         /**
          * @var \Zend\View\View $view
          */
-        $strategyTwig = Bootstrap::getInstance()->getServiceManager()->get(TwigStrategy::class);
-        $strategyPHP  = Bootstrap::getInstance()->getServiceManager()->get(PhpRendererStrategy::class);
-        $view         = Bootstrap::getInstance()->getServiceManager()->get('View');
-        $request      = Bootstrap::getInstance()->getServiceManager()->get('Request');
-        $response     = Bootstrap::getInstance()->getServiceManager()->get('Response');
+        $sm           = Bootstrap::getInstance()->getServiceManager();
+        $strategyTwig = $sm->get(TwigStrategy::class);
+        $view         = $sm->get('View');
+        $request      = $sm->get('Request');
+        $response     = $sm->get('Response');
 
         $e = $view->getEventManager();
-        $strategyPHP->detach($e);
-        $strategyTwig->attach($e);
+        $strategyTwig->attach($e, 100);
 
         $view->setEventManager($e)
             ->setRequest($request)
             ->setResponse($response)
             ->render($model);
 
-        $result = $view->getResponse()->getContent();
+        $result = $view->getResponse()
+            ->getContent();
 
         $this->assertEquals($expected, $result);
     }

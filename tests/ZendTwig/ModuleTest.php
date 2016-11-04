@@ -3,27 +3,75 @@
 namespace ZendTwig\Test;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\Mvc\MvcEvent;
 use ZendTwig\Module;
 
 class ModuleTest extends TestCase
 {
-    public function testBootstrap()
+    /**
+     * Module loaded
+     */
+    public function testOnBootstrap()
     {
-        $e = new \Zend\Mvc\MvcEvent();
+        $e = new MvcEvent();
         $e->setApplication(Bootstrap::getInstance()->getApplication());
 
         $module = new Module();
         $module->onBootstrap($e);
     }
 
-//    public function testBootstrapEmptyConfig()
-//    {
-//        $e = new \Zend\Mvc\MvcEvent();
-//        $e->setApplication(Bootstrap::getInstance()->getApplication());
-//
-//        $module = new Module();
-//        $module->onBootstrap($e);
-//    }
+    public function testOnBootstrapNullExtension()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/extensions/{{,*.}empty}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
+
+    /**
+     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     */
+    public function testOnBootstrapExceptionExtension()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/extensions/{{,*.}exception}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
+
+    public function testOnBootstrapFactoryExtension()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/extensions/{{,*.}factory}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+
+        /**
+         * @var \Twig_Environment $twig
+         */
+        $twig = $e->getApplication()->getServiceManager()->get('Twig_Environment');
+        $ex   = $twig->getExtensions();
+
+        $this->assertNotEmpty($ex['zend_twig::dummy']);
+    }
 
     /**
      * Check that module was loaded

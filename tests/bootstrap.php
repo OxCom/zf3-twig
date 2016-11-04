@@ -26,8 +26,7 @@ class Bootstrap extends ModuleLoader
         }
 
         $key = md5(serialize($config));
-        if (empty(static::$instances)) {
-
+        if (empty(static::$instances[$key])) {
             static::$instances[$key] = new self($config);
         }
 

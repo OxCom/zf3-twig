@@ -12,6 +12,12 @@
             "src/"
         ]
     },
+    "autoload-dev": {
+        "classmap": [
+            "src/",
+            "tests/"
+        ]
+    },
     "require-dev": {
         "zendframework/zendframework": "^3.0",
         "phpunit/phpunit": "^5.6",

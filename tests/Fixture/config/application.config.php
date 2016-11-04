@@ -15,23 +15,22 @@ return [
 
     // These are various options for the listeners attached to the ModuleManager
     'module_listener_options' => [
-        'module_paths' => [
+        'module_paths'             => [
             __DIR__ . '/../src',
-            __DIR__ . '/../tests',
             __DIR__ . '/../vendor',
         ],
 
         // An array of paths from which to glob configuration files after
         // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
-        'config_glob_paths' => [
+        'config_glob_paths'        => [
             realpath(__DIR__) . '/autoload/{{,*.}global,{,*.}local}.php',
         ],
 
         // Whether or not to enable a configuration cache.
         // If enabled, the merged configuration will be cached and used in
         // subsequent requests.
-        'config_cache_enabled' => false,
+        'config_cache_enabled'     => false,
 
         // Whether or not to enable a module class map cache.
         // If enabled, creates a module class map cache which will be used
