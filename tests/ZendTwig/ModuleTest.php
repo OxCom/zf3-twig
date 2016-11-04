@@ -122,4 +122,21 @@ class ModuleTest extends TestCase
         $module = new Module();
         $module->onBootstrap($e);
     }
+
+    /**
+     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     */
+    public function testLoadConfigWithInvalidLoaderClass()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/loader/{{,*.}exception}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
 }

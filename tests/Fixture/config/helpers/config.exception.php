@@ -19,6 +19,5 @@ return [
                 \ZendTwig\Test\Fixture\DummyClass::class,
             ],
         ],
-
     ],
 ];

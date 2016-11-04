@@ -40,16 +40,19 @@ class TwigStrategyTest extends TestCase
 
     /**
      * Check that response was injected
+     *
+     * @dataProvider generatorInjectResponse
+     * @param $template
+     * @param $expected
      */
-    public function testInjectResponse()
+    public function testInjectResponse($template, $expected)
     {
-        $expected = "<span>value1</span><span>value2</span>\n";
         $model    = new \Zend\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
 
-        $model->setTemplate('View/testInjectResponse');
+        $model->setTemplate($template);
 
         /**
          * @var \Zend\View\View $view
@@ -72,6 +75,15 @@ class TwigStrategyTest extends TestCase
             ->getContent();
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function generatorInjectResponse()
+    {
+        return [
+            ['View/testInjectResponse', "<span>value1</span><span>value2</span>\n"],
+            ['View/testTreeRender', "<div>block</div>\n<div>content</div>\n"],
+            ['layout', "9,800.33\n"],
+        ];
     }
 
     /**
