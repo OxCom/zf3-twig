@@ -22,16 +22,4 @@ class TwigExtensionFactory implements FactoryInterface
     {
         return new $requestedName($container, $container->get(TwigRenderer::class));
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return Extension
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, Extension::class);
-    }
-
-
 }

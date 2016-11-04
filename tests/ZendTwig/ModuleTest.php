@@ -105,4 +105,21 @@ class ModuleTest extends TestCase
 
         $this->assertEquals($configA[Module::MODULE_NAME], $configB);
     }
+
+    /**
+     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     */
+    public function testLoadConfigWithInvalidHelpersClass()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/helpers/{{,*.}exception}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
 }

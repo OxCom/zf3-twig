@@ -20,14 +20,4 @@ class TwigResolverFactory implements FactoryInterface
     {
         return new TwigResolver($container->get('Twig_Environment'));
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return TwigResolver
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, TwigResolver::class);
-    }
 }

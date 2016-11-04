@@ -3,6 +3,7 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
+use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\ViewEvent;
 use ZendTwig\Renderer\TwigRenderer;
@@ -62,6 +63,39 @@ class TwigStrategyTest extends TestCase
         $e = $view->getEventManager();
         $strategyTwig->attach($e, 100);
 
+        $view->setEventManager($e)
+            ->setRequest($request)
+            ->setResponse($response)
+            ->render($model);
+
+        $result = $view->getResponse()
+            ->getContent();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * Check that response was injected but with wrong render
+     */
+    public function testInvalidInjectResponse()
+    {
+        $sm           = Bootstrap::getInstance()->getServiceManager();
+        $phpRender    = $sm->get(PhpRenderer::class);
+        $strategyTwig = new TwigStrategy($phpRender);
+        $expected     = "<span>value1</span><span>value2</span>\n";
+        $model        = new \Zend\View\Model\ViewModel([
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ]);
+
+        $model->setTemplate('View/testInjectResponse');
+
+        $view         = $sm->get('View');
+        $request      = $sm->get('Request');
+        $response     = $sm->get('Response');
+
+        $e = $view->getEventManager();
+        $strategyTwig->attach($e, 100);
         $view->setEventManager($e)
             ->setRequest($request)
             ->setResponse($response)

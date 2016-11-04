@@ -10,6 +10,8 @@ return [
     'modules'                 => [
         'Zend\Router',
         'Zend\Validator',
+        'Zend\I18n',
+        'Zend\Mvc\I18n',
         'ZendTwig',
     ],
 

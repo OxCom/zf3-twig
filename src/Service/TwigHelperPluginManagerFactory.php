@@ -50,14 +50,4 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
 
         return $viewHelper;
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return HelperPluginManager
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, HelperPluginManager::class);
-    }
 }

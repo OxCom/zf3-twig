@@ -39,14 +39,4 @@ class TwigLoaderFactory implements FactoryInterface
 
         return $chain;
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return Twig_Loader_Chain
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, Twig_Loader_Chain::class);
-    }
 }

@@ -26,7 +26,7 @@ class TwigEnvironmentFactory implements FactoryInterface
         $envOptions  = empty($options['environment']) ? [] : $options['environment'];
         $loader      = $container->get('Twig_Loader_Chain');
         $env         = new Twig_Environment($loader, $envOptions);
-        $zendHelpers = empty($options['helpers']['invoke_zend']) ? false : (bool)$options['helpers']['invoke_zend'];
+        $zendHelpers = !isset($options['invoke_zend_helpers']) ? false : (bool)$options['invoke_zend_helpers'];
 
         if ($zendHelpers) {
             $helperPluginManager = $container->get('ViewHelperManager');
@@ -47,15 +47,5 @@ class TwigEnvironmentFactory implements FactoryInterface
         }
 
         return $env;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return Twig_Environment
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, Twig_Environment::class);
     }
 }

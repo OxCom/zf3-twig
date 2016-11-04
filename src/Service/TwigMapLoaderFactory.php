@@ -39,16 +39,4 @@ class TwigMapLoaderFactory implements FactoryInterface
 
         return $loader;
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return MapLoader
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, MapLoader::class);
-    }
-
-
 }

@@ -34,14 +34,4 @@ class TwigStackLoaderFactory implements FactoryInterface
 
         return $loader;
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return StackLoader
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        return $this($serviceLocator, StackLoader::class);
-    }
 }
