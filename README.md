@@ -31,8 +31,7 @@ Thanks for [ZF-Common](https://github.com/ZF-Commons) for good ideas.
 Short list of available chapters:
 
     1. ZendTwig module 
-    2. Twig Environment
-    3.
+    2. Custom Twig Extensions
 
 ## Bugs and Issues
 
