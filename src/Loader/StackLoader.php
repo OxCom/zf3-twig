@@ -19,7 +19,7 @@ class StackLoader extends Twig_Loader_Filesystem
     /**
      * Set default file suffix
      *
-     * @param  string $suffix
+     * @param string $suffix
      *
      * @return StackLoader
      */
@@ -41,6 +41,12 @@ class StackLoader extends Twig_Loader_Filesystem
         return $this->suffix;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string
+     * @throws \Twig_Error_Loader
+     */
     protected function findTemplate($name)
     {
         $name = (string)$name;

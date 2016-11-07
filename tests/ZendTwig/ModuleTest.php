@@ -70,7 +70,7 @@ class ModuleTest extends TestCase
         $twig = $e->getApplication()->getServiceManager()->get('Twig_Environment');
         $ex   = $twig->getExtensions();
 
-        $this->assertNotEmpty($ex['zend_twig::dummy']);
+        $this->assertNotEmpty($ex['ZendTwig\Test\Fixture\Extension\DummyExtension']);
     }
 
     /**

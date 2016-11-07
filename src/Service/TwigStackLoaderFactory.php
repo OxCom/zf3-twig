@@ -7,7 +7,6 @@ use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 
 class TwigStackLoaderFactory implements FactoryInterface
@@ -17,7 +16,7 @@ class TwigStackLoaderFactory implements FactoryInterface
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return \Zend\View\Resolver\TemplatePathStack
+     * @return \ZendTwig\Loader\StackLoader
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {

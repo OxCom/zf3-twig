@@ -2,25 +2,8 @@
 
 namespace ZendTwig\Test\Fixture\Extension;
 
-use ZendTwig\Extension\Extension;
+use ZendTwig\Extension\AbstractExtension;
 
-class DummyExtension extends Extension
+class DummyExtension extends AbstractExtension
 {
-    /**
-     * @return \ZendTwig\Renderer\TwigRenderer
-     */
-    public function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
-    public function getName()
-    {
-        return parent::getName() . '::dummy';
-    }
 }

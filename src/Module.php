@@ -23,6 +23,9 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
         $app       = $e->getApplication();
         $container = $app->getServiceManager();
 
+        /**
+         * @var \Twig_Environment $env
+         */
         $config      = $container->get('Configuration');
         $env         = $container->get('Twig_Environment');
         $name        = static::MODULE_NAME;
@@ -45,7 +48,9 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
                 throw new InvalidArgumentException('Extensions should be a string or object.');
             }
 
-            $env->addExtension($extension);
+            if (!$env->hasExtension(get_class($extension))) {
+                $env->addExtension($extension);
+            }
         }
     }
 

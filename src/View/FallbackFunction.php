@@ -29,7 +29,7 @@ class FallbackFunction extends Twig_SimpleFunction
          * @return mixed
          */
         $callable = function ($env, ... $args) {
-            $plugin = $env->getExtension(Module::MODULE_NAME)
+            $plugin = $env->getExtension('\ZendTwig\Extension\Extension')
                           ->getRenderer()
                           ->plugin($this->name);
 
