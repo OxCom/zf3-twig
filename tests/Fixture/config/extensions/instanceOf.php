@@ -1,20 +1,23 @@
 <?php
 
+use ZendTwig\Service\TwigLoaderFactory;
+use ZendTwig\Test\Fixture\Extension\InstanceOfExtension;
+
 return [
-    'view_manager' => [
+    'view_manager'    => [
         'template_path_stack'     => [
             'ZendTwig' => __DIR__ . '/../../view/ZendTwig',
         ],
-        'default_template_suffix' => \ZendTwig\Service\TwigLoaderFactory::DEFAULT_SUFFIX,
+        'default_template_suffix' => TwigLoaderFactory::DEFAULT_SUFFIX,
     ],
     'service_manager' => [
         'factories' => [
-            \ZendTwig\Test\Fixture\Extension\InstanceOfExtension::class => \ZendTwig\Service\TwigExtensionFactory::class,
+            InstanceOfExtension::class => \ZendTwig\Service\TwigExtensionFactory::class,
         ],
     ],
     'zend_twig'       => [
         'extensions' => [
-            \ZendTwig\Test\Fixture\Extension\InstanceOfExtension::class,
+            InstanceOfExtension::class,
         ],
     ],
 ];

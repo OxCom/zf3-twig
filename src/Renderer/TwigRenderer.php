@@ -68,8 +68,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         View $view = null,
         Twig_Environment $env = null,
         ResolverInterface $resolver = null
-    )
-    {
+    ) {
         $this->setView($view)
              ->setEnvironment($env)
              ->setLoader($env->getLoader())

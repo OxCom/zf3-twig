@@ -8,7 +8,6 @@ use ZendTwig\Module;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-
 class TwigStackLoaderFactory implements FactoryInterface
 {
     /**

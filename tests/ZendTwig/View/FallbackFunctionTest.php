@@ -124,10 +124,23 @@ class FallbackFunctionTest extends TestCase
     public function generatorFallbackToZendHelpers()
     {
         return [
-            ['Helpers/basePath', "/css/app.css\n"],
-            ['Helpers/headMeta', "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"],
-            ['Helpers/headTitle', "<title>Test passed</title>\n"],
-            ['Helpers/docType', "<!DOCTYPE html>\n"],
+            [
+                'Helpers/basePath',
+                "/css/app.css\n"
+            ],
+            [
+                'Helpers/headMeta',
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" .
+                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
+            ],
+            [
+                'Helpers/headTitle',
+                "<title>Test passed</title>\n"
+            ],
+            [
+                'Helpers/docType',
+                "<!DOCTYPE html>\n"
+            ],
         ];
     }
 
