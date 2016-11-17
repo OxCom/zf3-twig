@@ -64,11 +64,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * @param Twig_Environment  $env
      * @param ResolverInterface $resolver
      */
-    public function __construct(
-        View $view,
-        Twig_Environment $env = null,
-        ResolverInterface $resolver = null
-    )
+    public function __construct(View $view, Twig_Environment $env = null, ResolverInterface $resolver = null)
     {
         $this->setView($view)
              ->setEnvironment($env)
