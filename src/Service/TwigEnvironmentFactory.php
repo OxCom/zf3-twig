@@ -6,8 +6,8 @@ use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use ZendTwig\View\FallbackFunction;
+use ZendTwig\View\HelperPluginManager;
 
 class TwigEnvironmentFactory implements FactoryInterface
 {
@@ -29,15 +29,16 @@ class TwigEnvironmentFactory implements FactoryInterface
         $zendHelpers = !isset($options['invoke_zend_helpers']) ? false : (bool)$options['invoke_zend_helpers'];
 
         if ($zendHelpers) {
-            $helperPluginManager = $container->get('ViewHelperManager');
+            $twigHelperPluginManager = $container->get(HelperPluginManager::class);
+            $zendHelperPluginManager = $container->get('ViewHelperManager');
             $env->registerUndefinedFunctionCallback(
-                function ($name) use ($helperPluginManager) {
-                    if ($helperPluginManager->has($name)) {
+                function ($name) use ($twigHelperPluginManager, $zendHelperPluginManager) {
+                    if ($twigHelperPluginManager->has($name) || $zendHelperPluginManager->has($name)) {
                         return new FallbackFunction($name);
                     }
 
                     $name = strtolower('zendviewhelper' . $name);
-                    if ($helperPluginManager->has($name)) {
+                    if ($zendHelperPluginManager->has($name)) {
                         return new FallbackFunction($name);
                     }
 

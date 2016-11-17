@@ -45,41 +45,25 @@ class StackLoader extends Twig_Loader_Filesystem
      * @param string $name
      *
      * @return string
-     * @throws \Twig_Error_Loader
+     * @throws Twig_Error_Loader
      */
     protected function findTemplate($name)
     {
-        $name = (string)$name;
+        $name = $this->normalizeName((string)$name);
 
-        // normalize name
-        $name = preg_replace('#/{2,}#', '/', strtr($name, '\\', '/'));
+        // Ensure we have the expected file extension
+        $defaultSuffix = $this->getSuffix();
+        if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {
+            $name .= '.' . $defaultSuffix;
+        }
 
         if (isset($this->cache[$name])) {
             return $this->cache[$name];
         }
 
-        // Ensure we have the expected file extension
-        $defaultSuffix = $this->getSuffix();
-        if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {
-            ;
-            $name .= '.' . $defaultSuffix;
-        }
-
         $this->validateName($name);
 
-        $namespace = '__main__';
-        if (isset($name[0]) && '@' == $name[0]) {
-            if (false === $pos = strpos($name, '/')) {
-                throw new Twig_Error_Loader(sprintf(
-                    'Malformed namespaced template name "%s" (expecting "@namespace/template_name").',
-                    $name
-                ));
-            }
-
-            $namespace = substr($name, 1, $pos - 1);
-
-            $name = substr($name, $pos + 1);
-        }
+        list($namespace, $name) = $this->parseName($name);
 
         if (!isset($this->paths[$namespace])) {
             throw new Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));

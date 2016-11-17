@@ -60,15 +60,16 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     private $zendHelpers;
 
     /**
-     * @param View              $view
+     * @param \Zend\View\View   $view
      * @param Twig_Environment  $env
      * @param ResolverInterface $resolver
      */
     public function __construct(
-        View $view = null,
+        View $view,
         Twig_Environment $env = null,
         ResolverInterface $resolver = null
-    ) {
+    )
+    {
         $this->setView($view)
              ->setEnvironment($env)
              ->setLoader($env->getLoader())
@@ -82,7 +83,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * execute helpers.
      *
      * * If the helper does not define __invoke, it will be returned
-     * * If the helper does define __invoke, it will be called as a functor
+     * * If the helper does define __invoke, it will be called as a function
      *
      * @param  string $method
      * @param  array  $argv
@@ -97,7 +98,9 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             return call_user_func_array($plugin, $argv);
         }
 
+        // @codeCoverageIgnoreStart
         return $plugin;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -176,27 +179,29 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         }
 
         if ($model instanceof ModelInterface && $model->hasChildren() && $this->canRenderTrees()) {
-            if (!isset($values['content'])) {
-                $values['content'] = '';
+            if (!isset($values[$model->captureTo()])) {
+                $values[$model->captureTo()] = '';
             }
 
-            foreach ($model as $child) {
+            foreach ($model->getChildren() as $child) {
                 /**
                  * @var \Zend\View\Model\ViewModel $child
                  * @var \Twig_Template             $template
                  */
-                if ($this->canRender($child->getTemplate())) {
-                    $template = $this->resolver->resolve($child->getTemplate(), $this);
+                $result = $this->render($child, $values);
 
-                    return $template->render((array)$child->getVariables());
-                }
                 $child->setOption('has_parent', true);
-                $values['content'] .= $this->view->render($child);
+
+                if ($child->isAppend()) {
+                    $values[$child->captureTo()] .= $result;
+                } else {
+                    $values[$child->captureTo()] = $result;
+                }
             }
         }
 
         /** @var \Twig_Template $template */
-        $template = $this->resolver->resolve($nameOrModel, $this);
+        $template = $this->getResolver()->resolve($nameOrModel, $this);
 
         return $template->render((array)$values);
     }
@@ -210,14 +215,8 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      */
     public function canRender($name)
     {
-        if (!$this->loader instanceof Twig_Loader_Chain) {
-            throw new InvalidArgumentException(sprintf(
-                'Twig loader must implement Twig_Loader_Chain; got type "%s" instead',
-                (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
-            ));
-        }
-
-        return $this->loader->exists($name);
+        return $this->getLoader()
+                    ->exists($name);
     }
 
     /**
@@ -237,13 +236,13 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      */
     public function setCanRenderTrees($canRenderTrees)
     {
-        $this->canRenderTrees = $canRenderTrees;
+        $this->canRenderTrees = !!$canRenderTrees;
 
         return $this;
     }
 
     /**
-     * @return View
+     * @return \Zend\View\View
      */
     public function getView()
     {
@@ -251,11 +250,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param View $view
+     * @param \Zend\View\View $view
      *
      * @return TwigRenderer
      */
-    public function setView($view)
+    public function setView(View $view)
     {
         $this->view = $view;
 
@@ -269,6 +268,13 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      */
     public function getEnvironment()
     {
+        if (!$this->environment instanceof Twig_Environment) {
+            throw new InvalidArgumentException(sprintf(
+                'Twig environment must be Twig_Environment; got type "%s" instead',
+                (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
+            ));
+        }
+
         return $this->environment;
     }
 
@@ -291,7 +297,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     {
         if (!$this->loader instanceof Twig_Loader_Chain) {
             throw new InvalidArgumentException(sprintf(
-                'Twig resolver must implement Twig_Loader_Chain; got type "%s" instead',
+                'Twig loader must implement Twig_Loader_Chain; got type "%s" instead',
                 (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
             ));
         }
@@ -316,13 +322,6 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      */
     public function getResolver()
     {
-        if (!$this->resolver instanceof ResolverInterface) {
-            throw new InvalidArgumentException(sprintf(
-                'Twig resolver must implement Zend\View\Resolver\ResolverInterface; got type "%s" instead',
-                (is_object($this->resolver) ? get_class($this->resolver) : gettype($this->resolver))
-            ));
-        }
-
         return $this->resolver;
     }
 
