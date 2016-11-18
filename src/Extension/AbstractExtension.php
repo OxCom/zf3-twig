@@ -31,16 +31,10 @@ abstract class AbstractExtension extends Twig_Extension
     /**
      * @return \ZendTwig\Renderer\TwigRenderer
      */
-    public function getRenderer()
-    {
-        return $this->renderer;
-    }
+    abstract public function getRenderer();
 
     /**
      * @return \Interop\Container\ContainerInterface
      */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
+    abstract public function getServiceManager();
 }

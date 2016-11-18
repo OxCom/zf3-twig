@@ -2,8 +2,8 @@
 
 namespace ZendTwig\Test\Fixture\Extension;
 
-use ZendTwig\Extension\AbstractExtension;
+use ZendTwig\Extension\Extension;
 
-class DummyExtension extends AbstractExtension
+class DummyExtension extends Extension
 {
 }

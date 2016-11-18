@@ -2,9 +2,9 @@
 
 namespace ZendTwig\Test\Fixture\Extension;
 
-use ZendTwig\Extension\AbstractExtension;
+use ZendTwig\Extension\Extension;
 
-class InstanceOfExtension extends AbstractExtension
+class InstanceOfExtension extends Extension
 {
     public function getFunctions()
     {

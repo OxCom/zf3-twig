@@ -4,18 +4,55 @@ namespace ZendTwig\Test\Extension;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Mvc\MvcEvent;
-use Zend\Server\Reflection\ReflectionClass;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Strategy\PhpRendererStrategy;
-use Zend\View\ViewEvent;
+use ZendTwig\Extension\Extension;
 use ZendTwig\Module;
-use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Test\Fixture\DummyClass;
+use ZendTwig\Test\Fixture\Extension\InstanceOfExtension;
 use ZendTwig\View\TwigStrategy;
 
-class InstanceOfText extends TestCase
+class CustomExtensionTest extends TestCase
 {
+    public function testExtensionFactory()
+    {
+        $config = include(__DIR__ . '/../../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../../Fixture/config/extensions/{{,*.}instanceOf}.php',
+        ];
+
+        /**
+         * @var \ZendTwig\Test\Fixture\Extension\InstanceOfExtension $extension
+         */
+        $sm = Bootstrap::getInstance($config)->getServiceManager();
+        $extension = $sm->get(InstanceOfExtension::class);
+
+        $exRender = $extension->getRenderer();
+        $exSm     = $extension->getServiceManager();
+
+        $this->assertInstanceOf('\ZendTwig\Renderer\TwigRenderer', $exRender);
+        $this->assertInstanceOf('\Interop\Container\ContainerInterface', $exSm);
+        $this->assertSame($sm, $exSm);
+    }
+
+    public function testExtensionConstruct()
+    {
+        /**
+         * @var \ZendTwig\Extension\Extension $extension
+         */
+        $sm        = Bootstrap::getInstance()->getServiceManager();
+        $renderer  = $sm->get(\ZendTwig\Renderer\TwigRenderer::class);
+        $extension = new Extension($sm, $renderer);
+
+        $exRender = $extension->getRenderer();
+        $exSm     = $extension->getServiceManager();
+
+        $this->assertInstanceOf('\ZendTwig\Renderer\TwigRenderer', $exRender);
+        $this->assertInstanceOf('\Interop\Container\ContainerInterface', $exSm);
+
+        $this->assertSame($sm, $exSm);
+        $this->assertSame($renderer, $exRender);
+    }
+
     /**
      * @dataProvider generatorFallbackToZendHelpers
      *

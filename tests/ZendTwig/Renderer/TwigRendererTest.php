@@ -92,22 +92,6 @@ class TwigRendererTest extends TestCase
         $this->assertInstanceOf('\ZendTwig\Resolver\TwigResolver', $resolver);
     }
 
-    /**
-     * @expectedException \TypeError
-     * @expectedExceptionMessageRegExp /must implement interface Zend\\View\\Resolver\\ResolverInterface/
-     */
-    public function testGetResolverEx()
-    {
-        /**
-         * @var \ZendTwig\Renderer\TwigRenderer $render
-         */
-        $sm     = Bootstrap::getInstance()->getServiceManager();
-        $render = $sm->get(TwigRenderer::class);
-        $renderClone = clone $render;
-
-        $renderClone->setResolver('qwe');
-    }
-
     public function testGetView()
     {
         /**
