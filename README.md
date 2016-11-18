@@ -39,6 +39,5 @@ Please, if You found a bug or something, that is not working properly, contact m
 
 ## TODO
     1. More docs
-    2. More tests
     3. More examples
 
