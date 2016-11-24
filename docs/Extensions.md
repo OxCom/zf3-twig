@@ -19,14 +19,8 @@ Extension class example:
     class NewExtension extends \ZendTwig\Extension\AbstractExtension
     {
         /**
-         * Returns the name of the extension.
-         *
-         * @return string The extension name
+         * Common code for Twig Extensions
          */
-        public function getName()
-        {
-            return '{unique-extension-name}';
-        }
     }
 ```
 
