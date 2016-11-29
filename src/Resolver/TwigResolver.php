@@ -29,10 +29,11 @@ class TwigResolver implements ResolverInterface
      * @param  string        $name
      * @param  null|Renderer $renderer
      *
-     * @return bool
+     * @return string
      */
     public function resolve($name, Renderer $renderer = null)
     {
-        return $this->environment->loadTemplate($name);
+        return $this->environment
+                    ->resolveTemplate($name);
     }
 }
