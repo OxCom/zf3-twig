@@ -52,7 +52,23 @@ class StackLoaderTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $loader = $sm->get(StackLoader::class);
 
-        $loader->getSourceContext('testFindTemplate');
+        $loader->getSourceContext('testFindTemplateExNoTemplate');
+    }
+
+    public function testFindTemplateNoExNoTemplate()
+    {
+        /**
+         * @var \ZendTwig\Loader\StackLoader $loader
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $loader = $sm->get(StackLoader::class);
+
+        $reflection = new \ReflectionClass($loader);
+        $method = $reflection->getMethod('findTemplate');
+        $method->setAccessible(true);
+
+        $value = $method->invokeArgs($loader, ['testFindTemplateNoExNoTemplate', false]);
+        $this->assertFalse($value);
     }
 
     /**
@@ -68,6 +84,22 @@ class StackLoaderTest extends TestCase
         $loader = $sm->get(StackLoader::class);
 
         $loader->getSourceContext('@ns/testFindTemplate');
+    }
+
+    public function testFindTemplateNoExNamespace()
+    {
+        /**
+         * @var \ZendTwig\Loader\StackLoader $loader
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $loader = $sm->get(StackLoader::class);
+
+        $reflection = new \ReflectionClass($loader);
+        $method = $reflection->getMethod('findTemplate');
+        $method->setAccessible(true);
+
+        $value = $method->invokeArgs($loader, ['@ns/testFindTemplate', false]);
+        $this->assertFalse($value);
     }
 
     public function testFindTemplate()
