@@ -19,6 +19,8 @@ return [
         ],
     ],
     'zend_twig'       => [
+        'force_standalone'    => true,
+        'invoke_zend_helpers' => true,
         'environment'         => [
         ],
         'loader_chain'        => [
@@ -28,7 +30,6 @@ return [
         'extensions'          => [
             \ZendTwig\Extension\Extension::class,
         ],
-        'invoke_zend_helpers' => true,
         'helpers'             => [
             'configs' => [
                 \Zend\Navigation\View\HelperConfig::class,

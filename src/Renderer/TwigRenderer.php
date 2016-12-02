@@ -60,6 +60,12 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     private $zendHelpers;
 
     /**
+     * Force \Zend\View\Model\ViewModel::$terminate to true
+     * @var bool
+     */
+    protected $forceStandalone = false;
+
+    /**
      * @param \Zend\View\View   $view
      * @param Twig_Environment  $env
      * @param ResolverInterface $resolver
@@ -171,7 +177,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         }
 
         if (!$this->canRender($nameOrModel)) {
-            return null;
+            throw new \Zend\View\Exception\RuntimeException(sprintf(
+                '%s: Unable to render template "%s"; resolver could not resolve to a file',
+                __METHOD__,
+                $nameOrModel
+            ));
         }
 
         if ($model instanceof ModelInterface && $model->hasChildren() && $this->canRenderTrees()) {
@@ -185,6 +195,10 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
                  * @var \Twig_Template             $template
                  */
                 $result = $this->render($child, $values);
+
+                if ($this->isForceStandalone() || $child->terminate()) {
+                    return $result;
+                }
 
                 $child->setOption('has_parent', true);
 
@@ -373,5 +387,23 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         $this->zendHelpers = $helpers;
 
         return $this;
+    }
+
+    /**
+     * @param boolean $forceStandalone
+     * @return TwigRenderer
+     */
+    public function setForceStandalone($forceStandalone)
+    {
+        $this->forceStandalone = !!$forceStandalone;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isForceStandalone()
+    {
+        return $this->forceStandalone;
     }
 }
