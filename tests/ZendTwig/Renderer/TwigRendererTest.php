@@ -316,13 +316,6 @@ class TwigRendererTest extends TestCase
         $this->assertInstanceOf(\Zend\View\Helper\Doctype::class, $result);
     }
 
-    /**
-     * In a ZF3 by default we have this structure:
-     *  - ViewModel with template from 'layout/layout'
-     *      |- ViewModel as child with action template 'application/index/index'
-     *
-     * In that case we should always force standalone state of child models
-     */
     public function testForceStandaloneModel()
     {
         /**
@@ -349,13 +342,6 @@ class TwigRendererTest extends TestCase
         $this->assertEquals($expect, $result);
     }
 
-    /**
-     * In a ZF3 by default we have this structure:
-     *  - ViewModel with template from 'layout/layout'
-     *      |- ViewModel as child with action template 'application/index/index'
-     *
-     * In that case we should always force standalone state of child models
-     */
     public function testSimpleStandaloneModel()
     {
         /**

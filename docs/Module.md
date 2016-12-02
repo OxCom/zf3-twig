@@ -3,6 +3,8 @@
 The module configuration should be done in scope of ``` zend_twig ``` key. Default configuration is:
 ```php
     'zend_twig'       => [
+        'force_standalone'    => true,
+        'invoke_zend_helpers' => true,
         'environment'         => [
         ],
         'loader_chain'        => [
@@ -12,7 +14,6 @@ The module configuration should be done in scope of ``` zend_twig ``` key. Defau
         'extensions'          => [
             \ZendTwig\Extension\Extension::class,
         ],
-        'invoke_zend_helpers' => true,
         'helpers'             => [
             'configs' => [
                 \Zend\Navigation\View\HelperConfig::class,
@@ -42,3 +43,12 @@ This is done with ``` \ZendTwig\View\FallbackFunction ```
 
 ## Key: helpers
 Configuration for Zend View Helpers
+
+## Key: force_standalone
+In a ZF3 by default we have this structure:
+- ViewModel with template from 'layout/layout'
+- ViewModel as child with action template 'application/index/index'
+
+In that case we should always force standalone state of child models
+
+Value: ``` true ``` or ``` false ```. Default: ``` true ```
