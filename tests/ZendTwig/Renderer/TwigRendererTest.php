@@ -186,7 +186,11 @@ class TwigRendererTest extends TestCase
         $this->assertEquals($expect, $result);
     }
 
-    public function testRenderNull()
+    /**
+     * @expectedException \Zend\View\Exception\RuntimeException
+     * @expectedExceptionMessageRegExp 'Unable to render template'
+     */
+    public function testRenderNotExistsEx()
     {
         /**
          * @var \ZendTwig\Renderer\TwigRenderer $render
@@ -198,8 +202,6 @@ class TwigRendererTest extends TestCase
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
-
-        $this->assertEmpty($result);
     }
 
     public function testRenderChild()
@@ -238,10 +240,16 @@ class TwigRendererTest extends TestCase
         $modelParent->addChild($modelChild2);
         $modelParent->addChild($modelChild3, 'injectChild', true);
 
+        // do not force standalone models
+        $forceValue = $render->isForceStandalone();
+        $render->setForceStandalone(false);
+
         $expect = "<span>value1</span><span><span>child1-1</span><span>child1-2</span>\n"
                     . "<span>child3-1</span><span>child3-2</span>\n"
                     . "</span><span>child2-1</span><span>child2-2</span>\n\n";
         $result = $render->render($modelParent);
+
+        $render->setForceStandalone($forceValue);
 
         $this->assertEquals($expect, $result);
     }
@@ -282,9 +290,15 @@ class TwigRendererTest extends TestCase
         $modelParent->addChild($modelChild2);
         $modelParent->addChild($modelChild3, 'injectChild');
 
+        // do not force standalone models
+        $forceValue = $render->isForceStandalone();
+        $render->setForceStandalone(false);
+
         $expect = "<span>value1</span><span><span>child3-1</span><span>child3-2</span>\n"
                   . "</span><span>child2-1</span><span>child2-2</span>\n\n";
         $result = $render->render($modelParent);
+
+        $render->setForceStandalone($forceValue);
 
         $this->assertEquals($expect, $result);
     }
@@ -300,5 +314,62 @@ class TwigRendererTest extends TestCase
         $result = $render->doctype();
 
         $this->assertInstanceOf(\Zend\View\Helper\Doctype::class, $result);
+    }
+
+    public function testForceStandaloneModel()
+    {
+        /**
+         * @var \ZendTwig\Renderer\TwigRenderer $render
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $render = $sm->get(TwigRenderer::class);
+
+        $modelParent = new \Zend\View\Model\ViewModel([
+        ]);
+        $modelParent->setTemplate('View/zend/layout');
+
+        $modelChild1 = new \Zend\View\Model\ViewModel([
+            'username' => 'Child007',
+        ]);
+
+        $modelChild1->setTemplate('View/zend/index');
+
+        $modelParent->addChild($modelChild1);
+
+        $expect = "<html><body><section>Hello, Child007!</section></body></html>\n";
+        $result = $render->render($modelParent);
+
+        $this->assertEquals($expect, $result);
+    }
+
+    public function testSimpleStandaloneModel()
+    {
+        /**
+         * @var \ZendTwig\Renderer\TwigRenderer $render
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $render = $sm->get(TwigRenderer::class);
+
+        $modelParent = new \Zend\View\Model\ViewModel([
+        ]);
+        $modelParent->setTemplate('View/zend/layout');
+
+        $modelChild1 = new \Zend\View\Model\ViewModel([
+            'username' => 'Child007',
+        ]);
+
+        $modelChild1->setTemplate('View/zend/index');
+        $modelChild1->setTerminal(true);
+        $modelParent->addChild($modelChild1);
+
+        $forceStandalone = $render->isForceStandalone();
+        $render->setForceStandalone(false);
+
+        $expect = "<html><body><section>Hello, Child007!</section></body></html>\n";
+        $result = $render->render($modelParent);
+
+        $render->setForceStandalone($forceStandalone);
+
+        $this->assertEquals($expect, $result);
     }
 }

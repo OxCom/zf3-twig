@@ -3,10 +3,9 @@
 namespace ZendTwig\Loader;
 
 use Twig_Error_Loader;
-use Twig_ExistsLoaderInterface;
 use Twig_LoaderInterface;
 
-class MapLoader implements Twig_ExistsLoaderInterface, Twig_LoaderInterface
+class MapLoader implements Twig_LoaderInterface
 {
     /**
      * Array of templates to filenames.

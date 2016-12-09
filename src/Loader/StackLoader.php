@@ -43,11 +43,12 @@ class StackLoader extends Twig_Loader_Filesystem
 
     /**
      * @param string $name
+     * @param bool $throw
      *
-     * @return string
+     * @return string|boolean
      * @throws Twig_Error_Loader
      */
-    protected function findTemplate($name)
+    protected function findTemplate($name, $throw = true)
     {
         $name = $this->normalizeName((string)$name);
 
@@ -66,7 +67,11 @@ class StackLoader extends Twig_Loader_Filesystem
         list($namespace, $name) = $this->parseName($name);
 
         if (!isset($this->paths[$namespace])) {
-            throw new Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
+            if ($throw) {
+                throw new Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
+            }
+
+            return false;
         }
 
         foreach ($this->paths[$namespace] as $path) {
@@ -75,10 +80,14 @@ class StackLoader extends Twig_Loader_Filesystem
             }
         }
 
-        throw new Twig_Error_Loader(sprintf(
-            'Unable to find template "%s" (looked into: %s).',
-            $name,
-            implode(', ', $this->paths[$namespace])
-        ));
+        if ($throw) {
+            throw new Twig_Error_Loader(sprintf(
+                'Unable to find template "%s" (looked into: %s).',
+                $name,
+                implode(', ', $this->paths[$namespace])
+            ));
+        }
+
+        return false;
     }
 }

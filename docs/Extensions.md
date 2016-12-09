@@ -18,7 +18,9 @@ Extension class example:
 ```php
     class NewExtension extends \ZendTwig\Extension\AbstractExtension
     {
-        // here our extension stuff
+        /**
+         * Common code for Twig Extensions
+         */
     }
 ```
 
