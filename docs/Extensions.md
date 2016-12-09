@@ -18,15 +18,7 @@ Extension class example:
 ```php
     class NewExtension extends \ZendTwig\Extension\AbstractExtension
     {
-        /**
-         * Returns the name of the extension.
-         *
-         * @return string The extension name
-         */
-        public function getName()
-        {
-            return '{unique-extension-name}';
-        }
+        // here our extension stuff
     }
 ```
 
