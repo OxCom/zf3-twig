@@ -9,7 +9,7 @@ class InstanceOfExtension extends Extension
     public function getFunctions()
     {
         return [
-            'isInstanceOf' => new \Twig_Function_Method($this, 'isInstanceOf'),
+            'isInstanceOf' => new \Twig_SimpleFunction('isInstanceOf', [$this, 'isInstanceOf']),
         ];
     }
 
