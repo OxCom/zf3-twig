@@ -113,7 +113,24 @@ class ModuleTest extends TestCase
     {
         $config = include(__DIR__ . '/../Fixture/config/application.config.php');
         $config['module_listener_options']['config_glob_paths'] = [
-            realpath(__DIR__) . '/../Fixture/config/helpers/{{,*.}exception}.php',
+            realpath(__DIR__) . '/../Fixture/config/helpers/{{,*.}class-exception}.php',
+        ];
+
+        $e = new MvcEvent();
+        $e->setApplication(Bootstrap::getInstance($config)->getApplication());
+
+        $module = new Module();
+        $module->onBootstrap($e);
+    }
+
+    /**
+     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     */
+    public function testLoadConfigWithInvalidHelpersInstance()
+    {
+        $config = include(__DIR__ . '/../Fixture/config/application.config.php');
+        $config['module_listener_options']['config_glob_paths'] = [
+            realpath(__DIR__) . '/../Fixture/config/helpers/{{,*.}instance-exception}.php',
         ];
 
         $e = new MvcEvent();

@@ -6,7 +6,6 @@ use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ConfigInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Exception;
 use ZendTwig\Module;
 use ZendTwig\View\HelperPluginManager;
@@ -31,7 +30,10 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
 
         foreach ($configs as $configDefinition) {
             $config = null;
-            if (is_string($configDefinition) && class_exists($configDefinition)) {
+
+            if (is_string($configDefinition) && $container->has($configDefinition)) {
+                $config = $container->get($configDefinition);
+            } elseif (is_string($configDefinition) && class_exists($configDefinition)) {
                 /** @var ConfigInterface $config */
                 $config = new $configDefinition;
 
@@ -45,12 +47,11 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
                         )
                     );
                 }
-            } elseif (is_string($configDefinition) && $container->has($configDefinition)) {
-                $config = $container->get($configDefinition);
             } elseif (is_array($configDefinition)) {
                 $config = new Config($configDefinition);
             }
-            if ($config === null) {
+
+            if (empty($config)) {
                 throw new Exception\RuntimeException(
                     sprintf(
                         'Unable to resolve provided configuration to valid instance of %s',
@@ -58,6 +59,7 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
                     )
                 );
             }
+
             $config->configureServiceManager($viewHelper);
         }
 
