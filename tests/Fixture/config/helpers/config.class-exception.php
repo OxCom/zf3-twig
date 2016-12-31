@@ -3,7 +3,7 @@
 return [
     'service_manager' => [
         'factories' => [
-            \ZendTwig\Test\Fixture\DummyClass::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
     'view_manager' => [
@@ -16,6 +16,13 @@ return [
         'helpers' => [
             'configs' => [
                 \Zend\Navigation\View\HelperConfig::class,
+                \ZendTwig\Test\Fixture\DummyClassInvokable::class,
+                [
+                    'aliases' => [],
+                    'delegators' => [],
+                    'factories' => [],
+                ],
+                // will \ZendTwig\Service\TwigHelperPluginManagerFactory
                 \ZendTwig\Test\Fixture\DummyClass::class,
             ],
         ],
