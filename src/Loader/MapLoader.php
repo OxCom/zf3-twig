@@ -4,6 +4,7 @@ namespace ZendTwig\Loader;
 
 use Twig_Error_Loader;
 use Twig_LoaderInterface;
+use Twig_Source;
 
 class MapLoader implements Twig_LoaderInterface
 {
@@ -46,7 +47,29 @@ class MapLoader implements Twig_LoaderInterface
     /**
      * {@inheritDoc}
      */
-    public function getSource($name)
+    public function getCacheKey($name)
+    {
+        return $name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isFresh($name, $time)
+    {
+        return filemtime($this->map[$name]) <= $time;
+    }
+
+    /**
+     * Returns the source context for a given template logical name.
+     *
+     * @param string $name The template logical name
+     *
+     * @return Twig_Source
+     *
+     * @throws Twig_Error_Loader When $name is not found
+     */
+    public function getSourceContext($name)
     {
         if (!$this->exists($name)) {
             throw new Twig_Error_Loader(sprintf(
@@ -61,22 +84,12 @@ class MapLoader implements Twig_LoaderInterface
             ));
         }
 
-        return file_get_contents($this->map[$name]);
-    }
+        $source = new \Twig_Source(
+            file_get_contents($this->map[$name]),
+            $name,
+            $this->map[$name]
+        );
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getCacheKey($name)
-    {
-        return $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isFresh($name, $time)
-    {
-        return filemtime($this->map[$name]) <= $time;
+        return $source;
     }
 }

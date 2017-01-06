@@ -71,7 +71,7 @@ class MapLoaderTest extends TestCase
         $loader->add('layout', 'path/to/layout.twig');
     }
 
-    public function testGetSource()
+    public function testGetSourceContext()
     {
         /**
          * @var \ZendTwig\Loader\MapLoader $loader
@@ -81,8 +81,10 @@ class MapLoaderTest extends TestCase
         $layout = 'layout';
 
         $this->assertTrue($loader->exists($layout));
-        $data = $loader->getSource($layout);
-        $this->assertNotEmpty($data);
+        $data = $loader->getSourceContext($layout);
+
+        $this->assertInstanceOf(\Twig_Source::class, $data);
+        $this->assertNotEmpty($data->getCode());
     }
 
     /**
@@ -99,7 +101,7 @@ class MapLoaderTest extends TestCase
         $layout = 'layout-not-exists';
 
         $this->assertFalse($loader->exists($layout));
-        $loader->getSource($layout);
+        $loader->getSourceContext($layout);
     }
 
     /**
@@ -118,7 +120,7 @@ class MapLoaderTest extends TestCase
 
         $loader->add($layout, $path);
         $this->assertTrue($loader->exists($layout));
-        $loader->getSource($layout);
+        $loader->getSourceContext($layout);
     }
 
     public function testIsFresh()

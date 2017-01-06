@@ -21,12 +21,20 @@ class FallbackFunctionTest extends TestCase
         $sm  = Bootstrap::getInstance()->getServiceManager();
         $env = $sm->get('Twig_Environment');
 
-        $ref = new \ReflectionClass($env);
-        $prop = $ref->getProperty('functionCallbacks');
+        /**
+         * @var \Twig_ExtensionSet $extensionSet
+         */
+        $refEnv = new \ReflectionClass($env);
+        $prop   = $refEnv->getProperty('extensionSet');
         $prop->setAccessible(true);
-        $callbacks = $prop->getValue($env);
+        $extensionSet = $prop->getValue($env);
 
-        $this->assertNotEmpty($callbacks);
+        $refSet = new \ReflectionClass($extensionSet);
+        $prop   = $refSet->getProperty('functionCallbacks');
+        $prop->setAccessible(true);
+        $functions = $prop->getValue($extensionSet);
+
+        $this->assertNotEmpty($functions);
     }
 
     public function testNoCallback()
@@ -41,12 +49,20 @@ class FallbackFunctionTest extends TestCase
         $sm  = Bootstrap::getInstance($config)->getServiceManager();
         $env = $sm->get('Twig_Environment');
 
-        $ref = new \ReflectionClass($env);
-        $prop = $ref->getProperty('functionCallbacks');
+        /**
+         * @var \Twig_ExtensionSet $extensionSet
+         */
+        $refEnv = new \ReflectionClass($env);
+        $prop   = $refEnv->getProperty('extensionSet');
         $prop->setAccessible(true);
-        $callbacks = $prop->getValue($env);
+        $extensionSet = $prop->getValue($env);
 
-        $this->assertEmpty($callbacks);
+        $refSet = new \ReflectionClass($extensionSet);
+        $prop   = $refSet->getProperty('functionCallbacks');
+        $prop->setAccessible(true);
+        $functions = $prop->getValue($extensionSet);
+
+        $this->assertEmpty($functions);
     }
 
     public function testRenderWithFallback()
@@ -145,7 +161,7 @@ class FallbackFunctionTest extends TestCase
     }
 
     /**
-     * @expectedException Twig_Error_Syntax
+     * @expectedException \Twig_Error_Syntax
      */
     public function testFallbackToNotExistsZendHelpers()
     {

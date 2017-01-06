@@ -41,53 +41,18 @@ class StackLoader extends Twig_Loader_Filesystem
         return $this->suffix;
     }
 
+
     /**
-     * @param string $name
-     * @param bool $throw
-     *
-     * @return string|boolean
-     * @throws Twig_Error_Loader
+     * @{@inheritdoc}
      */
     protected function findTemplate($name, $throw = true)
     {
-        $name = $this->normalizeName((string)$name);
-
         // Ensure we have the expected file extension
         $defaultSuffix = $this->getSuffix();
         if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {
             $name .= '.' . $defaultSuffix;
         }
 
-        if (isset($this->cache[$name])) {
-            return $this->cache[$name];
-        }
-
-        $this->validateName($name);
-
-        list($namespace, $name) = $this->parseName($name);
-
-        if (!isset($this->paths[$namespace])) {
-            if ($throw) {
-                throw new Twig_Error_Loader(sprintf('There are no registered paths for namespace "%s".', $namespace));
-            }
-
-            return false;
-        }
-
-        foreach ($this->paths[$namespace] as $path) {
-            if (is_file($path . '/' . $name)) {
-                return $this->cache[$name] = $path . '/' . $name;
-            }
-        }
-
-        if ($throw) {
-            throw new Twig_Error_Loader(sprintf(
-                'Unable to find template "%s" (looked into: %s).',
-                $name,
-                implode(', ', $this->paths[$namespace])
-            ));
-        }
-
-        return false;
+        return parent::findTemplate($name, $throw);
     }
 }
