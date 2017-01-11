@@ -5,6 +5,8 @@
     "require": {
         "php": ">=7.0",
         "twig/twig": "^2.0",
+        "zendframework/zend-modulemanager": "^2.7",
+        "zendframework/zend-mvc": "^3.0"
         "zendframework/zend-view": "^2.8"
     },
     "autoload": {
