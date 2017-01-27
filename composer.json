@@ -10,13 +10,12 @@
         "zendframework/zend-view": "^2.8"
     },
     "autoload": {
-        "classmap": [
-            "src/"
-        ]
+        "psr-4": {
+            "ZendTwig\\" : "src/"
+        }
     },
     "autoload-dev": {
         "classmap": [
-            "src/",
             "tests/"
         ]
     },
