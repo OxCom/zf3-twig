@@ -5,7 +5,6 @@ use ZendTwig\Resolver\TwigResolver;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigResolverFactory implements FactoryInterface
 {
@@ -16,7 +15,7 @@ class TwigResolverFactory implements FactoryInterface
      *
      * @return TwigResolver
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigResolver
     {
         return new TwigResolver($container->get('Twig_Environment'));
     }

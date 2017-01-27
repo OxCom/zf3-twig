@@ -23,7 +23,7 @@ class MapLoader implements Twig_LoaderInterface
      * @throws \Twig_Error_Loader
      * @return MapLoader
      */
-    public function add($name, $path)
+    public function add($name, $path) : MapLoader
     {
         if ($this->exists($name)) {
             throw new Twig_Error_Loader(sprintf(
@@ -39,7 +39,7 @@ class MapLoader implements Twig_LoaderInterface
     /**
      * {@inheritDoc}
      */
-    public function exists($name)
+    public function exists($name) : bool
     {
         return array_key_exists($name, $this->map);
     }
@@ -47,7 +47,7 @@ class MapLoader implements Twig_LoaderInterface
     /**
      * {@inheritDoc}
      */
-    public function getCacheKey($name)
+    public function getCacheKey($name) : string
     {
         return $name;
     }
@@ -55,7 +55,7 @@ class MapLoader implements Twig_LoaderInterface
     /**
      * {@inheritDoc}
      */
-    public function isFresh($name, $time)
+    public function isFresh($name, $time) : bool
     {
         return filemtime($this->map[$name]) <= $time;
     }
@@ -69,7 +69,7 @@ class MapLoader implements Twig_LoaderInterface
      *
      * @throws Twig_Error_Loader When $name is not found
      */
-    public function getSourceContext($name)
+    public function getSourceContext($name) : Twig_Source
     {
         if (!$this->exists($name)) {
             throw new Twig_Error_Loader(sprintf(

@@ -18,7 +18,7 @@ class TwigEnvironmentFactory implements FactoryInterface
      *
      * @return Twig_Environment
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Twig_Environment
     {
         $config      = $container->get('Configuration');
         $name        = Module::MODULE_NAME;

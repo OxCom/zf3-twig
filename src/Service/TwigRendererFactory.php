@@ -20,7 +20,7 @@ class TwigRendererFactory implements FactoryInterface
      *
      * @return TwigRenderer
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigRenderer
     {
         $config      = $container->get('Configuration');
         $name        = Module::MODULE_NAME;

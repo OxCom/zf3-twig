@@ -1,13 +1,11 @@
 <?php
 namespace ZendTwig\Service;
 
-use Twig_Environment;
 use Twig_Loader_Chain;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Exception\InvalidArgumentException;
 
 class TwigLoaderFactory implements FactoryInterface
@@ -21,7 +19,7 @@ class TwigLoaderFactory implements FactoryInterface
      *
      * @return Twig_Loader_Chain
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Twig_Loader_Chain
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;

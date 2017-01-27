@@ -7,7 +7,6 @@ use ZendTwig\Loader\MapLoader;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigMapLoaderFactory implements FactoryInterface
 {
@@ -19,7 +18,7 @@ class TwigMapLoaderFactory implements FactoryInterface
      * @return MapLoader
      * @throws \Twig_Error_Loader
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : MapLoader
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;

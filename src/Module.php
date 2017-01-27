@@ -16,7 +16,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
      *
      * @param \Zend\Mvc\MvcEvent|EventInterface $e
      *
-     * @return array
+     * @return array|void
      */
     public function onBootstrap(EventInterface $e)
     {

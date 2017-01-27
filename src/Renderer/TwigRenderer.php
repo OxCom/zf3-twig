@@ -5,6 +5,7 @@ namespace ZendTwig\Renderer;
 use Twig_Environment;
 use Twig_Loader_Chain;
 
+use Zend\View\Exception\RuntimeException;
 use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
 
@@ -111,7 +112,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * @param  string     $name    Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
      *
-     * @return AbstractHelper
+     * @return AbstractHelper|callable
      */
     public function plugin($name, array $options = null)
     {
@@ -121,7 +122,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             return $helper->get($name, $options);
         }
 
-        return $this->getZendHelpers()->get($name, $options);
+        return $this->getHelperPluginManager()->get($name, $options);
     }
 
     /**
@@ -131,9 +132,9 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * phplib, etc, return the template engine object. Useful for calling
      * methods on these objects, such as for setting filters, modifiers, etc.
      *
-     * @return mixed
+     * @return TwigRenderer
      */
-    public function getEngine()
+    public function getEngine() : TwigRenderer
     {
         return $this;
     }
@@ -146,7 +147,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return string The script output.
      */
-    public function render($nameOrModel, $values = null)
+    public function render($nameOrModel, $values = null) : string
     {
         $model = $nameOrModel;
         if ($model instanceof ModelInterface) {
@@ -177,7 +178,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         }
 
         if (!$this->canRender($nameOrModel)) {
-            throw new \Zend\View\Exception\RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 '%s: Unable to render template "%s"; resolver could not resolve to a file',
                 __METHOD__,
                 $nameOrModel
@@ -264,7 +265,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setView(View $view)
+    public function setView(View $view) : TwigRenderer
     {
         $this->view = $view;
 
@@ -276,7 +277,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return Twig_Environment
      */
-    public function getEnvironment()
+    public function getEnvironment() : Twig_Environment
     {
         if (!$this->environment instanceof Twig_Environment) {
             throw new InvalidArgumentException(sprintf(
@@ -293,7 +294,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setEnvironment($environment)
+    public function setEnvironment($environment) : TwigRenderer
     {
         $this->environment = $environment;
 
@@ -303,7 +304,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return Twig_Loader_Chain
      */
-    public function getLoader()
+    public function getLoader() : Twig_Loader_Chain
     {
         if (!$this->loader instanceof Twig_Loader_Chain) {
             throw new InvalidArgumentException(sprintf(
@@ -316,11 +317,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param Twig_Loader_Chain $loader
+     * @param \Twig_LoaderInterface $loader
      *
      * @return TwigRenderer
      */
-    public function setLoader($loader)
+    public function setLoader($loader) : TwigRenderer
     {
         $this->loader = $loader;
 
@@ -330,7 +331,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return TwigResolver
      */
-    public function getResolver()
+    public function getResolver() : TwigResolver
     {
         return $this->resolver;
     }
@@ -340,7 +341,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setResolver(ResolverInterface $resolver = null)
+    public function setResolver(ResolverInterface $resolver = null) : TwigRenderer
     {
         $this->resolver = $resolver;
 
@@ -350,7 +351,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return TwigHelperPluginManager
      */
-    public function getTwigHelpers()
+    public function getTwigHelpers() : TwigHelperPluginManager
     {
         return $this->twigHelpers;
     }
@@ -360,7 +361,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setTwigHelpers($twigHelpers)
+    public function setTwigHelpers($twigHelpers) : TwigRenderer
     {
         $this->twigHelpers = $twigHelpers;
 
@@ -370,7 +371,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return ZendHelperPluginManager
      */
-    public function getZendHelpers()
+    public function getHelperPluginManager() : ZendHelperPluginManager
     {
         return $this->zendHelpers;
     }
@@ -382,7 +383,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setZendHelpers($helpers)
+    public function setZendHelpers(ZendHelperPluginManager $helpers) : TwigRenderer
     {
         $this->zendHelpers = $helpers;
 
@@ -393,16 +394,16 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * @param boolean $forceStandalone
      * @return TwigRenderer
      */
-    public function setForceStandalone($forceStandalone)
+    public function setForceStandalone($forceStandalone) : TwigRenderer
     {
         $this->forceStandalone = !!$forceStandalone;
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isForceStandalone()
+    public function isForceStandalone() : bool
     {
         return $this->forceStandalone;
     }

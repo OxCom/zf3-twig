@@ -3,6 +3,7 @@
 namespace ZendTwig\View;
 
 use Twig_Function;
+use ZendTwig\Extension\Extension;
 
 class FallbackFunction extends Twig_Function
 {
@@ -27,7 +28,7 @@ class FallbackFunction extends Twig_Function
          * @return mixed
          */
         $callable = function ($env, ... $args) {
-            $plugin = $env->getExtension('\ZendTwig\Extension\Extension')
+            $plugin = $env->getExtension(Extension::class)
                           ->getRenderer()
                           ->plugin($this->getName());
 

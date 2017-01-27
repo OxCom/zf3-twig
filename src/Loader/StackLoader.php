@@ -2,10 +2,7 @@
 
 namespace ZendTwig\Loader;
 
-use Twig_Error_Loader;
-use Twig_Loader_Filesystem;
-
-class StackLoader extends Twig_Loader_Filesystem
+class StackLoader extends \Twig_Loader_Filesystem
 {
     /**
      * Default suffix to use
@@ -23,7 +20,7 @@ class StackLoader extends Twig_Loader_Filesystem
      *
      * @return StackLoader
      */
-    public function setSuffix($suffix)
+    public function setSuffix($suffix) : StackLoader
     {
         $this->suffix = (string)$suffix;
         $this->suffix = ltrim($this->suffix, '.');
@@ -36,11 +33,10 @@ class StackLoader extends Twig_Loader_Filesystem
      *
      * @return string
      */
-    public function getSuffix()
+    public function getSuffix() : string
     {
         return $this->suffix;
     }
-
 
     /**
      * @{@inheritdoc}

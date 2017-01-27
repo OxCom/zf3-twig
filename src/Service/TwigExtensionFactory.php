@@ -7,7 +7,6 @@ use ZendTwig\Extension\Extension;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigExtensionFactory implements FactoryInterface
 {
@@ -18,7 +17,7 @@ class TwigExtensionFactory implements FactoryInterface
      *
      * @return Extension
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Extension
     {
         return new $requestedName($container, $container->get(TwigRenderer::class));
     }

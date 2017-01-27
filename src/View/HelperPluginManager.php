@@ -2,6 +2,19 @@
 
 namespace ZendTwig\View;
 
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\View\Helper\DeclareVars;
+use Zend\View\Helper\Doctype;
+use Zend\View\Helper\HtmlFlash;
+use Zend\View\Helper\HtmlList;
+use Zend\View\Helper\HtmlObject;
+use Zend\View\Helper\HtmlPage;
+use Zend\View\Helper\HtmlQuicktime;
+use Zend\View\Helper\Layout;
+use Zend\View\Helper\RenderChildModel;
+use Zend\View\Helper\Service\FlashMessengerFactory;
+
 class HelperPluginManager extends \Zend\View\HelperPluginManager
 {
     /**
@@ -10,16 +23,16 @@ class HelperPluginManager extends \Zend\View\HelperPluginManager
      * @var string[]
      */
     protected $aliases = [
-        'flashmessenger'   => \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger::class,
-        'doctype'          => \Zend\View\Helper\Doctype::class,
-        'declarevars'      => \Zend\View\Helper\DeclareVars::class,
-        'htmlflash'        => \Zend\View\Helper\HtmlFlash::class,
-        'htmllist'         => \Zend\View\Helper\HtmlList::class,
-        'htmlobject'       => \Zend\View\Helper\HtmlObject::class,
-        'htmlpage'         => \Zend\View\Helper\HtmlPage::class,
-        'htmlquicktime'    => \Zend\View\Helper\HtmlQuicktime::class,
-        'layout'           => \Zend\View\Helper\Layout::class,
-        'renderchildmodel' => \Zend\View\Helper\RenderChildModel::class,
+        'flashmessenger'   => FlashMessenger::class,
+        'doctype'          => Doctype::class,
+        'declarevars'      => DeclareVars::class,
+        'htmlflash'        => HtmlFlash::class,
+        'htmllist'         => HtmlList::class,
+        'htmlobject'       => HtmlObject::class,
+        'htmlpage'         => HtmlPage::class,
+        'htmlquicktime'    => HtmlQuicktime::class,
+        'layout'           => Layout::class,
+        'renderchildmodel' => RenderChildModel::class,
     ];
     /**
      * Default factories
@@ -27,15 +40,15 @@ class HelperPluginManager extends \Zend\View\HelperPluginManager
      * @var string[]
      */
     protected $factories = [
-        \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger::class => \Zend\View\Helper\Service\FlashMessengerFactory::class,
-        \Zend\View\Helper\Doctype::class                      => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\DeclareVars::class                  => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\HtmlFlash::class                    => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\HtmlList::class                     => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\HtmlObject::class                   => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\HtmlPage::class                     => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\HtmlQuicktime::class                => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\Layout::class                       => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        \Zend\View\Helper\RenderChildModel::class             => \Zend\ServiceManager\Factory\InvokableFactory::class,
+        FlashMessenger::class   => FlashMessengerFactory::class,
+        Doctype::class          => InvokableFactory::class,
+        DeclareVars::class      => InvokableFactory::class,
+        HtmlFlash::class        => InvokableFactory::class,
+        HtmlList::class         => InvokableFactory::class,
+        HtmlObject::class       => InvokableFactory::class,
+        HtmlPage::class         => InvokableFactory::class,
+        HtmlQuicktime::class    => InvokableFactory::class,
+        Layout::class           => InvokableFactory::class,
+        RenderChildModel::class => InvokableFactory::class,
     ];
 }

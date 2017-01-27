@@ -17,6 +17,11 @@ class TwigStrategy implements ListenerAggregateInterface
      */
     protected $renderer;
 
+    /**
+     * TwigStrategy constructor.
+     *
+     * @param \Zend\View\Renderer\RendererInterface $renderer
+     */
     public function __construct(RendererInterface $renderer)
     {
         $this->renderer = $renderer;
@@ -44,7 +49,7 @@ class TwigStrategy implements ListenerAggregateInterface
      *
      * @return \Zend\View\Renderer\RendererInterface
      */
-    public function selectRender(ViewEvent $e)
+    public function selectRender(ViewEvent $e) : RendererInterface
     {
         return $this->renderer;
     }
