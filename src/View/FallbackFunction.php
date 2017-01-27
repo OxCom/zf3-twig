@@ -28,9 +28,12 @@ class FallbackFunction extends Twig_Function
          * @return mixed
          */
         $callable = function ($env, ... $args) {
-            $plugin = $env->getExtension(Extension::class)
-                          ->getRenderer()
-                          ->plugin($this->getName());
+            /**
+             * @var \ZendTwig\Extension\Extension $extension
+             */
+            $extension = $env->getExtension(Extension::class);
+            $plugin = $extension->getRenderer()
+                                ->plugin($this->getName());
 
             $args = empty($args) ? [] : $args;
 

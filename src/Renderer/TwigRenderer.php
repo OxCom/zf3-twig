@@ -6,6 +6,7 @@ use Twig_Environment;
 use Twig_Loader_Chain;
 
 use Zend\View\Exception\RuntimeException;
+use Zend\View\Helper\ViewModel;
 use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
 
@@ -170,8 +171,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
                 unset($method, $setting, $value);
             }
 
-            // Give view model awareness via ViewModel helper
-            $helper = $this->plugin('view_model');
+            /**
+             * Give view model awareness via ViewModel helper
+             * @var \Zend\View\Helper\ViewModel $helper
+             */
+            $helper = $this->plugin(ViewModel::class);
             $helper->setCurrent($model);
 
             $values = $model->getVariables();
