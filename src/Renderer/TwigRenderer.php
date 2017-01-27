@@ -373,12 +373,25 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return ZendHelperPluginManager
+     * @return \Zend\View\HelperPluginManager
      */
     public function getHelperPluginManager() : ZendHelperPluginManager
     {
         return $this->zendHelpers;
     }
+
+    /**
+     * @codeCoverageIgnoreStart
+     *
+     * @deprecated This method will be removed in next release
+     * @return \Zend\View\HelperPluginManager
+     */
+    public function getZendHelpers() : ZendHelperPluginManager
+    {
+        return $this->getHelperPluginManager();
+    }
+
+    // @codeCoverageIgnoreEnd
 
     /**
      * Set helper plugin manager instance
