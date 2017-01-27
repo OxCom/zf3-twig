@@ -47,4 +47,5 @@ class DummyClassInvokable implements ConfigInterface
     public function toArray()
     {
         return [];
-    }}
+    }
+}
