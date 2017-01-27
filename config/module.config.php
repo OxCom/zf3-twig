@@ -50,7 +50,12 @@ return [
         ],
         'helpers' => [
             'configs' => [
-                \Zend\Navigation\View\HelperConfig::class,
+                /**
+                 * Here can be declared configuration classes for service manager:
+                 *  \Zend\Form\View\HelperConfig::class,
+                 *  \Zend\I18n\View\HelperConfig::class,
+                 *  \Zend\Navigation\View\HelperConfig::class,
+                 */
             ],
         ],
     ],
