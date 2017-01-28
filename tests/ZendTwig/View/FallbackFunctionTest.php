@@ -4,10 +4,6 @@ namespace ZendTwig\Test\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Server\Reflection\ReflectionClass;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Strategy\PhpRendererStrategy;
-use Zend\View\ViewEvent;
-use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigStrategy;
 

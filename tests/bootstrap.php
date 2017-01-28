@@ -1,8 +1,6 @@
 <?php
 namespace ZendTwig\Test;
 
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
 use Zend\Test\Util\ModuleLoader;
 
 include __DIR__ . "/../vendor/autoload.php";

@@ -198,7 +198,7 @@ class TwigRendererTest extends TestCase
         $sm        = Bootstrap::getInstance()->getServiceManager();
         $render    = $sm->get(TwigRenderer::class);
 
-        $result     = $render->render('View/testRenderNull', [
+        $render->render('View/testRenderNull', [
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
