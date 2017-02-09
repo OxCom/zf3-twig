@@ -372,4 +372,58 @@ class TwigRendererTest extends TestCase
 
         $this->assertEquals($expect, $result);
     }
+
+    public function testIssue2()
+    {
+        /**
+         * @var \ZendTwig\Renderer\TwigRenderer $render
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $render = $sm->get(TwigRenderer::class);
+
+        $modelParent = new \Zend\View\Model\ViewModel();
+        $modelChild1 = new \Zend\View\Model\ViewModel();
+
+        $modelParent->setTemplate('View/issue-2/layout');
+        $modelChild1->setTemplate('View/issue-2/index');
+        $modelChild1->setTerminal(true);
+        $modelParent->addChild($modelChild1);
+
+        $forceStandalone = $render->isForceStandalone();
+        $render->setForceStandalone(false);
+
+        $expect = "test header<section class=\"container\">test content</section>";
+        $result = $render->render($modelParent);
+
+        $render->setForceStandalone($forceStandalone);
+
+        $this->assertEquals($expect, $result);
+    }
+
+    public function testIssue2Raw()
+    {
+        /**
+         * @var \ZendTwig\Renderer\TwigRenderer $render
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $render = $sm->get(TwigRenderer::class);
+
+        $modelParent = new \Zend\View\Model\ViewModel();
+        $modelChild1 = new \Zend\View\Model\ViewModel();
+
+        $modelParent->setTemplate('View/issue-2/layout-raw');
+        $modelChild1->setTemplate('View/issue-2/index');
+        $modelChild1->setTerminal(true);
+        $modelParent->addChild($modelChild1);
+
+        $forceStandalone = $render->isForceStandalone();
+        $render->setForceStandalone(false);
+
+        $expect = "test header<section class=\"container\">test content</section>";
+        $result = $render->render($modelParent);
+
+        $render->setForceStandalone($forceStandalone);
+
+        $this->assertEquals($expect, $result);
+    }
 }

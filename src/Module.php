@@ -16,7 +16,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
      *
      * @param \Zend\Mvc\MvcEvent|EventInterface $e
      *
-     * @return array
+     * @return void
      */
     public function onBootstrap(EventInterface $e)
     {
@@ -27,7 +27,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
          * @var \Twig_Environment $env
          */
         $config      = $container->get('Configuration');
-        $env         = $container->get('Twig_Environment');
+        $env         = $container->get(\Twig_Environment::class);
         $name        = static::MODULE_NAME;
         $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $extensions  = empty($options['extensions']) ? [] : $options['extensions'];

@@ -1,13 +1,11 @@
 <?php
 namespace ZendTwig\Service;
 
-use Twig_Environment;
 use Twig_Loader_Chain;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Exception\InvalidArgumentException;
 
 class TwigLoaderFactory implements FactoryInterface

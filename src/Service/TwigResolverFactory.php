@@ -1,11 +1,11 @@
 <?php
 namespace ZendTwig\Service;
 
+use Twig_Environment;
 use ZendTwig\Resolver\TwigResolver;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigResolverFactory implements FactoryInterface
 {
@@ -18,6 +18,6 @@ class TwigResolverFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new TwigResolver($container->get('Twig_Environment'));
+        return new TwigResolver($container->get(Twig_Environment::class));
     }
 }

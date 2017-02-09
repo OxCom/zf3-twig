@@ -2,12 +2,12 @@
 
 namespace ZendTwig\Service;
 
+use Zend\View\Resolver\TemplateMapResolver;
 use ZendTwig\Module;
 use ZendTwig\Loader\MapLoader;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigMapLoaderFactory implements FactoryInterface
 {
@@ -27,7 +27,7 @@ class TwigMapLoaderFactory implements FactoryInterface
         $suffix  = empty($options['suffix']) ? TwigLoaderFactory::DEFAULT_SUFFIX : $options['suffix'];
 
         /** @var \Zend\View\Resolver\TemplateMapResolver $zfMap */
-        $zfMap = $container->get('ViewTemplateMapResolver');
+        $zfMap = $container->get(TemplateMapResolver::class);
 
         $loader = new MapLoader();
         foreach ($zfMap as $name => $path) {

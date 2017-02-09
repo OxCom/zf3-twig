@@ -17,6 +17,11 @@ class TwigStrategy implements ListenerAggregateInterface
      */
     protected $renderer;
 
+    /**
+     * TwigStrategy constructor.
+     *
+     * @param RendererInterface $renderer
+     */
     public function __construct(RendererInterface $renderer)
     {
         $this->renderer = $renderer;

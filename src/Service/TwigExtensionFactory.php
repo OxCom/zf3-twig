@@ -7,7 +7,6 @@ use ZendTwig\Extension\Extension;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TwigExtensionFactory implements FactoryInterface
 {

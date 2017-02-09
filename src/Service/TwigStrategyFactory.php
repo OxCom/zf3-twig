@@ -3,7 +3,7 @@ namespace ZendTwig\Service;
 
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
-use Zend\View\Strategy\PhpRendererStrategy;
+use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\View\TwigStrategy;
 
 class TwigStrategyFactory implements FactoryInterface
@@ -21,7 +21,7 @@ class TwigStrategyFactory implements FactoryInterface
          * @var \ZendTwig\Renderer\TwigRenderer $renderer
          * @var \Zend\View\View $view
          */
-        $renderer = $container->get('ZendTwig\Renderer\TwigRenderer');
+        $renderer = $container->get(TwigRenderer::class);
         $strategy = new TwigStrategy($renderer);
 
         return $strategy;

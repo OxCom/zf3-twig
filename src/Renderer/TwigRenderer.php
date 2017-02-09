@@ -5,6 +5,7 @@ namespace ZendTwig\Renderer;
 use Twig_Environment;
 use Twig_Loader_Chain;
 
+use Zend\View\Exception\RuntimeException;
 use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
 
@@ -169,7 +170,10 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
                 unset($method, $setting, $value);
             }
 
-            // Give view model awareness via ViewModel helper
+            /**
+             * Give view model awareness via ViewModel helper
+             * @var \Zend\View\Helper\ViewModel $helper
+             */
             $helper = $this->plugin('view_model');
             $helper->setCurrent($model);
 
@@ -177,7 +181,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
         }
 
         if (!$this->canRender($nameOrModel)) {
-            throw new \Zend\View\Exception\RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 '%s: Unable to render template "%s"; resolver could not resolve to a file',
                 __METHOD__,
                 $nameOrModel

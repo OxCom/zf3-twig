@@ -3,8 +3,7 @@
 namespace ZendTwig\View;
 
 use Twig_SimpleFunction;
-use Zend\View\Helper\HelperInterface;
-use ZendTwig\Module;
+use ZendTwig\Extension\Extension;
 
 class FallbackFunction extends Twig_SimpleFunction
 {
@@ -23,15 +22,18 @@ class FallbackFunction extends Twig_SimpleFunction
         /**
          * Create callback function for injection of Zend View Helpers
          *
-         * @param       $env
-         * @param array ...$args
+         * @param \Twig_Environment $env
+         * @param array             ...$args
          *
          * @return mixed
          */
         $callable = function ($env, ... $args) {
-            $plugin = $env->getExtension('\ZendTwig\Extension\Extension')
-                          ->getRenderer()
-                          ->plugin($this->name);
+            /**
+             * @var \ZendTwig\Extension\Extension $extension
+             */
+            $extension = $env->getExtension(Extension::class);
+            $plugin = $extension->getRenderer()
+                                ->plugin($this->getName());
 
             $args = empty($args) ? [] : $args;
 

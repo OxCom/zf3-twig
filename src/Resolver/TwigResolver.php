@@ -2,7 +2,6 @@
 namespace ZendTwig\Resolver;
 
 use Twig_Environment;
-
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
 
