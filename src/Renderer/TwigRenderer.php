@@ -122,7 +122,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             return $helper->get($name, $options);
         }
 
-        return $this->getZendHelpers()->get($name, $options);
+        return $this->getHelperPluginManager()->get($name, $options);
     }
 
     /**
@@ -374,7 +374,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * @return ZendHelperPluginManager
      */
-    public function getZendHelpers()
+    public function getHelperPluginManager()
     {
         return $this->zendHelpers;
     }
