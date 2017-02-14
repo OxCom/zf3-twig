@@ -18,6 +18,11 @@ class TwigStrategy implements ListenerAggregateInterface
     protected $renderer;
 
     /**
+     * @var bool
+     */
+    protected $forceRender = false;
+
+    /**
      * TwigStrategy constructor.
      *
      * @param \Zend\View\Renderer\RendererInterface $renderer
@@ -49,9 +54,18 @@ class TwigStrategy implements ListenerAggregateInterface
      *
      * @return \Zend\View\Renderer\RendererInterface
      */
-    public function selectRender(ViewEvent $e) : RendererInterface
+    public function selectRender(ViewEvent $e)
     {
-        return $this->renderer;
+        if ($this->isForceRender()) {
+            return $this->renderer;
+        }
+
+        $model = $e->getModel();
+        if ($model instanceof \ZendTwig\View\TwigModel) {
+            return $this->renderer;
+        }
+
+        return;
     }
 
     /**
@@ -67,5 +81,25 @@ class TwigStrategy implements ListenerAggregateInterface
         $response = $e->getResponse();
 
         $response->setContent($result);
+    }
+
+    /**
+     * @param bool $forceRender
+     *
+     * @return TwigStrategy
+     */
+    public function setForceRender(bool $forceRender) : TwigStrategy
+    {
+        $this->forceRender = $forceRender;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceRender() : bool
+    {
+        return $this->forceRender;
     }
 }

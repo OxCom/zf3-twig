@@ -3,6 +3,7 @@ namespace ZendTwig\Service;
 
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
+use ZendTwig\Module;
 use ZendTwig\View\TwigStrategy;
 
 class TwigStrategyFactory implements FactoryInterface
@@ -16,12 +17,19 @@ class TwigStrategyFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigStrategy
     {
+        $config      = $container->get('Configuration');
+        $name        = Module::MODULE_NAME;
+        $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
+
         /**
          * @var \ZendTwig\Renderer\TwigRenderer $renderer
          * @var \Zend\View\View $view
          */
         $renderer = $container->get('ZendTwig\Renderer\TwigRenderer');
         $strategy = new TwigStrategy($renderer);
+
+        $forceStrategy = !empty($options['force_twig_strategy']);
+        $strategy->setForceRender($forceStrategy);
 
         return $strategy;
     }

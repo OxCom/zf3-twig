@@ -27,6 +27,13 @@ return [
          */
         'force_standalone' => true,
         /**
+         * Force Your application to use TwigRender for ViewModel.
+         * If false, then TwigStrategy will be applied only for TwigModel
+         *
+         * @note: In release v.1.5 this parameter will be set to false
+         */
+        'force_twig_strategy' => true,
+        /**
          * Developer can disable Zend View Helpers like docType, translate and e.t.c.
          */
         'invoke_zend_helpers' => true,
