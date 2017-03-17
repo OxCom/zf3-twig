@@ -19,6 +19,7 @@ return [
         ],
     ],
     'zend_twig' => [
+        'suffix' => \ZendTwig\Service\TwigLoaderFactory::DEFAULT_SUFFIX,
         /**
          * In a ZF3 by default we have this structure:
          *  - ViewModel with template from 'layout/layout'

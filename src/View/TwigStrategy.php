@@ -52,7 +52,7 @@ class TwigStrategy implements ListenerAggregateInterface
     /**
      * @param \Zend\View\ViewEvent $e
      *
-     * @return \Zend\View\Renderer\RendererInterface
+     * @return \Zend\View\Renderer\RendererInterface|null
      */
     public function selectRender(ViewEvent $e)
     {
@@ -65,7 +65,7 @@ class TwigStrategy implements ListenerAggregateInterface
             return $this->renderer;
         }
 
-        return;
+        return null;
     }
 
     /**

@@ -25,7 +25,7 @@ class TwigStrategyFactory implements FactoryInterface
          * @var \ZendTwig\Renderer\TwigRenderer $renderer
          * @var \Zend\View\View $view
          */
-        $renderer = $container->get('ZendTwig\Renderer\TwigRenderer');
+        $renderer = $container->get(\ZendTwig\Renderer\TwigRenderer::class);
         $strategy = new TwigStrategy($renderer);
 
         $forceStrategy = !empty($options['force_twig_strategy']);
