@@ -19,6 +19,7 @@ return [
         ],
     ],
     'zend_twig' => [
+        'suffix' => \ZendTwig\Service\TwigLoaderFactory::DEFAULT_SUFFIX,
         /**
          * In a ZF3 by default we have this structure:
          *  - ViewModel with template from 'layout/layout'
@@ -26,6 +27,13 @@ return [
          * In that case we should always force standalone state of child models
          */
         'force_standalone' => true,
+        /**
+         * Force Your application to use TwigRender for ViewModel.
+         * If false, then TwigStrategy will be applied only for TwigModel
+         *
+         * @note: In release v.1.5 this parameter will be set to false
+         */
+        'force_twig_strategy' => true,
         /**
          * Developer can disable Zend View Helpers like docType, translate and e.t.c.
          */

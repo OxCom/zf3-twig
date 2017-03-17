@@ -7,6 +7,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use Zend\View\Renderer\RendererInterface;
 use Zend\View\ViewEvent;
+use ZendTwig\View\TwigModel;
 
 class TwigStrategy implements ListenerAggregateInterface
 {
@@ -16,6 +17,11 @@ class TwigStrategy implements ListenerAggregateInterface
      * @var \Zend\View\Renderer\RendererInterface
      */
     protected $renderer;
+
+    /**
+     * @var bool
+     */
+    protected $forceRender = false;
 
     /**
      * TwigStrategy constructor.
@@ -47,12 +53,22 @@ class TwigStrategy implements ListenerAggregateInterface
     /**
      * @param \Zend\View\ViewEvent $e
      *
-     * @return \Zend\View\Renderer\RendererInterface
+     * @return \Zend\View\Renderer\RendererInterface|null
      */
     public function selectRender(ViewEvent $e)
     {
-        return $this->renderer;
+        if ($this->isForceRender()) {
+            return $this->renderer;
+        }
+
+        $model = $e->getModel();
+        if ($model instanceof TwigModel) {
+            return $this->renderer;
+        }
+
+        return null;
     }
+
 
     /**
      * @param \Zend\View\ViewEvent $e
@@ -67,5 +83,25 @@ class TwigStrategy implements ListenerAggregateInterface
         $response = $e->getResponse();
 
         $response->setContent($result);
+    }
+
+    /**
+     * @param bool $forceRender
+     *
+     * @return TwigStrategy
+     */
+    public function setForceRender($forceRender)
+    {
+        $this->forceRender = $forceRender;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceRender()
+    {
+        return $this->forceRender;
     }
 }
