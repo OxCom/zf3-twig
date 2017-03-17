@@ -52,6 +52,8 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
                 $env->addExtension($extension);
             }
         }
+
+        return;
     }
 
     /**

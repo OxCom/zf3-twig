@@ -113,7 +113,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      * @param  string     $name    Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
      *
-     * @return AbstractHelper
+     * @return AbstractHelper|callable
      */
     public function plugin($name, array $options = null)
     {
@@ -395,7 +395,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param boolean $forceStandalone
+     * @param bool $forceStandalone
      * @return TwigRenderer
      */
     public function setForceStandalone($forceStandalone)
