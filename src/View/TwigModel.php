@@ -2,10 +2,12 @@
 
 namespace ZendTwig\View;
 
+use Zend\View\Model\ViewModel;
+
 /**
  * Class TwigModel
  * @package ZendTwig\View
  */
-class TwigModel extends \Zend\View\Model\ViewModel
+class TwigModel extends ViewModel
 {
 }

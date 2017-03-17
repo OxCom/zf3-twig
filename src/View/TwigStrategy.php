@@ -61,7 +61,7 @@ class TwigStrategy implements ListenerAggregateInterface
         }
 
         $model = $e->getModel();
-        if ($model instanceof \ZendTwig\View\TwigModel) {
+        if ($model instanceof TwigModel) {
             return $this->renderer;
         }
 

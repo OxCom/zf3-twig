@@ -4,6 +4,7 @@ namespace ZendTwig\Service;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use ZendTwig\Module;
+use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\View\TwigStrategy;
 
 class TwigStrategyFactory implements FactoryInterface
@@ -23,9 +24,8 @@ class TwigStrategyFactory implements FactoryInterface
 
         /**
          * @var \ZendTwig\Renderer\TwigRenderer $renderer
-         * @var \Zend\View\View $view
          */
-        $renderer = $container->get(\ZendTwig\Renderer\TwigRenderer::class);
+        $renderer = $container->get(TwigRenderer::class);
         $strategy = new TwigStrategy($renderer);
 
         $forceStrategy = !empty($options['force_twig_strategy']);
