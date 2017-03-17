@@ -35,7 +35,7 @@
         "zendframework/zend-mvc-i18n": "^1.0",
         "zendframework/zend-navigation": "^2.8",
         "zendframework/zend-server": "^2.7",
-        "phpunit/phpunit": "^5.6",
+        "phpunit/phpunit": "^5.7",
         "squizlabs/php_codesniffer": "^2.7"
     },
     "authors": [
