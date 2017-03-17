@@ -8,5 +8,4 @@ namespace ZendTwig\View;
  */
 class TwigModel extends \Zend\View\Model\ViewModel
 {
-
 }
