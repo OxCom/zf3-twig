@@ -54,7 +54,7 @@ class CustomExtensionTest extends TestCase
     }
 
     /**
-     * @dataProvider generatorFallbackToZendHelpers
+     * @dataProvider generatorExtensionData
      *
      * @param array  $vars
      * @param string $expected
@@ -101,7 +101,7 @@ class CustomExtensionTest extends TestCase
     /**
      * @return array
      */
-    public function generatorFallbackToZendHelpers()
+    public function generatorExtensionData()
     {
         return [
             [
