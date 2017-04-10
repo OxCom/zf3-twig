@@ -9,11 +9,6 @@ return [
         ],
         'default_template_suffix' => TwigLoaderFactory::DEFAULT_SUFFIX,
     ],
-    'service_manager' => [
-        'factories' => [
-            \Twig_Extension_Debug::class => \ZendTwig\Service\TwigExtensionFactory::class,
-        ],
-    ],
     'zend_twig'       => [
         'environment' => [
             'debug' => true,
