@@ -12,7 +12,7 @@
     "homepage": "https://github.com/OxCom/zf3-twig",
     "require": {
         "php": ">=5.6",
-        "twig/twig": "^1.33",
+        "twig/twig": "^1.34",
         "zendframework/zend-modulemanager": "^2.7",
         "zendframework/zend-servicemanager": "^3.2",
         "zendframework/zend-mvc": "^3.0",
