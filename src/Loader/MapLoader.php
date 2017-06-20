@@ -77,6 +77,7 @@ class MapLoader implements Twig_LoaderInterface
                 $name
             ));
         }
+
         if (!file_exists($this->map[$name])) {
             throw new Twig_Error_Loader(sprintf(
                 'Unable to open file "%s" from template map',
@@ -84,11 +85,8 @@ class MapLoader implements Twig_LoaderInterface
             ));
         }
 
-        $source = new \Twig_Source(
-            file_get_contents($this->map[$name]),
-            $name,
-            $this->map[$name]
-        );
+        $content = file_get_contents($this->map[$name]);
+        $source = new \Twig_Source($content, $name, $this->map[$name]);
 
         return $source;
     }

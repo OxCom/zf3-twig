@@ -5,20 +5,15 @@ namespace ZendTwig\View;
 use Twig_Function;
 use ZendTwig\Extension\Extension;
 
-class FallbackFunction extends Twig_Function
+class FallbackFunction
 {
     /**
      * @param       $name
-     * @param       $callable
-     * @param array $options
+     *
+     * @return \Twig_Function
      */
-    public function __construct($name, $callable = null, array $options = [])
+    public static function build($name)
     {
-        $options = [
-            'needs_environment' => true,
-            'is_safe'           => ['all'],
-        ];
-
         /**
          * Create callback function for injection of Zend View Helpers
          *
@@ -27,19 +22,24 @@ class FallbackFunction extends Twig_Function
          *
          * @return mixed
          */
-        $callable = function ($env, ... $args) {
+        $callable = function ($env, ... $args) use ($name) {
             /**
              * @var \ZendTwig\Extension\Extension $extension
              */
             $extension = $env->getExtension(Extension::class);
             $plugin = $extension->getRenderer()
-                                ->plugin($this->getName());
+                                ->plugin($name);
 
             $args = empty($args) ? [] : $args;
 
             return call_user_func_array($plugin, $args);
         };
 
-        parent::__construct($name, $callable, $options);
+        $options = [
+            'needs_environment' => true,
+            'is_safe'           => ['all'],
+        ];
+
+        return new Twig_Function($name, $callable, $options);
     }
 }

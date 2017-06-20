@@ -30,11 +30,9 @@ class TwigRendererFactory implements FactoryInterface
          * @var Twig_Environment $env
          */
         $env      = $container->get(Twig_Environment::class);
-        $renderer = new TwigRenderer(
-            $container->get(View::class),
-            $env,
-            $container->get(TwigResolver::class)
-        );
+        $view     = $container->get(View::class);
+        $resolver = $container->get(TwigResolver::class);
+        $renderer = new TwigRenderer($view, $env, $resolver);
 
         $renderer->setTwigHelpers($container->get(TwigHelperPluginManager::class));
         $renderer->setZendHelpers($container->get('ViewHelperManager'));

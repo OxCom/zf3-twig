@@ -34,12 +34,12 @@ class TwigEnvironmentFactory implements FactoryInterface
             $env->registerUndefinedFunctionCallback(
                 function ($name) use ($twigHelperPluginManager, $zendHelperPluginManager) {
                     if ($twigHelperPluginManager->has($name) || $zendHelperPluginManager->has($name)) {
-                        return new FallbackFunction($name);
+                        return FallbackFunction::build($name);
                     }
 
                     $name = strtolower('zendviewhelper' . $name);
                     if ($zendHelperPluginManager->has($name)) {
-                        return new FallbackFunction($name);
+                        return FallbackFunction::build($name);
                     }
 
                     return false;

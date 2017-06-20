@@ -38,14 +38,11 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
                 $config = new $configDefinition;
 
                 if (!$config instanceof ConfigInterface) {
-                    throw new Exception\RuntimeException(
-                        sprintf(
-                            'Invalid service manager configuration class provided; received "%s",
-                                expected class implementing %s',
-                            $configDefinition,
-                            ConfigInterface::class
-                        )
-                    );
+                    $msg = 'Invalid service manager configuration class provided; received "%s",'
+                            . 'expected class implementing %s';
+                    $msg = sprintf($msg, $configDefinition, ConfigInterface::class);
+
+                    throw new Exception\RuntimeException();
                 }
             } elseif (is_array($configDefinition)) {
                 $config = new Config($configDefinition);
