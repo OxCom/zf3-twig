@@ -42,7 +42,7 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
                             . 'expected class implementing %s';
                     $msg = sprintf($msg, $configDefinition, ConfigInterface::class);
 
-                    throw new Exception\RuntimeException();
+                    throw new Exception\RuntimeException($msg);
                 }
             } elseif (is_array($configDefinition)) {
                 $config = new Config($configDefinition);
