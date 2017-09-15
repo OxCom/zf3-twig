@@ -30,9 +30,13 @@ class FallbackFunction
             $plugin = $extension->getRenderer()
                                 ->plugin($name);
 
-            $args = empty($args) ? [] : $args;
-
-            return call_user_func_array($plugin, $args);
+            if (is_callable($plugin)) {
+                // helper should implement __invoke() function
+                $args = empty($args) ? [] : $args;
+                return call_user_func_array($plugin, $args);
+            } else {
+                return $plugin;
+            }
         };
 
         $options = [
