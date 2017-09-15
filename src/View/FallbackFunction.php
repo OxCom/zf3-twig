@@ -35,9 +35,13 @@ class FallbackFunction extends Twig_SimpleFunction
             $plugin = $extension->getRenderer()
                                 ->plugin($this->getName());
 
-            $args = empty($args) ? [] : $args;
-
-            return call_user_func_array($plugin, $args);
+            if (is_callable($plugin)) {
+                // helper should implement __invoke() function
+                $args = empty($args) ? [] : $args;
+                return call_user_func_array($plugin, $args);
+            } else {
+                return $plugin;
+            }
         };
 
         parent::__construct($name, $callable, $options);
