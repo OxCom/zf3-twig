@@ -23,13 +23,11 @@ ZendTwig is a module that integrates the [Twig](https://github.com/twigphp/Twig)
 
 ## Setting up
 [Here](https://github.com/OxCom/zf3-twig/tree/master/docs) You can find some examples, configurations and e.t.c. that, I hope, will help You do build Your application.
-Short list of available chapters:
+Short list of available docs:
 
-    1. ZendTwig module 
-    2. Custom Twig Extensions
+1. [ZendTwig module](https://github.com/OxCom/zf3-twig/blob/master/docs/Module.md) 
+2. [Custom Twig Extensions](https://github.com/OxCom/zf3-twig/blob/master/docs/Extensions.md)
+3. [TwigModel](https://github.com/OxCom/zf3-twig/blob/master/docs/TwigModel.md)
 
 ## Bugs and Issues
 Please, if You found a bug or something, that is not working properly, contact me and tell what's wrong. It's nice to have an example how to reproduce a bug, or any idea how to fix it in Your request. I'll take care about it ASAP.
-
-## Thanks
-Thanks for [ZF-Common](https://github.com/ZF-Commons) for good ideas.
