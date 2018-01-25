@@ -31,6 +31,7 @@ class MapLoader implements Twig_LoaderInterface
                 $name
             ));
         }
+
         $this->map[$name] = $path;
 
         return $this;
@@ -57,6 +58,20 @@ class MapLoader implements Twig_LoaderInterface
      */
     public function isFresh($name, $time) : bool
     {
+        if (!$this->exists($name)) {
+            throw new Twig_Error_Loader(sprintf(
+                'Unable to find template "%s" from template map',
+                $name
+            ));
+        }
+
+        if (!file_exists($this->map[$name])) {
+            throw new Twig_Error_Loader(sprintf(
+                'Unable to open file "%s" from template map',
+                $this->map[$name]
+            ));
+        }
+
         return filemtime($this->map[$name]) <= $time;
     }
 
