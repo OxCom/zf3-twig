@@ -1,4 +1,6 @@
 # ZendTwig module for Zend Framework 3
+[![Latest Stable Version](https://poser.pugx.org/oxcom/zend-twig/v/stable)](https://packagist.org/packages/oxcom/zend-twig)
+[![Total Downloads](https://poser.pugx.org/oxcom/zend-twig/downloads)](https://packagist.org/packages/oxcom/zend-twig)
 [![codecov.io](https://codecov.io/github/OxCom/zf3-twig/coverage.svg?branch=master)](https://codecov.io/github/OxCom/zf3-twig?branch=master)
 [![Build Status](https://travis-ci.org/OxCom/zf3-twig.svg?branch=master)](https://travis-ci.org/OxCom/zf3-twig)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
