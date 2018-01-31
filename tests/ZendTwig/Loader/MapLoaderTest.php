@@ -133,40 +133,40 @@ class MapLoaderTest extends TestCase
         $this->assertTrue($loader->isFresh('layout', PHP_INT_MAX));
     }
 
-//    /**
-//     * @throws \Twig_Error_Loader
-//     */
-//    public function testIsFreshNotExists()
-//    {
-//        /**
-//         * @var \ZendTwig\Loader\MapLoader $loader
-//         */
-//        $sm     = Bootstrap::getInstance()->getServiceManager();
-//        $loader = $sm->get(MapLoader::class);
-//
-//        $this->expectException('\Twig_Error_Loader');
-//        $this->expectExceptionMessageRegExp('/Unable to find template/');
-//
-//        $loader->isFresh(rand(1, PHP_INT_MAX), 0);
-//    }
-//
-//    /**
-//     * @throws \Twig_Error_Loader
-//     */
-//    public function testIsFreshNotFile()
-//    {
-//        /**
-//         * @var \ZendTwig\Loader\MapLoader $loader
-//         */
-//        $sm     = Bootstrap::getInstance()->getServiceManager();
-//        $loader = $sm->get(MapLoader::class);
-//
-//        $name = 'template-' . rand(1, PHP_INT_MAX);
-//        $loader->add($name, 'path/to/layout-1.twig');
-//
-//        $this->expectException('\Twig_Error_Loader');
-//        $this->expectExceptionMessageRegExp('/Unable to open file/');
-//
-//        $loader->isFresh($name, 0);
-//    }
+    /**
+     * @throws \Twig_Error_Loader
+     */
+    public function testIsFreshNotExists()
+    {
+        /**
+         * @var \ZendTwig\Loader\MapLoader $loader
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $loader = $sm->get(MapLoader::class);
+
+        $this->expectException('\Twig_Error_Loader');
+        $this->expectExceptionMessageRegExp('/Unable to find template/');
+
+        $loader->isFresh(rand(1, PHP_INT_MAX), 0);
+    }
+
+    /**
+     * @throws \Twig_Error_Loader
+     */
+    public function testIsFreshNotFile()
+    {
+        /**
+         * @var \ZendTwig\Loader\MapLoader $loader
+         */
+        $sm     = Bootstrap::getInstance()->getServiceManager();
+        $loader = $sm->get(MapLoader::class);
+
+        $name = 'template-' . rand(1, PHP_INT_MAX);
+        $loader->add($name, 'path/to/layout-1.twig');
+
+        $this->expectException('\Twig_Error_Loader');
+        $this->expectExceptionMessageRegExp('/Unable to open file/');
+
+        $loader->isFresh($name, 0);
+    }
 }
