@@ -6,7 +6,8 @@
     "keywords": [
         "twig",
         "module",
-        "zf3"
+        "zf3",
+        "zf"
     ],
     "homepage": "https://github.com/OxCom/zf3-twig",
     "require": {
