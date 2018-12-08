@@ -115,7 +115,7 @@ class FallbackFunctionTest extends TestCase
         $result = $view->getResponse()
             ->getContent();
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, html_entity_decode($result));
     }
 
     /**
