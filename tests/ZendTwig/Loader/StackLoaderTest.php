@@ -2,7 +2,7 @@
 
 namespace ZendTwig\Test\Loader;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ZendTwig\Loader\StackLoader;
 use ZendTwig\Service\TwigLoaderFactory;
 use ZendTwig\Test\Bootstrap;

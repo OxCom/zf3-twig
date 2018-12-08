@@ -2,9 +2,8 @@
 
 namespace ZendTwig\Test\View;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Twig_Environment;
-use Zend\Server\Reflection\ReflectionClass;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigStrategy;
 
@@ -128,7 +127,7 @@ class FallbackFunctionTest extends TestCase
         $result = $view->getResponse()
             ->getContent();
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, html_entity_decode($result));
     }
 
     /**
@@ -143,8 +142,8 @@ class FallbackFunctionTest extends TestCase
             ],
             [
                 'Helpers/headMeta',
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" .
-                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
+                . "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n"
             ],
             [
                 'Helpers/headTitle',

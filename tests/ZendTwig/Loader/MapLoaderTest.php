@@ -2,7 +2,7 @@
 
 namespace ZendTwig\Test\Loader;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ZendTwig\Loader\MapLoader;
 use ZendTwig\Test\Bootstrap;
 

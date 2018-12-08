@@ -2,7 +2,7 @@
 
 namespace ZendTwig\Test\Renderer;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Twig_Environment;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Renderer\TwigRenderer;

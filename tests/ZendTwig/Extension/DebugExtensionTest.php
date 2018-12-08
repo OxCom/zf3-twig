@@ -2,7 +2,7 @@
 
 namespace ZendTwig\Test\Extension;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Mvc\MvcEvent;
 use ZendTwig\Module;
 use ZendTwig\Test\Bootstrap;

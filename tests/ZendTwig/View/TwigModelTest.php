@@ -2,7 +2,7 @@
 
 namespace ZendTwig\Test\View;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\Response;
 use Zend\View\Model\ViewModel;
