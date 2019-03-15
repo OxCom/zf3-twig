@@ -2,7 +2,7 @@
 
 namespace ZendTwig\View;
 
-use Twig_Function;
+use Twig\TwigFunction;
 use ZendTwig\Extension\Extension;
 
 class FallbackFunction
@@ -10,7 +10,7 @@ class FallbackFunction
     /**
      * @param       $name
      *
-     * @return \Twig_Function
+     * @return TwigFunction
      */
     public static function build($name)
     {
@@ -44,6 +44,6 @@ class FallbackFunction
             'is_safe'           => ['all'],
         ];
 
-        return new Twig_Function($name, $callable, $options);
+        return new TwigFunction($name, $callable, $options);
     }
 }

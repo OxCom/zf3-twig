@@ -1,7 +1,7 @@
 <?php
 namespace ZendTwig\Service;
 
-use Twig_Environment;
+use Twig\Environment;
 use ZendTwig\Module;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Resolver\TwigResolver;
@@ -27,9 +27,9 @@ class TwigRendererFactory implements FactoryInterface
         $options     = empty($config[$name]) ? [] : $config[$name];
 
         /**
-         * @var Twig_Environment $env
+         * @var Environment $env
          */
-        $env      = $container->get(Twig_Environment::class);
+        $env      = $container->get(Environment::class);
         $view     = $container->get(View::class);
         $resolver = $container->get(TwigResolver::class);
         $renderer = new TwigRenderer($view, $env, $resolver);

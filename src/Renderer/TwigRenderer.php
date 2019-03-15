@@ -2,9 +2,9 @@
 
 namespace ZendTwig\Renderer;
 
-use Twig_Environment;
-use Twig_Loader_Chain;
+use Twig\Environment;
 
+use Twig\Loader\ChainLoader;
 use Zend\View\Exception\RuntimeException;
 use Zend\View\Helper\ViewModel;
 use ZendTwig\Resolver\TwigResolver;
@@ -28,12 +28,12 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     protected $canRenderTrees = true;
 
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     protected $environment;
 
     /**
-     * @var Twig_Loader_Chain
+     * @var ChainLoader
      */
     protected $loader;
 
@@ -69,10 +69,10 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
 
     /**
      * @param \Zend\View\View   $view
-     * @param Twig_Environment  $env
+     * @param Environment  $env
      * @param ResolverInterface $resolver
      */
-    public function __construct(View $view, Twig_Environment $env = null, ResolverInterface $resolver = null)
+    public function __construct(View $view, Environment $env = null, ResolverInterface $resolver = null)
     {
         $this->setView($view)
              ->setEnvironment($env)
@@ -279,11 +279,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return Twig_Environment
+     * @return Environment
      */
-    public function getEnvironment() : Twig_Environment
+    public function getEnvironment() : Environment
     {
-        if (!$this->environment instanceof Twig_Environment) {
+        if (!$this->environment instanceof Environment) {
             throw new InvalidArgumentException(sprintf(
                 'Twig environment must be Twig_Environment; got type "%s" instead',
                 (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
@@ -294,7 +294,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param Twig_Environment $environment
+     * @param Environment $environment
      *
      * @return TwigRenderer
      */
@@ -306,11 +306,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return Twig_Loader_Chain
+     * @return ChainLoader
      */
-    public function getLoader() : Twig_Loader_Chain
+    public function getLoader() : ChainLoader
     {
-        if (!$this->loader instanceof Twig_Loader_Chain) {
+        if (!$this->loader instanceof ChainLoader) {
             throw new InvalidArgumentException(sprintf(
                 'Twig loader must implement Twig_Loader_Chain; got type "%s" instead',
                 (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))

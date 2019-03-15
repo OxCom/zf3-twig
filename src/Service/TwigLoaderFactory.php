@@ -1,7 +1,7 @@
 <?php
 namespace ZendTwig\Service;
 
-use Twig_Loader_Chain;
+use Twig\Loader\ChainLoader;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
@@ -17,15 +17,15 @@ class TwigLoaderFactory implements FactoryInterface
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return Twig_Loader_Chain
+     * @return ChainLoader
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Twig_Loader_Chain
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : ChainLoader
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;
         $options = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $list    = empty($options['loader_chain']) ? [] : $options['loader_chain'];
-        $chain   = new Twig_Loader_Chain();
+        $chain   = new ChainLoader();
 
         foreach ($list as $loader) {
             if (!is_string($loader) || !$container->has($loader)) {

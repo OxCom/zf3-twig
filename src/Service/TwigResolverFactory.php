@@ -1,6 +1,7 @@
 <?php
 namespace ZendTwig\Service;
 
+use Twig\Environment;
 use ZendTwig\Resolver\TwigResolver;
 
 use Interop\Container\ContainerInterface;
@@ -17,6 +18,6 @@ class TwigResolverFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigResolver
     {
-        return new TwigResolver($container->get('Twig_Environment'));
+        return new TwigResolver($container->get(Environment::class));
     }
 }

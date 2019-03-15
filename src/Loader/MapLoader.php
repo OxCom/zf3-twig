@@ -2,11 +2,11 @@
 
 namespace ZendTwig\Loader;
 
-use Twig_Error_Loader;
-use Twig_LoaderInterface;
-use Twig_Source;
+use Twig\Error\LoaderError;
+use Twig\Loader\LoaderInterface;
+use Twig\Source;
 
-class MapLoader implements Twig_LoaderInterface
+class MapLoader implements LoaderInterface
 {
     /**
      * Array of templates to filenames.
@@ -26,7 +26,7 @@ class MapLoader implements Twig_LoaderInterface
     public function add($name, $path) : MapLoader
     {
         if ($this->exists($name)) {
-            throw new Twig_Error_Loader(sprintf(
+            throw new LoaderError(sprintf(
                 'Name "%s" already exists in map',
                 $name
             ));
@@ -59,14 +59,14 @@ class MapLoader implements Twig_LoaderInterface
     public function isFresh($name, $time) : bool
     {
         if (!$this->exists($name)) {
-            throw new Twig_Error_Loader(sprintf(
+            throw new LoaderError(sprintf(
                 'Unable to find template "%s" from template map',
                 $name
             ));
         }
 
         if (!file_exists($this->map[$name])) {
-            throw new Twig_Error_Loader(sprintf(
+            throw new LoaderError(sprintf(
                 'Unable to open file "%s" from template map',
                 $this->map[$name]
             ));
@@ -80,28 +80,28 @@ class MapLoader implements Twig_LoaderInterface
      *
      * @param string $name The template logical name
      *
-     * @return Twig_Source
+     * @return Source
      *
-     * @throws Twig_Error_Loader When $name is not found
+     * @throws LoaderError When $name is not found
      */
-    public function getSourceContext($name) : Twig_Source
+    public function getSourceContext($name) : Source
     {
         if (!$this->exists($name)) {
-            throw new Twig_Error_Loader(sprintf(
+            throw new LoaderError(sprintf(
                 'Unable to find template "%s" from template map',
                 $name
             ));
         }
 
         if (!file_exists($this->map[$name])) {
-            throw new Twig_Error_Loader(sprintf(
+            throw new LoaderError(sprintf(
                 'Unable to open file "%s" from template map',
                 $this->map[$name]
             ));
         }
 
         $content = file_get_contents($this->map[$name]);
-        $source = new \Twig_Source($content, $name, $this->map[$name]);
+        $source = new Source($content, $name, $this->map[$name]);
 
         return $source;
     }

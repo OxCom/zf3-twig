@@ -2,7 +2,9 @@
 
 namespace ZendTwig\Loader;
 
-class StackLoader extends \Twig_Loader_Filesystem
+use Twig\Loader\FilesystemLoader;
+
+class StackLoader extends FilesystemLoader
 {
     /**
      * Default suffix to use
