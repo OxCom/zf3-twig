@@ -7,13 +7,18 @@ return [
         ],
     ],
     'service_manager' => [
+        'aliases' => [
+            // For backwards compatibility.
+            \Twig_Environment::class => \Twig\Environment::class,
+            \Twig_Loader_Chain::class => \Twig\Loader\ChainLoader::class,
+        ],
         'factories' => [
             \ZendTwig\View\TwigStrategy::class => \ZendTwig\Service\TwigStrategyFactory::class,
             \ZendTwig\View\HelperPluginManager::class => \ZendTwig\Service\TwigHelperPluginManagerFactory::class,
             \ZendTwig\Renderer\TwigRenderer::class => \ZendTwig\Service\TwigRendererFactory::class,
             \ZendTwig\Resolver\TwigResolver::class => \ZendTwig\Service\TwigResolverFactory::class,
-            \Twig_Environment::class => \ZendTwig\Service\TwigEnvironmentFactory::class,
-            \Twig_Loader_Chain::class => \ZendTwig\Service\TwigLoaderFactory::class,
+            \Twig\Environment::class => \ZendTwig\Service\TwigEnvironmentFactory::class,
+            \Twig\Loader\ChainLoader::class => \ZendTwig\Service\TwigLoaderFactory::class,
             \ZendTwig\Loader\MapLoader::class => \ZendTwig\Service\TwigMapLoaderFactory::class,
             \ZendTwig\Loader\StackLoader::class => \ZendTwig\Service\TwigStackLoaderFactory::class,
         ],
