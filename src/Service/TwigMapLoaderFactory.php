@@ -16,7 +16,6 @@ class TwigMapLoaderFactory implements FactoryInterface
      * @param array|null         $options
      *
      * @return MapLoader
-     * @throws \Twig_Error_Loader
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : MapLoader
     {
