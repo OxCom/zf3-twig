@@ -10,7 +10,7 @@ php:
   - 7.3
 
 before_install:
-  - php composer.phar req roave/security-advisories:dev-master --no-update
+  - composer req roave/security-advisories:dev-master --no-update
   - composer install
 
 script:
