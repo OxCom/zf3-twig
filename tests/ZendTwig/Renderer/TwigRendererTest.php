@@ -3,7 +3,7 @@
 namespace ZendTwig\Test\Renderer;
 
 use PHPUnit\Framework\TestCase;
-use Twig_Environment;
+use Twig\Environment;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Renderer\TwigRenderer;
 
@@ -29,7 +29,7 @@ class TwigRendererTest extends TestCase
          */
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
-        $env = $sm->get(Twig_Environment::class);
+        $env = $sm->get(Environment::class);
 
         $this->assertSame($env, $render->getEnvironment());
     }

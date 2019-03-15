@@ -3,6 +3,7 @@
 namespace ZendTwig\Test;
 
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
 use Zend\Mvc\MvcEvent;
 use ZendTwig\Module;
 
@@ -65,9 +66,9 @@ class ModuleTest extends TestCase
         $module->onBootstrap($e);
 
         /**
-         * @var \Twig_Environment $twig
+         * @var Environment $twig
          */
-        $twig = $e->getApplication()->getServiceManager()->get('Twig_Environment');
+        $twig = $e->getApplication()->getServiceManager()->get(Environment::class);
         $ex   = $twig->getExtensions();
 
         $this->assertNotEmpty($ex['ZendTwig\Test\Fixture\Extension\DummyExtension']);
