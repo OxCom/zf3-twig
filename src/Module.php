@@ -1,6 +1,7 @@
 <?php
 namespace ZendTwig;
 
+use Twig\Environment;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
@@ -24,10 +25,10 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
         $container = $app->getServiceManager();
 
         /**
-         * @var \Twig_Environment $env
+         * @var Environment $env
          */
         $config      = $container->get('Configuration');
-        $env         = $container->get(\Twig_Environment::class);
+        $env         = $container->get(Environment::class);
         $name        = static::MODULE_NAME;
         $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $extensions  = empty($options['extensions']) ? [] : $options['extensions'];

@@ -3,7 +3,7 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit\Framework\TestCase;
-use Twig_Environment;
+use Twig\Environment;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigStrategy;
 
@@ -12,10 +12,10 @@ class FallbackFunctionTest extends TestCase
     public function testBindCallback()
     {
         /**
-         * @var Twig_Environment $env
+         * @var Environment $env
          */
         $sm  = Bootstrap::getInstance()->getServiceManager();
-        $env = $sm->get('Twig_Environment');
+        $env = $sm->get(Environment::class);
 
         /**
          * @var \Twig_ExtensionSet $extensionSet
@@ -36,14 +36,14 @@ class FallbackFunctionTest extends TestCase
     public function testNoCallback()
     {
         /**
-         * @var Twig_Environment $env
+         * @var Environment $env
          */
         $config = include(__DIR__ . '/../../Fixture/config/application.config.php');
         $config['module_listener_options']['config_glob_paths'] = [
             realpath(__DIR__) . '/../../Fixture/config/fallback/{{,*.}global}.php',
         ];
         $sm  = Bootstrap::getInstance($config)->getServiceManager();
-        $env = $sm->get(Twig_Environment::class);
+        $env = $sm->get(Environment::class);
 
         /**
          * @var \Twig_ExtensionSet $extensionSet
