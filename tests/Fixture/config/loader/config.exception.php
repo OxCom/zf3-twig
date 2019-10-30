@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'zend_twig'       => [
+    'zend_twig' => [
         'loader_chain' => [
-            null
+            null,
         ],
     ],
 ];

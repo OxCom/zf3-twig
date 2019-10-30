@@ -22,17 +22,18 @@ class FallbackFunction
          *
          * @return mixed
          */
-        $callable = function ($env, ... $args) use ($name) {
+        $callable = function ($env, ...$args) use ($name) {
             /**
              * @var \ZendTwig\Extension\Extension $extension
              */
             $extension = $env->getExtension(Extension::class);
-            $plugin = $extension->getRenderer()
-                                ->plugin($name);
+            $plugin    = $extension->getRenderer()
+                                   ->plugin($name);
 
             if (is_callable($plugin)) {
                 // helper should implement __invoke() function
                 $args = empty($args) ? [] : $args;
+
                 return call_user_func_array($plugin, $args);
             } else {
                 return $plugin;

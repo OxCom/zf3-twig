@@ -4,10 +4,12 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
 before_install:
   - curl -s https://getcomposer.org/installer | php
-  - php composer.phar install
+  - composer req roave/security-advisories:dev-master --no-update
+  - composer install
 
 script:
   - php -v

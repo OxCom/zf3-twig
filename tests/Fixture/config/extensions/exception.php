@@ -7,8 +7,8 @@ return [
         ],
         'default_template_suffix' => \ZendTwig\Service\TwigLoaderFactory::DEFAULT_SUFFIX,
     ],
-    'zend_twig'       => [
-        'extensions'   => [
+    'zend_twig'    => [
+        'extensions' => [
             123123,
         ],
     ],
