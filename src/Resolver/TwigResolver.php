@@ -3,6 +3,7 @@ namespace ZendTwig\Resolver;
 
 use Twig\Environment;
 
+use Twig\Template;
 use Twig\TemplateWrapper;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Renderer\RendererInterface as Renderer;
@@ -30,9 +31,9 @@ class TwigResolver implements ResolverInterface
      * @param  string        $name
      * @param  null|Renderer $renderer
      *
-     * @return TemplateWrapper
+     * @return TemplateWrapper|Template
      */
-    public function resolve($name, Renderer $renderer = null) : TemplateWrapper
+    public function resolve($name, Renderer $renderer = null)
     {
         return $this->environment
                     ->resolveTemplate($name);
