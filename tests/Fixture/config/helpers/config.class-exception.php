@@ -6,7 +6,7 @@ return [
             \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
-    'view_manager' => [
+    'view_manager'    => [
         'template_path_stack'     => [
             'ZendTwig' => __DIR__ . '/../../view/ZendTwig',
         ],
@@ -18,9 +18,9 @@ return [
                 \Zend\Navigation\View\HelperConfig::class,
                 \ZendTwig\Test\Fixture\DummyClassInvokable::class,
                 [
-                    'aliases' => [],
+                    'aliases'    => [],
                     'delegators' => [],
-                    'factories' => [],
+                    'factories'  => [],
                 ],
                 // will \ZendTwig\Service\TwigHelperPluginManagerFactory
                 \ZendTwig\Test\Fixture\DummyClass::class,
