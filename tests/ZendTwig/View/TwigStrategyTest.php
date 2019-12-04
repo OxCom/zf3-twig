@@ -3,10 +3,13 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit\Framework\TestCase;
+use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Test\Bootstrap;
+use ZendTwig\View\TwigModel;
 use ZendTwig\View\TwigStrategy;
 
 class TwigStrategyTest extends TestCase
@@ -14,7 +17,7 @@ class TwigStrategyTest extends TestCase
     /**
      * Check that correct render was selected
      */
-    public function testSelectRenderer()
+    public function testSelectRenderForce()
     {
         $model = $this->getMockBuilder('Zend\View\Model\ModelInterface')->getMock();
         $model->method('getTemplate')
@@ -31,10 +34,67 @@ class TwigStrategyTest extends TestCase
          */
         $sm       = Bootstrap::getInstance()->getServiceManager();
         $strategy = $sm->get(TwigStrategy::class);
+        $strategy->setForceRender(true);
+
         $renderA  = $sm->get(TwigRenderer::class);
         $renderB  = $strategy->selectRender($event);
 
         $this->assertSame($renderA, $renderB);
+    }
+
+    /**
+     * Check that correct render was selected
+     *
+     * @var \Zend\View\Model\ModelInterface $model
+     *
+     * @dataProvider generatorSelectRender
+     */
+    public function testSelectRenderNoRender($model, $expected)
+    {
+        $event = new ViewEvent();
+        $event->setModel($model);
+
+        /**
+         * @var \ZendTwig\View\TwigStrategy $strategy
+         */
+        $sm       = Bootstrap::getInstance()->getServiceManager();
+        $strategy = $sm->get(TwigStrategy::class);
+        $strategy->setForceRender(false);
+        $render  = $strategy->selectRender($event);
+
+        if (!empty($expected)) {
+            $expected = $sm->get($expected);
+        }
+
+        $this->assertSame($expected, $render);
+    }
+
+    /**
+     * @return array
+     */
+    public function generatorSelectRender()
+    {
+        $viewModel = $this->getMockBuilder(ViewModel::class)->getMock();
+        $viewModel->method('getTemplate')
+            ->will($this->returnValue('some-template-string'));
+
+        $jsonModel = $this->getMockBuilder(JsonModel::class)->getMock();
+        $jsonModel->method('getTemplate')
+            ->will($this->returnValue('some-template-string'));
+
+        $twigModel = $this->getMockBuilder(TwigModel::class)->getMock();
+        $twigModel->method('getTemplate')
+            ->will($this->returnValue('some-template-string'));
+
+        $viewModelTwig = new ViewModel();
+        $viewModelTwig->setTemplate('layout');
+
+        return [
+            [$viewModel, null],
+            [$jsonModel, null],
+            [$twigModel, TwigRenderer::class],
+            [$viewModelTwig, TwigRenderer::class],
+        ];
     }
 
     /**

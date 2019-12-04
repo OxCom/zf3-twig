@@ -19,14 +19,10 @@ use Zend\View\Renderer\RendererInterface;
 use Zend\View\Renderer\TreeRendererInterface;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\View;
+use ZendTwig\View\TwigModel;
 
 class TwigRenderer implements RendererInterface, TreeRendererInterface
 {
-    /**
-     * @var bool
-     */
-    protected $canRenderTrees = true;
-
     /**
      * @var Environment
      */
@@ -189,7 +185,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             ));
         }
 
-        if ($model instanceof ModelInterface && $model->hasChildren() && $this->canRenderTrees()) {
+        if ($model instanceof ModelInterface && $model->hasChildren() && $this->canRenderTrees($model)) {
             if (!isset($values[$model->captureTo()])) {
                 $values[$model->captureTo()] = '';
             }
@@ -199,7 +195,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
                  * @var \Zend\View\Model\ViewModel $child
                  * @var \Twig_Template             $template
                  */
-                $result = $this->render($child, $values);
+                try {
+                    $result = $this->render($child, $values);
+                } catch (RuntimeException $e) {
+                    continue;
+                }
 
                 if ($this->isForceStandalone() || $child->terminate()) {
                     return $result;
@@ -237,23 +237,17 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     /**
      * Indicate whether the renderer is capable of rendering trees of view models
      *
+     * @param mixed $model
+     *
      * @return bool
      */
-    public function canRenderTrees()
+    public function canRenderTrees($model = null)
     {
-        return $this->canRenderTrees;
-    }
+        if (!empty($model) && $model instanceof TwigModel) {
+            return true;
+        }
 
-    /**
-     * @param boolean $canRenderTrees
-     *
-     * @return TwigRenderer
-     */
-    public function setCanRenderTrees($canRenderTrees)
-    {
-        $this->canRenderTrees = !!$canRenderTrees;
-
-        return $this;
+        return false;
     }
 
     /**
