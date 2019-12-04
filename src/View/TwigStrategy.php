@@ -7,6 +7,7 @@ use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\ListenerAggregateTrait;
 use Zend\View\Renderer\RendererInterface;
 use Zend\View\ViewEvent;
+use ZendTwig\Renderer\TwigRenderer;
 
 class TwigStrategy implements ListenerAggregateInterface
 {
@@ -63,6 +64,16 @@ class TwigStrategy implements ListenerAggregateInterface
         $model = $e->getModel();
         if ($model instanceof TwigModel) {
             return $this->renderer;
+        }
+
+        if ($this->renderer instanceof TwigRenderer) {
+            try {
+                $tpl = $this->renderer->getResolver()->resolve($model->getTemplate());
+                if ($tpl instanceof \Twig\Template) {
+                    return $this->renderer;
+                }
+            } catch (\Throwable $e) {
+            }
         }
 
         return null;

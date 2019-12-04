@@ -4,8 +4,12 @@ namespace ZendTwig\Test\Renderer;
 
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\View\Http\DefaultRenderingStrategy;
+use Zend\View\Model\ViewModel;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Renderer\TwigRenderer;
+use ZendTwig\View\TwigModel;
 
 class TwigRendererTest extends TestCase
 {
@@ -111,13 +115,13 @@ class TwigRendererTest extends TestCase
          */
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $render       = $sm->get(TwigRenderer::class);
-        $canRenderOld = $render->canRenderTrees();
 
-        $render->setCanRenderTrees(!$canRenderOld);
-        $this->assertNotEquals($canRenderOld, $render->canRenderTrees());
+        $model = new ViewModel();
+        $twigModel = new TwigModel();
 
-        $render->setCanRenderTrees($canRenderOld);
-        $this->assertEquals($canRenderOld, $render->canRenderTrees());
+        $this->assertFalse($render->canRenderTrees());
+        $this->assertFalse($render->canRenderTrees('Element?'));
+        $this->assertTrue($render->canRenderTrees($twigModel));
     }
 
     /**
@@ -132,7 +136,7 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $model = new \Zend\View\Model\ViewModel([
+        $model = new ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -150,7 +154,7 @@ class TwigRendererTest extends TestCase
         $view      = $sm->get('View');
         $viewClone = clone $view;
 
-        $model = new \Zend\View\Model\ViewModel([
+        $model = new ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -212,22 +216,22 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel([
+        $modelParent = new TwigModel([
             'key1' => 'value1',
         ]);
         $modelParent->setTemplate('View/testRenderChild');
 
-        $modelChild1 = new \Zend\View\Model\ViewModel([
+        $modelChild1 = new TwigModel([
             'key1' => 'child1-1',
             'key2' => 'child1-2',
         ]);
 
-        $modelChild2 = new \Zend\View\Model\ViewModel([
+        $modelChild2 = new TwigModel([
             'key1' => 'child2-1',
             'key2' => 'child2-2',
         ]);
 
-        $modelChild3 = new \Zend\View\Model\ViewModel([
+        $modelChild3 = new TwigModel([
             'key1' => 'child3-1',
             'key2' => 'child3-2',
         ]);
@@ -262,22 +266,22 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel([
+        $modelParent = new TwigModel([
             'key1' => 'value1',
         ]);
         $modelParent->setTemplate('View/testRenderChild');
 
-        $modelChild1 = new \Zend\View\Model\ViewModel([
+        $modelChild1 = new TwigModel([
             'key1' => 'child1-1',
             'key2' => 'child1-2',
         ]);
 
-        $modelChild2 = new \Zend\View\Model\ViewModel([
+        $modelChild2 = new TwigModel([
             'key1' => 'child2-1',
             'key2' => 'child2-2',
         ]);
 
-        $modelChild3 = new \Zend\View\Model\ViewModel([
+        $modelChild3 = new TwigModel([
             'key1' => 'child3-1',
             'key2' => 'child3-2',
         ]);
@@ -324,11 +328,11 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel([
+        $modelParent = new TwigModel([
         ]);
         $modelParent->setTemplate('View/zend/layout');
 
-        $modelChild1 = new \Zend\View\Model\ViewModel([
+        $modelChild1 = new TwigModel([
             'username' => 'Child007',
         ]);
 
@@ -350,11 +354,11 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel([
+        $modelParent = new TwigModel([
         ]);
         $modelParent->setTemplate('View/zend/layout');
 
-        $modelChild1 = new \Zend\View\Model\ViewModel([
+        $modelChild1 = new TwigModel([
             'username' => 'Child007',
         ]);
 
@@ -381,8 +385,8 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel();
-        $modelChild1 = new \Zend\View\Model\ViewModel();
+        $modelParent = new TwigModel();
+        $modelChild1 = new TwigModel();
 
         $modelParent->setTemplate('View/issue-2/layout');
         $modelChild1->setTemplate('View/issue-2/index');
@@ -408,8 +412,8 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
 
-        $modelParent = new \Zend\View\Model\ViewModel();
-        $modelChild1 = new \Zend\View\Model\ViewModel();
+        $modelParent = new TwigModel();
+        $modelChild1 = new TwigModel();
 
         $modelParent->setTemplate('View/issue-2/layout-raw');
         $modelChild1->setTemplate('View/issue-2/index');
