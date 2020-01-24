@@ -6,7 +6,7 @@ use ZendTwig\Test\Fixture\View\Helper\MenuInvoke;
 return [
     'service_manager' => [
         'factories' => [
-            \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
     'view_manager'    => [

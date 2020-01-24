@@ -2,20 +2,20 @@
 
 namespace ZendTwig\View;
 
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\View\Helper\DeclareVars;
-use Zend\View\Helper\Doctype;
-use Zend\View\Helper\HtmlFlash;
-use Zend\View\Helper\HtmlList;
-use Zend\View\Helper\HtmlObject;
-use Zend\View\Helper\HtmlPage;
-use Zend\View\Helper\HtmlQuicktime;
-use Zend\View\Helper\Layout;
-use Zend\View\Helper\RenderChildModel;
-use Zend\View\Helper\Service\FlashMessengerFactory;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\View\Helper\DeclareVars;
+use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HtmlFlash;
+use Laminas\View\Helper\HtmlList;
+use Laminas\View\Helper\HtmlObject;
+use Laminas\View\Helper\HtmlPage;
+use Laminas\View\Helper\HtmlQuicktime;
+use Laminas\View\Helper\Layout;
+use Laminas\View\Helper\RenderChildModel;
+use Laminas\View\Helper\Service\FlashMessengerFactory;
 
-class HelperPluginManager extends \Zend\View\HelperPluginManager
+class HelperPluginManager extends \Laminas\View\HelperPluginManager
 {
     /**
      * Default aliases

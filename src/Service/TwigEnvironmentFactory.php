@@ -5,7 +5,7 @@ use Twig\Environment;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use ZendTwig\View\FallbackFunction;
 use ZendTwig\View\HelperPluginManager;
 

@@ -2,8 +2,8 @@
 
 namespace ZendTwig\Test\Fixture;
 
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\ServiceManager;
 
 class DummyClassInvokable implements ConfigInterface
 {

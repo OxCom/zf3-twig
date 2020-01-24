@@ -5,7 +5,7 @@ use Twig\Environment;
 use ZendTwig\Resolver\TwigResolver;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TwigResolverFactory implements FactoryInterface
 {

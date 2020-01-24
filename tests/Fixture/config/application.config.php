@@ -9,10 +9,10 @@
 return [
     // Retrieve list of modules used in this application.
     'modules'                 => [
-        'Zend\Router',
-        'Zend\Validator',
-        'Zend\I18n',
-        'Zend\Mvc\I18n',
+        'Laminas\Router',
+        'Laminas\Validator',
+        'Laminas\I18n',
+        'Laminas\Mvc\I18n',
         'ZendTwig',
     ],
 

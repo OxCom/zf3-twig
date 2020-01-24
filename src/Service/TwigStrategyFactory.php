@@ -1,7 +1,7 @@
 <?php
 namespace ZendTwig\Service;
 
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use ZendTwig\Module;
 use ZendTwig\Renderer\TwigRenderer;

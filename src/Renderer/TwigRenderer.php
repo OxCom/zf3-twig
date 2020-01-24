@@ -5,20 +5,20 @@ namespace ZendTwig\Renderer;
 use Twig\Environment;
 
 use Twig\Loader\ChainLoader;
-use Zend\View\Exception\RuntimeException;
-use Zend\View\Helper\ViewModel;
+use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Helper\ViewModel;
 use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
 
-use Zend\View\Exception\DomainException;
-use Zend\View\Exception\InvalidArgumentException;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\HelperPluginManager as ZendHelperPluginManager;
-use Zend\View\Model\ModelInterface;
-use Zend\View\Renderer\RendererInterface;
-use Zend\View\Renderer\TreeRendererInterface;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\View\View;
+use Laminas\View\Exception\DomainException;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\HelperPluginManager as ZendHelperPluginManager;
+use Laminas\View\Model\ModelInterface;
+use Laminas\View\Renderer\RendererInterface;
+use Laminas\View\Renderer\TreeRendererInterface;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\View;
 use ZendTwig\View\TwigModel;
 
 class TwigRenderer implements RendererInterface, TreeRendererInterface
@@ -34,7 +34,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     protected $loader;
 
     /**
-     * @var \Zend\View\View
+     * @var \Laminas\View\View
      */
     protected $view;
 
@@ -58,13 +58,13 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     private $zendHelpers;
 
     /**
-     * Force \Zend\View\Model\ViewModel::$terminate to true
+     * Force \Laminas\View\Model\ViewModel::$terminate to true
      * @var bool
      */
     protected $forceStandalone = false;
 
     /**
-     * @param \Zend\View\View   $view
+     * @param \Laminas\View\View   $view
      * @param Environment  $env
      * @param ResolverInterface $resolver
      */
@@ -169,7 +169,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
 
             /**
              * Give view model awareness via ViewModel helper
-             * @var \Zend\View\Helper\ViewModel $helper
+             * @var \Laminas\View\Helper\ViewModel $helper
              */
             $helper = $this->plugin(ViewModel::class);
             $helper->setCurrent($model);
@@ -192,7 +192,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
 
             foreach ($model->getChildren() as $child) {
                 /**
-                 * @var \Zend\View\Model\ViewModel $child
+                 * @var \Laminas\View\Model\ViewModel $child
                  * @var \Twig_Template             $template
                  */
                 try {
@@ -251,7 +251,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return \Zend\View\View
+     * @return \Laminas\View\View
      */
     public function getView()
     {
@@ -259,7 +259,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param \Zend\View\View $view
+     * @param \Laminas\View\View $view
      *
      * @return TwigRenderer
      */
@@ -367,7 +367,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return \Zend\View\HelperPluginManager
+     * @return \Laminas\View\HelperPluginManager
      */
     public function getHelperPluginManager() : ZendHelperPluginManager
     {

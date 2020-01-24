@@ -1,7 +1,7 @@
 <?php
 namespace ZendTwig\Test;
 
-use Zend\Test\Util\ModuleLoader;
+use Laminas\Test\Util\ModuleLoader;
 
 include __DIR__ . "/../vendor/autoload.php";
 

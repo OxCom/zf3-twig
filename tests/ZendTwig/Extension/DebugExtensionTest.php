@@ -3,7 +3,7 @@
 namespace ZendTwig\Test\Extension;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use ZendTwig\Module;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigStrategy;
@@ -23,7 +23,7 @@ class DebugExtensionTest extends TestCase
             realpath(__DIR__) . '/../../Fixture/config/extensions/{{,*.}debug}.php',
         ];
 
-        $model = new \Zend\View\Model\ViewModel($vars);
+        $model = new \Laminas\View\Model\ViewModel($vars);
         $model->setTemplate('Extensions/Debug');
 
         $e = new MvcEvent();
@@ -33,7 +33,7 @@ class DebugExtensionTest extends TestCase
         $module->onBootstrap($e);
 
         /**
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $sm           = Bootstrap::getInstance($config)->getServiceManager();
         $strategyTwig = $sm->get(TwigStrategy::class);

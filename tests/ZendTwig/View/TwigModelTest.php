@@ -3,9 +3,9 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\Response;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\Response;
+use Laminas\View\Model\ViewModel;
 use ZendTwig\Module;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigModel;
@@ -24,7 +24,7 @@ class TwigModelTest extends TestCase
 
         /**
          * @var \ZendTwig\Renderer\TwigRenderer $render
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $bootstrap = Bootstrap::getInstance($config);
 
@@ -34,10 +34,10 @@ class TwigModelTest extends TestCase
         $module = new Module();
         $module->onBootstrap($e);
 
-        $vm = new \Zend\Mvc\View\Http\ViewManager();
+        $vm = new \Laminas\Mvc\View\Http\ViewManager();
         $vm->onBootstrap($e);
 
-        $view         = $bootstrap->getServiceManager()->get(\Zend\View\View::class);
+        $view         = $bootstrap->getServiceManager()->get(\Laminas\View\View::class);
         $response     = new Response();
         $twigModel    = new TwigModel(['value' => 'twig']);
         $genericModel = new ViewModel(['value' => 'php']);

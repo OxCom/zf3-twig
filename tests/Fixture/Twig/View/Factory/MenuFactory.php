@@ -3,7 +3,7 @@
 namespace ZendTwig\Test\Fixture\View\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * This is the factory for Menu view helper. Its purpose is to instantiate the

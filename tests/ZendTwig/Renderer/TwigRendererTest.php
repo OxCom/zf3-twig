@@ -4,9 +4,9 @@ namespace ZendTwig\Test\Renderer;
 
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\View\Http\DefaultRenderingStrategy;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\View\Http\DefaultRenderingStrategy;
+use Laminas\View\Model\ViewModel;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\View\TwigModel;
@@ -39,7 +39,7 @@ class TwigRendererTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      * @expectedExceptionMessageRegExp /Twig environment must be/
      */
     public function testGetEnvEx()
@@ -68,7 +68,7 @@ class TwigRendererTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      * @expectedExceptionMessageRegExp /Twig loader must implement/
      */
     public function testGetLoaderEx()
@@ -105,7 +105,7 @@ class TwigRendererTest extends TestCase
         $render = $sm->get(TwigRenderer::class);
         $view   = $render->getView();
 
-        $this->assertInstanceOf('\Zend\View\View', $view);
+        $this->assertInstanceOf('\Laminas\View\View', $view);
     }
 
     public function testSetGetCanRenderTrees()
@@ -125,7 +125,7 @@ class TwigRendererTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\DomainException
+     * @expectedException \Laminas\View\Exception\DomainException
      * @expectedExceptionMessageRegExp /but template is empty/
      */
     public function testRenderModelExNotTemplate()
@@ -191,7 +191,7 @@ class TwigRendererTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\RuntimeException
+     * @expectedException \Laminas\View\Exception\RuntimeException
      * @expectedExceptionMessageRegExp 'Unable to render template'
      */
     public function testRenderNotExistsEx()
@@ -317,7 +317,7 @@ class TwigRendererTest extends TestCase
 
         $result = $render->doctype();
 
-        $this->assertInstanceOf(\Zend\View\Helper\Doctype::class, $result);
+        $this->assertInstanceOf(\Laminas\View\Helper\Doctype::class, $result);
     }
 
     public function testForceStandaloneModel()

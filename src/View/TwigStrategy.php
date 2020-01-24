@@ -2,11 +2,11 @@
 
 namespace ZendTwig\View;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\ListenerAggregateTrait;
-use Zend\View\Renderer\RendererInterface;
-use Zend\View\ViewEvent;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\EventManager\ListenerAggregateTrait;
+use Laminas\View\Renderer\RendererInterface;
+use Laminas\View\ViewEvent;
 use ZendTwig\Renderer\TwigRenderer;
 
 class TwigStrategy implements ListenerAggregateInterface
@@ -14,7 +14,7 @@ class TwigStrategy implements ListenerAggregateInterface
     use ListenerAggregateTrait;
 
     /**
-     * @var \Zend\View\Renderer\RendererInterface
+     * @var \Laminas\View\Renderer\RendererInterface
      */
     protected $renderer;
 
@@ -26,7 +26,7 @@ class TwigStrategy implements ListenerAggregateInterface
     /**
      * TwigStrategy constructor.
      *
-     * @param \Zend\View\Renderer\RendererInterface $renderer
+     * @param \Laminas\View\Renderer\RendererInterface $renderer
      */
     public function __construct(RendererInterface $renderer)
     {
@@ -51,9 +51,9 @@ class TwigStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      *
-     * @return \Zend\View\Renderer\RendererInterface|null
+     * @return \Laminas\View\Renderer\RendererInterface|null
      */
     public function selectRender(ViewEvent $e)
     {
@@ -80,7 +80,7 @@ class TwigStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * @param \Zend\View\ViewEvent $e
+     * @param \Laminas\View\ViewEvent $e
      */
     public function injectResponse(ViewEvent $e)
     {

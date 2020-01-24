@@ -6,7 +6,7 @@ use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Extension\Extension;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TwigExtensionFactory implements FactoryInterface
 {

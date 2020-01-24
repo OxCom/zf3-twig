@@ -3,10 +3,10 @@
 namespace ZendTwig\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\View\Exception;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\View\Exception;
 use ZendTwig\Module;
 use ZendTwig\View\HelperPluginManager;
 

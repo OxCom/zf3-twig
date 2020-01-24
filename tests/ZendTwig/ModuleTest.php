@@ -4,7 +4,7 @@ namespace ZendTwig\Test;
 
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use ZendTwig\Module;
 
 class ModuleTest extends TestCase
@@ -36,7 +36,7 @@ class ModuleTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      */
     public function testOnBootstrapExceptionExtension()
     {
@@ -108,7 +108,7 @@ class ModuleTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
      */
     public function testLoadConfigWithInvalidHelpersClass()
     {
@@ -125,7 +125,7 @@ class ModuleTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
      */
     public function testLoadConfigWithInvalidHelpersInstance()
     {
@@ -142,7 +142,7 @@ class ModuleTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\ServiceManager\Exception\ServiceNotCreatedException
+     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
      */
     public function testLoadConfigWithInvalidLoaderClass()
     {

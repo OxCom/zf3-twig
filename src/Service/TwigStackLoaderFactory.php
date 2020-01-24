@@ -6,7 +6,7 @@ use ZendTwig\Loader\StackLoader;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TwigStackLoaderFactory implements FactoryInterface
 {
@@ -24,7 +24,7 @@ class TwigStackLoaderFactory implements FactoryInterface
         $options = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $suffix  = empty($options['suffix']) ? TwigLoaderFactory::DEFAULT_SUFFIX : $options['suffix'];
 
-        /** @var \Zend\View\Resolver\TemplatePathStack $zfStack */
+        /** @var \Laminas\View\Resolver\TemplatePathStack $zfStack */
         $zfStack = $container->get('ViewTemplatePathStack');
 
         $loader = new StackLoader($zfStack->getPaths()->toArray());

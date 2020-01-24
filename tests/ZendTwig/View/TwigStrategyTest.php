@@ -3,10 +3,10 @@
 namespace ZendTwig\Test\View;
 
 use PHPUnit\Framework\TestCase;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\ViewEvent;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\ViewEvent;
 use ZendTwig\Renderer\TwigRenderer;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\View\TwigModel;
@@ -19,12 +19,12 @@ class TwigStrategyTest extends TestCase
      */
     public function testSelectRenderForce()
     {
-        $model = $this->getMockBuilder('Zend\View\Model\ModelInterface')->getMock();
+        $model = $this->getMockBuilder('Laminas\View\Model\ModelInterface')->getMock();
         $model->method('getTemplate')
             ->will($this->returnValue('some-template-string'));
 
         /**
-         * @var \Zend\View\Model\ModelInterface $model
+         * @var \Laminas\View\Model\ModelInterface $model
          */
         $event = new ViewEvent();
         $event->setModel($model);
@@ -45,7 +45,7 @@ class TwigStrategyTest extends TestCase
     /**
      * Check that correct render was selected
      *
-     * @var \Zend\View\Model\ModelInterface $model
+     * @var \Laminas\View\Model\ModelInterface $model
      *
      * @dataProvider generatorSelectRender
      */
@@ -106,7 +106,7 @@ class TwigStrategyTest extends TestCase
      */
     public function testInjectResponse($template, $expected)
     {
-        $model    = new \Zend\View\Model\ViewModel([
+        $model    = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -114,7 +114,7 @@ class TwigStrategyTest extends TestCase
         $model->setTemplate($template);
 
         /**
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $strategyTwig = $sm->get(TwigStrategy::class);
@@ -154,7 +154,7 @@ class TwigStrategyTest extends TestCase
         $phpRender    = $sm->get(PhpRenderer::class);
         $strategyTwig = new TwigStrategy($phpRender);
         $expected     = "<span>value1</span><span>value2</span>\n";
-        $model        = new \Zend\View\Model\ViewModel([
+        $model        = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);

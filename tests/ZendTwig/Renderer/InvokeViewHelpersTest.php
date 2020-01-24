@@ -3,7 +3,7 @@
 namespace ZendTwig\Test\Renderer;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 use ZendTwig\Module;
 use ZendTwig\Test\Bootstrap;
 use ZendTwig\Renderer\TwigRenderer;

@@ -8,8 +8,8 @@ use ZendTwig\Resolver\TwigResolver;
 use ZendTwig\View\HelperPluginManager as TwigHelperPluginManager;
 
 use Interop\Container\ContainerInterface;
-use Zend\View\View;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\View\View;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TwigRendererFactory implements FactoryInterface
 {

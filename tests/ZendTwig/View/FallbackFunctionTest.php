@@ -63,7 +63,7 @@ class FallbackFunctionTest extends TestCase
 
     public function testRenderWithFallback()
     {
-        $model    = new \Zend\View\Model\ViewModel([
+        $model    = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -71,7 +71,7 @@ class FallbackFunctionTest extends TestCase
         $model->setTemplate('View/testRenderWithFallback');
 
         /**
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $strategyTwig = $sm->get(TwigStrategy::class);
@@ -100,7 +100,7 @@ class FallbackFunctionTest extends TestCase
      */
     public function testFallbackToZendHelpers($template, $expected)
     {
-        $model    = new \Zend\View\Model\ViewModel([
+        $model    = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -108,7 +108,7 @@ class FallbackFunctionTest extends TestCase
         $model->setTemplate($template);
 
         /**
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $strategyTwig = $sm->get(TwigStrategy::class);
@@ -161,7 +161,7 @@ class FallbackFunctionTest extends TestCase
      */
     public function testFallbackToNotExistsZendHelpers()
     {
-        $model    = new \Zend\View\Model\ViewModel([
+        $model    = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -169,7 +169,7 @@ class FallbackFunctionTest extends TestCase
         $model->setTemplate('Helpers/NotExists');
 
         /**
-         * @var \Zend\View\View $view
+         * @var \Laminas\View\View $view
          */
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $strategyTwig = $sm->get(TwigStrategy::class);

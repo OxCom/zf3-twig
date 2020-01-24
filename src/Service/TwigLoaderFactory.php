@@ -5,8 +5,8 @@ use Twig\Loader\ChainLoader;
 use ZendTwig\Module;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\View\Exception\InvalidArgumentException;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\View\Exception\InvalidArgumentException;
 
 class TwigLoaderFactory implements FactoryInterface
 {

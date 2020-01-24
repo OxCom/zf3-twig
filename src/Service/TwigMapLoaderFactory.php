@@ -6,7 +6,7 @@ use ZendTwig\Module;
 use ZendTwig\Loader\MapLoader;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TwigMapLoaderFactory implements FactoryInterface
 {
@@ -24,7 +24,7 @@ class TwigMapLoaderFactory implements FactoryInterface
         $options = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $suffix  = empty($options['suffix']) ? TwigLoaderFactory::DEFAULT_SUFFIX : $options['suffix'];
 
-        /** @var \Zend\View\Resolver\TemplateMapResolver $zfMap */
+        /** @var \Laminas\View\Resolver\TemplateMapResolver $zfMap */
         $zfMap = $container->get('ViewTemplateMapResolver');
 
         $loader = new MapLoader();

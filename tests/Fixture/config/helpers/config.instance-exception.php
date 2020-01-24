@@ -3,7 +3,7 @@
 return [
     'service_manager' => [
         'factories' => [
-            \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \ZendTwig\Test\Fixture\DummyClassInvokable::class => \Laminas\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
     'view_manager'    => [
@@ -15,7 +15,7 @@ return [
     'zend_twig'       => [
         'helpers' => [
             'configs' => [
-                \Zend\Navigation\View\HelperConfig::class,
+                \Laminas\Navigation\View\HelperConfig::class,
                 \ZendTwig\Test\Fixture\DummyClassInvokable::class,
                 // will \ZendTwig\Service\TwigHelperPluginManagerFactory
                 42,

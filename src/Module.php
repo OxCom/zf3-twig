@@ -2,10 +2,10 @@
 namespace ZendTwig;
 
 use Twig\Environment;
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\View\Exception\InvalidArgumentException;
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\View\Exception\InvalidArgumentException;
 use ZendTwig\Renderer\TwigRenderer;
 
 class Module implements ConfigProviderInterface, BootstrapListenerInterface
@@ -15,7 +15,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
     /**
      * Listen to the bootstrap event
      *
-     * @param \Zend\Mvc\MvcEvent|EventInterface $e
+     * @param \Laminas\Mvc\MvcEvent|EventInterface $e
      *
      * @return array|void
      */
