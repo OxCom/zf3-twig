@@ -14,7 +14,7 @@ before_install:
 script:
   - php -v
   - vendor/bin/phpcs --standard=psr2 src/ tests/ZendTwig/ tests/Fixture/
-  - vendor/bin/phpunit -c tests
+  - vendor/bin/phpunit
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
