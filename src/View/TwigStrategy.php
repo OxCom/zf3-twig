@@ -70,8 +70,8 @@ class TwigStrategy implements ListenerAggregateInterface
         if ($this->renderer instanceof TwigRenderer) {
             try {
                 $tpl = $this->renderer->getResolver()->resolve($model->getTemplate());
-                if ((class_exists(\Twig\TemplateWrapper) && ($tpl instanceof \Twig\TemplateWrapper))
-                    || (class_exists(\Twig\Template) && ($tpl instanceof \Twig\Template))
+                if ((class_exists('\Twig\TemplateWrapper') && ($tpl instanceof \Twig\TemplateWrapper))
+                    || (class_exists('\Twig\Template') && ($tpl instanceof \Twig\Template))
                 ) {
                     return $this->renderer;
                 }
