@@ -5,7 +5,12 @@
 [![Build Status](https://travis-ci.org/OxCom/zf3-twig.svg?branch=master)](https://travis-ci.org/OxCom/zf3-twig)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-ZendTwig is a module that integrates the [Twig](https://github.com/twigphp/Twig) template engine with [Zend Framework 3](https://github.com/zendframework/zendframework).
+ZendTwig is a module that integrates the [Twig](https://github.com/twigphp/Twig) template engine with [Zend Framework 3](https://github.com/zendframework/zendframework) / [Laminas Project](https://getlaminas.org/).
+
+## Notes
+- From release v1.0.0 this project depends on [Laminas Project](https://getlaminas.org/) components.
+- Development of package udner PHP5.6 has low priority and will be discontinued in closest feature.
+
 
 ## Install
 1. Add ZendTwig lib with composer: ``` composer require oxcom/zend-twig ``` 
