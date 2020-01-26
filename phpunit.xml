@@ -4,19 +4,19 @@
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
         backupGlobals="false"
         stderr="true"
-        bootstrap="bootstrap.php"
+        bootstrap="tests/bootstrap.php"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
         colors="true">
     <testsuites>
         <testsuite name="ZendTwig">
-            <directory suffix="Test.php">ZendTwig/</directory>
+            <directory suffix="Test.php">tests/ZendTwig/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>../src</directory>
+            <directory>./src</directory>
         </whitelist>
     </filter>
     <logging>

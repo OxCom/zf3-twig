@@ -1,5 +1,6 @@
 <?php
 
+use Twig\Extension\DebugExtension;
 use ZendTwig\Service\TwigLoaderFactory;
 
 return [
@@ -14,7 +15,7 @@ return [
             'debug' => true,
         ],
         'extensions'  => [
-            \Twig_Extension_Debug::class,
+            DebugExtension::class,
         ],
     ],
 ];

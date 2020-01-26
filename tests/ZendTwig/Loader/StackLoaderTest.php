@@ -41,7 +41,7 @@ class StackLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig_Error_Loader
+     * @expectedException \Twig\Error\LoaderError
      * @expectedExceptionMessageRegExp /Unable to find template/
      */
     public function testFindTemplateExNoTemplate()
@@ -68,11 +68,11 @@ class StackLoaderTest extends TestCase
         $method->setAccessible(true);
 
         $value = $method->invokeArgs($loader, ['testFindTemplateNoExNoTemplate', false]);
-        $this->assertFalse($value);
+        $this->assertNull($value);
     }
 
     /**
-     * @expectedException \Twig_Error_Loader
+     * @expectedException \Twig\Error\LoaderError
      * @expectedExceptionMessageRegExp /There are no registered paths for namespace/
      */
     public function testFindTemplateExNamespace()
@@ -99,7 +99,7 @@ class StackLoaderTest extends TestCase
         $method->setAccessible(true);
 
         $value = $method->invokeArgs($loader, ['@ns/testFindTemplate', false]);
-        $this->assertFalse($value);
+        $this->assertNull($value);
     }
 
     public function testFindTemplate()

@@ -15,7 +15,7 @@ class TwigModelTest extends TestCase
     public function testThreeRenders()
     {
         /**
-         * @var \Twig_Environment $env
+         * @var \Twig\Environment $env
          */
         $config = include(__DIR__ . '/../../Fixture/config/application.config.php');
         $config['module_listener_options']['config_glob_paths'] = [

@@ -7,11 +7,6 @@ return [
         ],
     ],
     'service_manager' => [
-        'aliases' => [
-            // For backwards compatibility.
-            \Twig_Environment::class => \Twig\Environment::class,
-            \Twig_Loader_Chain::class => \Twig\Loader\ChainLoader::class,
-        ],
         'factories' => [
             \ZendTwig\View\TwigStrategy::class => \ZendTwig\Service\TwigStrategyFactory::class,
             \ZendTwig\View\HelperPluginManager::class => \ZendTwig\Service\TwigHelperPluginManagerFactory::class,

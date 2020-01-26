@@ -17,7 +17,7 @@ class FallbackFunction
         /**
          * Create callback function for injection of Zend View Helpers
          *
-         * @param \Twig_Environment $env
+         * @param \Twig\Environment $env
          * @param array             ...$args
          *
          * @return mixed

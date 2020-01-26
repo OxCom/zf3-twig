@@ -18,7 +18,7 @@ class FallbackFunctionTest extends TestCase
         $env = $sm->get(Environment::class);
 
         /**
-         * @var \Twig_ExtensionSet $extensionSet
+         * @var \Twig\Error\LoaderError $extensionSet
          */
         $refEnv = new \ReflectionClass($env);
         $prop   = $refEnv->getProperty('extensionSet');
@@ -46,7 +46,7 @@ class FallbackFunctionTest extends TestCase
         $env = $sm->get(Environment::class);
 
         /**
-         * @var \Twig_ExtensionSet $extensionSet
+         * @var \Twig\Error\LoaderError $extensionSet
          */
         $refEnv = new \ReflectionClass($env);
         $prop   = $refEnv->getProperty('extensionSet');
@@ -157,7 +157,7 @@ class FallbackFunctionTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig_Error_Syntax
+     * @expectedException \Twig\Error\SyntaxError
      */
     public function testFallbackToNotExistsZendHelpers()
     {

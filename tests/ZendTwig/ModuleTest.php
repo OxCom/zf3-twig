@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Laminas\Mvc\MvcEvent;
 use ZendTwig\Module;
+use ZendTwig\Renderer\TwigRenderer;
+use ZendTwig\Test\Fixture\Extension\DummyExtension;
 
 class ModuleTest extends TestCase
 {
@@ -19,6 +21,9 @@ class ModuleTest extends TestCase
 
         $module = new Module();
         $module->onBootstrap($e);
+
+        $render = $e->getApplication()->getServiceManager()->get(TwigRenderer::class);
+        $this->assertInstanceOf(TwigRenderer::class, $render);
     }
 
     public function testOnBootstrapNullExtension()
@@ -33,6 +38,9 @@ class ModuleTest extends TestCase
 
         $module = new Module();
         $module->onBootstrap($e);
+
+        $render = $e->getApplication()->getServiceManager()->get(TwigRenderer::class);
+        $this->assertInstanceOf(TwigRenderer::class, $render);
     }
 
     /**
@@ -71,7 +79,9 @@ class ModuleTest extends TestCase
         $twig = $e->getApplication()->getServiceManager()->get(Environment::class);
         $ex   = $twig->getExtensions();
 
-        $this->assertNotEmpty($ex['ZendTwig\Test\Fixture\Extension\DummyExtension']);
+        $render = $e->getApplication()->getServiceManager()->get(TwigRenderer::class);
+        $this->assertInstanceOf(TwigRenderer::class, $render);
+        $this->assertNotEmpty($ex[DummyExtension::class]);
     }
 
     /**
@@ -84,7 +94,7 @@ class ModuleTest extends TestCase
          */
         $module = Bootstrap::getInstance()->getModule('ZendTwig');
 
-        $this->assertInstanceOf('\ZendTwig\Module', $module);
+        $this->assertInstanceOf(Module::class, $module);
 
         $configA = include(__DIR__ . '/../../config/module.config.php');
         $configB = $module->getConfig();

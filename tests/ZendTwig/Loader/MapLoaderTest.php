@@ -26,7 +26,7 @@ class MapLoaderTest extends TestCase
      * @param string $layout
      * @param string $path
      *
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      */
     public function testAdd($layout, $path)
     {
@@ -55,7 +55,7 @@ class MapLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig_Error_Loader
+     * @expectedException \Twig\Error\LoaderError
      * @expectedExceptionMessage Name "layout" already exists in map
      */
     public function testAddEx()
@@ -85,12 +85,12 @@ class MapLoaderTest extends TestCase
         $this->assertTrue($loader->exists($layout));
         $data = $loader->getSourceContext($layout);
 
-        $this->assertInstanceOf(\Twig_Source::class, $data);
+        $this->assertInstanceOf(\Twig\Source::class, $data);
         $this->assertNotEmpty($data->getCode());
     }
 
     /**
-     * @expectedException \Twig_Error_Loader
+     * @expectedException \Twig\Error\LoaderError
      * @expectedExceptionMessage Unable to find template "layout-not-exists" from template map
      */
     public function testGetSourceNotExistsMap()
@@ -107,7 +107,7 @@ class MapLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig_Error_Loader
+     * @expectedException \Twig\Error\LoaderError
      * @expectedExceptionMessage Unable to open file "path/to/not/exists/file.twig" from template map
      */
     public function testGetSourceNotExistsFile()
@@ -138,7 +138,7 @@ class MapLoaderTest extends TestCase
     }
 
     /**
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      */
     public function testIsFreshNotExists()
     {
@@ -148,14 +148,14 @@ class MapLoaderTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $loader = $sm->get(MapLoader::class);
 
-        $this->expectException('\Twig_Error_Loader');
+        $this->expectException('\Twig\Error\LoaderError');
         $this->expectExceptionMessageRegExp('/Unable to find template/');
 
         $loader->isFresh(rand(1, PHP_INT_MAX), 0);
     }
 
     /**
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      */
     public function testIsFreshNotFile()
     {
@@ -168,7 +168,7 @@ class MapLoaderTest extends TestCase
         $name = 'template-' . rand(1, PHP_INT_MAX);
         $loader->add($name, 'path/to/layout-1.twig');
 
-        $this->expectException('\Twig_Error_Loader');
+        $this->expectException('\Twig\Error\LoaderError');
         $this->expectExceptionMessageRegExp('/Unable to open file/');
 
         $loader->isFresh($name, 0);

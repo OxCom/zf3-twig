@@ -66,10 +66,11 @@ class TwigStrategy implements ListenerAggregateInterface
             return $this->renderer;
         }
 
+
         if ($this->renderer instanceof TwigRenderer) {
             try {
                 $tpl = $this->renderer->getResolver()->resolve($model->getTemplate());
-                if ($tpl instanceof \Twig\Template) {
+                if ($tpl instanceof \Twig\TemplateWrapper) {
                     return $this->renderer;
                 }
             } catch (\Throwable $e) {

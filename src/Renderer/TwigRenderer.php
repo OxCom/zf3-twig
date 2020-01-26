@@ -193,7 +193,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             foreach ($model->getChildren() as $child) {
                 /**
                  * @var \Laminas\View\Model\ViewModel $child
-                 * @var \Twig_Template             $template
+                 * @var \Twig\Template             $template
                  */
                 try {
                     $result = $this->render($child, $values);
@@ -215,7 +215,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
             }
         }
 
-        /** @var \Twig_Template $template */
+        /** @var \Twig\Template $template */
         $template = $this->getResolver()->resolve($nameOrModel, $this);
 
         return $template->render((array)$values);
@@ -279,7 +279,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     {
         if (!$this->environment instanceof Environment) {
             throw new InvalidArgumentException(sprintf(
-                'Twig environment must be Twig_Environment; got type "%s" instead',
+                'Twig environment must be \Twig\Environment; got type "%s" instead',
                 (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
             ));
         }
@@ -306,7 +306,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     {
         if (!$this->loader instanceof ChainLoader) {
             throw new InvalidArgumentException(sprintf(
-                'Twig loader must implement Twig_Loader_Chain; got type "%s" instead',
+                'Twig loader must implement \Twig\Loader\ChainLoader; got type "%s" instead',
                 (is_object($this->loader) ? get_class($this->loader) : gettype($this->loader))
             ));
         }
@@ -315,7 +315,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param \Twig_LoaderInterface $loader
+     * @param \Twig\Loader\LoaderInterface $loader
      *
      * @return TwigRenderer
      */

@@ -24,7 +24,7 @@ class TwigEnvironmentFactory implements FactoryInterface
         $name        = Module::MODULE_NAME;
         $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
         $envOptions  = empty($options['environment']) ? [] : $options['environment'];
-        $loader      = $container->get('Twig_Loader_Chain');
+        $loader      = $container->get(\Twig\Loader\ChainLoader::class);
         $env         = new Environment($loader, $envOptions);
         $zendHelpers = !isset($options['invoke_zend_helpers']) ? false : (bool)$options['invoke_zend_helpers'];
 

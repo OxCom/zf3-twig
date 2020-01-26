@@ -28,7 +28,7 @@ There should be done configuration of Twig environment. List of available option
 
 ## Key: loader_chain
 In current module You can set Your own template loaders. 
-This loaders will be added to the [Twig_Loader_Chain](http://twig.sensiolabs.org/doc/api.html#twig-loader-chain). So, developer will be able to add custom loaders.
+This loaders will be added to the [\Twig\Loader\ChainLoader](http://twig.sensiolabs.org/doc/api.html#twig-loader-chain). So, developer will be able to add custom loaders.
 All loaders should be available from service manager.
 
 ## Key: extensions

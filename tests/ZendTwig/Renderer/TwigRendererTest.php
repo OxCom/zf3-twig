@@ -64,7 +64,7 @@ class TwigRendererTest extends TestCase
         $render = $sm->get(TwigRenderer::class);
         $loader = $render->getLoader();
 
-        $this->assertInstanceOf('\Twig_Loader_Chain', $loader);
+        $this->assertInstanceOf('\Twig\Loader\ChainLoader', $loader);
     }
 
     /**

@@ -20,7 +20,7 @@ class MapLoader implements LoaderInterface
      * @param string $name
      * @param string $path
      *
-     * @throws \Twig_Error_Loader
+     * @throws \Twig\Error\LoaderError
      * @return MapLoader
      */
     public function add($name, $path) : MapLoader
