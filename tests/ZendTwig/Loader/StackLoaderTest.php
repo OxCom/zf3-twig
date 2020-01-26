@@ -68,7 +68,12 @@ class StackLoaderTest extends TestCase
         $method->setAccessible(true);
 
         $value = $method->invokeArgs($loader, ['testFindTemplateNoExNoTemplate', false]);
-        $this->assertNull($value);
+
+        if (class_exists('\Twig\TemplateWrapper')) {
+            $this->assertNull($value);
+        } else {
+            $this->assertFalse($value);
+        }
     }
 
     /**
@@ -99,7 +104,12 @@ class StackLoaderTest extends TestCase
         $method->setAccessible(true);
 
         $value = $method->invokeArgs($loader, ['@ns/testFindTemplate', false]);
-        $this->assertNull($value);
+
+        if (class_exists('\Twig\TemplateWrapper')) {
+            $this->assertNull($value);
+        } else {
+            $this->assertFalse($value);
+        }
     }
 
     public function testFindTemplate()
