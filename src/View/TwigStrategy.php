@@ -7,8 +7,12 @@ use Laminas\EventManager\ListenerAggregateInterface;
 use Laminas\EventManager\ListenerAggregateTrait;
 use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\ViewEvent;
-use ZendTwig\Renderer\TwigRenderer;
 
+/**
+ * Class TwigStrategy
+ *
+ * @package ZendTwig\View
+ */
 class TwigStrategy implements ListenerAggregateInterface
 {
     use ListenerAggregateTrait;
@@ -64,19 +68,6 @@ class TwigStrategy implements ListenerAggregateInterface
         $model = $e->getModel();
         if ($model instanceof TwigModel) {
             return $this->renderer;
-        }
-
-
-        if ($this->renderer instanceof TwigRenderer) {
-            try {
-                $tpl = $this->renderer->getResolver()->resolve($model->getTemplate());
-                if ((class_exists('\Twig\TemplateWrapper') && ($tpl instanceof \Twig\TemplateWrapper))
-                    || (class_exists('\Twig\Template') && ($tpl instanceof \Twig\Template))
-                ) {
-                    return $this->renderer;
-                }
-            } catch (\Throwable $e) {
-            }
         }
 
         return null;
