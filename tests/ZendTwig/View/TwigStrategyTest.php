@@ -93,7 +93,7 @@ class TwigStrategyTest extends TestCase
             [$viewModel, null],
             [$jsonModel, null],
             [$twigModel, TwigRenderer::class],
-            [$viewModelTwig, TwigRenderer::class],
+            [$viewModelTwig, null],
         ];
     }
 
@@ -106,7 +106,7 @@ class TwigStrategyTest extends TestCase
      */
     public function testInjectResponse($template, $expected)
     {
-        $model    = new \Laminas\View\Model\ViewModel([
+        $model    = new TwigModel([
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
@@ -153,7 +153,7 @@ class TwigStrategyTest extends TestCase
         $sm           = Bootstrap::getInstance()->getServiceManager();
         $phpRender    = $sm->get(PhpRenderer::class);
         $strategyTwig = new TwigStrategy($phpRender);
-        $expected     = "<span>value1</span><span>value2</span>\n";
+        $expected     = "<span>{{ key1 }}</span><span>{{ key2 }}</span>\n";
         $model        = new \Laminas\View\Model\ViewModel([
             'key1' => 'value1',
             'key2' => 'value2',
