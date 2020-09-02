@@ -16,6 +16,7 @@ return [
             \Twig\Loader\ChainLoader::class => \ZendTwig\Service\TwigLoaderFactory::class,
             \ZendTwig\Loader\MapLoader::class => \ZendTwig\Service\TwigMapLoaderFactory::class,
             \ZendTwig\Loader\StackLoader::class => \ZendTwig\Service\TwigStackLoaderFactory::class,
+            \ZendTwig\Extension\Extension::class => \ZendTwig\Service\TwigExtensionFactory::class
         ],
     ],
     'zend_twig' => [
