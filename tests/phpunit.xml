@@ -9,6 +9,9 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
         colors="true">
+    <php>
+        <env name="XDEBUG_MODE" value="coverage"/>
+    </php>
     <testsuites>
         <testsuite name="ZendTwig">
             <directory suffix="Test.php">ZendTwig/</directory>
