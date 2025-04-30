@@ -45,12 +45,16 @@ class TwigStrategyTest extends TestCase
     /**
      * Check that correct render was selected
      *
-     * @var \Laminas\View\Model\ModelInterface $model
+     * @param string $modelClassName
      *
      * @dataProvider generatorSelectRender
      */
-    public function testSelectRenderNoRender($model, $expected)
+    public function testSelectRenderNoRender($modelClassName, $expected)
     {
+        $model = $this->getMockBuilder($modelClassName)->getMock();
+        $model->method('getTemplate')
+                  ->willReturn('some-template-string');
+
         $event = new ViewEvent();
         $event->setModel($model);
 
@@ -72,28 +76,12 @@ class TwigStrategyTest extends TestCase
     /**
      * @return array
      */
-    public function generatorSelectRender()
+    public static function generatorSelectRender()
     {
-        $viewModel = $this->getMockBuilder(ViewModel::class)->getMock();
-        $viewModel->method('getTemplate')
-                  ->willReturn('some-template-string');
-
-        $jsonModel = $this->getMockBuilder(JsonModel::class)->getMock();
-        $jsonModel->method('getTemplate')
-                  ->willReturn('some-template-string');
-
-        $twigModel = $this->getMockBuilder(TwigModel::class)->getMock();
-        $twigModel->method('getTemplate')
-            ->willReturn('some-template-string');
-
-        $viewModelTwig = new ViewModel();
-        $viewModelTwig->setTemplate('layout');
-
         return [
-            [$viewModel, null],
-            [$jsonModel, null],
-            [$twigModel, TwigRenderer::class],
-            [$viewModelTwig, null],
+            [ViewModel::class, null],
+            [JsonModel::class, null],
+            [TwigModel::class, TwigRenderer::class],
         ];
     }
 
