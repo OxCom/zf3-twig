@@ -16,7 +16,7 @@ class TwigResolverFactory implements FactoryInterface
      *
      * @return TwigResolver
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigResolver
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : TwigResolver
     {
         return new TwigResolver($container->get(Environment::class));
     }

@@ -17,7 +17,7 @@ class TwigExtensionFactory implements FactoryInterface
      *
      * @return Extension
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : Extension
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : Extension
     {
         return new $requestedName($container, $container->get(TwigRenderer::class));
     }

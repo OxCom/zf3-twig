@@ -19,7 +19,7 @@ class TwigLoaderFactory implements FactoryInterface
      *
      * @return ChainLoader
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : ChainLoader
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : ChainLoader
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;

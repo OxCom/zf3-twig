@@ -17,7 +17,7 @@ class TwigMapLoaderFactory implements FactoryInterface
      *
      * @return MapLoader
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : MapLoader
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : MapLoader
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;

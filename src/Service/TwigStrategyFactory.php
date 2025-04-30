@@ -16,7 +16,7 @@ class TwigStrategyFactory implements FactoryInterface
      *
      * @return TwigStrategy
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : TwigStrategy
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : TwigStrategy
     {
         $config      = $container->get('Configuration');
         $name        = Module::MODULE_NAME;
