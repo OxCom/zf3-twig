@@ -21,7 +21,7 @@ class TwigStrategyTest extends TestCase
     {
         $model = $this->getMockBuilder('Laminas\View\Model\ModelInterface')->getMock();
         $model->method('getTemplate')
-            ->will($this->returnValue('some-template-string'));
+            ->willReturn('some-template-string');
 
         /**
          * @var \Laminas\View\Model\ModelInterface $model
@@ -76,15 +76,15 @@ class TwigStrategyTest extends TestCase
     {
         $viewModel = $this->getMockBuilder(ViewModel::class)->getMock();
         $viewModel->method('getTemplate')
-            ->will($this->returnValue('some-template-string'));
+                  ->willReturn('some-template-string');
 
         $jsonModel = $this->getMockBuilder(JsonModel::class)->getMock();
         $jsonModel->method('getTemplate')
-            ->will($this->returnValue('some-template-string'));
+                  ->willReturn('some-template-string');
 
         $twigModel = $this->getMockBuilder(TwigModel::class)->getMock();
         $twigModel->method('getTemplate')
-            ->will($this->returnValue('some-template-string'));
+            ->willReturn('some-template-string');
 
         $viewModelTwig = new ViewModel();
         $viewModelTwig->setTemplate('layout');
