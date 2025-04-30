@@ -6,3 +6,5 @@
 /coverage/
 
 .phpunit.result.cache
+/.phpunit.cache
+phpunit.results

@@ -136,7 +136,7 @@ class TwigStrategyTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function generatorInjectResponse()
+    public static function generatorInjectResponse()
     {
         return [
             ['View/testInjectResponse', "<span>value1</span><span>value2</span>\n"],

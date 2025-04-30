@@ -52,13 +52,13 @@ class DebugExtensionTest extends TestCase
         $result = $view->getResponse()
                        ->getContent();
 
-        $this->assertContains($expected, $result);
+        $this->assertStringContainsString($expected, $result);
     }
 
     /**
      * @return array
      */
-    public function generatorDebugExtension()
+    public static function generatorDebugExtension()
     {
         $randInt = mt_rand(PHP_INT_MAX / 2, PHP_INT_MAX);
 

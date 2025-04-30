@@ -40,10 +40,6 @@ class StackLoaderTest extends TestCase
         $this->assertEquals(TwigLoaderFactory::DEFAULT_SUFFIX, $loader->getSuffix());
     }
 
-    /**
-     * @expectedException \Twig\Error\LoaderError
-     * @expectedExceptionMessageRegExp /Unable to find template/
-     */
     public function testFindTemplateExNoTemplate()
     {
         /**
@@ -52,6 +48,8 @@ class StackLoaderTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $loader = $sm->get(StackLoader::class);
 
+        $this->expectException(\Twig\Error\LoaderError::class);
+        $this->expectExceptionMessageMatches('/Unable to find template/');
         $loader->getSourceContext('testFindTemplateExNoTemplate');
     }
 
@@ -71,10 +69,6 @@ class StackLoaderTest extends TestCase
         $this->assertEmpty($value);
     }
 
-    /**
-     * @expectedException \Twig\Error\LoaderError
-     * @expectedExceptionMessageRegExp /There are no registered paths for namespace/
-     */
     public function testFindTemplateExNamespace()
     {
         /**
@@ -83,6 +77,8 @@ class StackLoaderTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $loader = $sm->get(StackLoader::class);
 
+        $this->expectException(\Twig\Error\LoaderError::class);
+        $this->expectExceptionMessageMatches('/There are no registered paths for namespace/');
         $loader->getSourceContext('@ns/testFindTemplate');
     }
 
