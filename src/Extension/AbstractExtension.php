@@ -3,10 +3,10 @@
 namespace ZendTwig\Extension;
 
 use Interop\Container\ContainerInterface;
-use Twig\Extension\AbstractExtension;
+use Twig\Extension\AbstractExtension as TwigAbstractExtension;
 use ZendTwig\Renderer\TwigRenderer;
 
-abstract class AbstractExtension extends AbstractExtension
+abstract class AbstractExtension extends TwigAbstractExtension
 {
     /**
      * @var TwigRenderer

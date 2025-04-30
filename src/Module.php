@@ -30,7 +30,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
         $config      = $container->get('Configuration');
         $env         = $container->get(Environment::class);
         $name        = static::MODULE_NAME;
-        $options     = $envOptions = empty($config[$name]) ? [] : $config[$name];
+        $options     = empty($config[$name]) ? [] : $config[$name];
         $extensions  = empty($options['extensions']) ? [] : $options['extensions'];
         $renderer    = $container->get(TwigRenderer::class);
 
@@ -39,7 +39,9 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
             // Allows modules to override/remove extensions.
             if (empty($extension)) {
                 continue;
-            } elseif (is_string($extension)) {
+            }
+
+            if (is_string($extension)) {
                 if ($container->has($extension)) {
                     $extension = $container->get($extension);
                 } else {
@@ -53,8 +55,6 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
                 $env->addExtension($extension);
             }
         }
-
-        return;
     }
 
     /**
