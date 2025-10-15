@@ -38,10 +38,6 @@ class TwigRendererTest extends TestCase
         $this->assertSame($env, $render->getEnvironment());
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\InvalidArgumentException
-     * @expectedExceptionMessageRegExp /Twig environment must be/
-     */
     public function testGetEnvEx()
     {
         /**
@@ -50,6 +46,9 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
         $renderClone = clone $render;
+
+        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/Twig environment must be/');
 
         $renderClone->setEnvironment('qwe')
                     ->getEnvironment();
@@ -67,10 +66,6 @@ class TwigRendererTest extends TestCase
         $this->assertInstanceOf('\Twig\Loader\ChainLoader', $loader);
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\InvalidArgumentException
-     * @expectedExceptionMessageRegExp /Twig loader must implement/
-     */
     public function testGetLoaderEx()
     {
         /**
@@ -79,6 +74,9 @@ class TwigRendererTest extends TestCase
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $render = $sm->get(TwigRenderer::class);
         $renderClone = clone $render;
+
+        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessageMatches('/Twig loader must implement/');
 
         $renderClone->setLoader('qwe')
                     ->getLoader();
@@ -124,10 +122,6 @@ class TwigRendererTest extends TestCase
         $this->assertTrue($render->canRenderTrees($twigModel));
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\DomainException
-     * @expectedExceptionMessageRegExp /but template is empty/
-     */
     public function testRenderModelExNotTemplate()
     {
         /**
@@ -140,6 +134,9 @@ class TwigRendererTest extends TestCase
             'key1' => 'value1',
             'key2' => 'value2',
         ]);
+
+        $this->expectException(\Laminas\View\Exception\DomainException::class);
+        $this->expectExceptionMessageMatches('/but template is empty/');
 
         $render->render($model);
     }
@@ -190,10 +187,6 @@ class TwigRendererTest extends TestCase
         $this->assertEquals($expect, $result);
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\RuntimeException
-     * @expectedExceptionMessageRegExp 'Unable to render template'
-     */
     public function testRenderNotExistsEx()
     {
         /**
@@ -201,6 +194,9 @@ class TwigRendererTest extends TestCase
          */
         $sm        = Bootstrap::getInstance()->getServiceManager();
         $render    = $sm->get(TwigRenderer::class);
+
+        $this->expectException(\Laminas\View\Exception\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Unable to render template/');
 
         $render->render('View/testRenderNull', [
             'key1' => 'value1',

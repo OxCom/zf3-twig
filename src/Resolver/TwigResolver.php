@@ -20,7 +20,7 @@ class TwigResolver implements ResolverInterface
      *
      * @param Environment $environment
      */
-    public function __construct(Environment $environment = null)
+    public function __construct(?Environment $environment = null)
     {
         $this->environment = $environment;
     }
@@ -33,7 +33,7 @@ class TwigResolver implements ResolverInterface
      *
      * @return TemplateWrapper|Template
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
         return $this->environment->resolveTemplate($name);
     }

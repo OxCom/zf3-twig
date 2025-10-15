@@ -17,7 +17,7 @@ class TwigStackLoaderFactory implements FactoryInterface
      *
      * @return \ZendTwig\Loader\StackLoader
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : StackLoader
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : StackLoader
     {
         $config  = $container->get('Configuration');
         $name    = Module::MODULE_NAME;

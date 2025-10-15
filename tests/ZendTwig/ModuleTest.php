@@ -43,9 +43,6 @@ class ModuleTest extends TestCase
         $this->assertInstanceOf(TwigRenderer::class, $render);
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\InvalidArgumentException
-     */
     public function testOnBootstrapExceptionExtension()
     {
         $config = include(__DIR__ . '/../Fixture/config/application.config.php');
@@ -57,6 +54,9 @@ class ModuleTest extends TestCase
         $e->setApplication(Bootstrap::getInstance($config)->getApplication());
 
         $module = new Module();
+
+        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+
         $module->onBootstrap($e);
     }
 
@@ -117,9 +117,6 @@ class ModuleTest extends TestCase
         $this->assertEquals($configA[Module::MODULE_NAME], $configB);
     }
 
-    /**
-     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
-     */
     public function testLoadConfigWithInvalidHelpersClass()
     {
         $config = include(__DIR__ . '/../Fixture/config/application.config.php');
@@ -131,12 +128,12 @@ class ModuleTest extends TestCase
         $e->setApplication(Bootstrap::getInstance($config)->getApplication());
 
         $module = new Module();
+
+        $this->expectException(\Laminas\ServiceManager\Exception\ServiceNotCreatedException::class);
+
         $module->onBootstrap($e);
     }
 
-    /**
-     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
-     */
     public function testLoadConfigWithInvalidHelpersInstance()
     {
         $config = include(__DIR__ . '/../Fixture/config/application.config.php');
@@ -148,12 +145,12 @@ class ModuleTest extends TestCase
         $e->setApplication(Bootstrap::getInstance($config)->getApplication());
 
         $module = new Module();
+
+        $this->expectException(\Laminas\ServiceManager\Exception\ServiceNotCreatedException::class);
+
         $module->onBootstrap($e);
     }
 
-    /**
-     * @expectedException \Laminas\ServiceManager\Exception\ServiceNotCreatedException
-     */
     public function testLoadConfigWithInvalidLoaderClass()
     {
         $config = include(__DIR__ . '/../Fixture/config/application.config.php');
@@ -165,6 +162,9 @@ class ModuleTest extends TestCase
         $e->setApplication(Bootstrap::getInstance($config)->getApplication());
 
         $module = new Module();
+
+        $this->expectException(\Laminas\ServiceManager\Exception\ServiceNotCreatedException::class);
+
         $module->onBootstrap($e);
     }
 }

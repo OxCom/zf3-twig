@@ -8,7 +8,7 @@ use ZendTwig\Renderer\TwigRenderer;
 class Extension extends AbstractExtension
 {
     /**
-     * @return \ZendTwig\Renderer\TwigRenderer
+     * @return TwigRenderer
      */
     public function getRenderer() : TwigRenderer
     {
@@ -16,7 +16,7 @@ class Extension extends AbstractExtension
     }
 
     /**
-     * @return \Interop\Container\ContainerInterface
+     * @return ContainerInterface
      */
     public function getServiceManager() : ContainerInterface
     {

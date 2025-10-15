@@ -12,13 +12,13 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 class MenuFactory implements FactoryInterface
 {
     /**
-     * @param \Interop\Container\ContainerInterface $container
-     * @param string                                $requestedName
-     * @param array|null                            $options
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null         $options
      *
      * @return \ZendTwig\Test\Fixture\View\Helper\Menu
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         return new $requestedName(['a', 'b', 'c']);
     }

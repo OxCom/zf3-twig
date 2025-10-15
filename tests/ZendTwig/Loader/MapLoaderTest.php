@@ -45,7 +45,7 @@ class MapLoaderTest extends TestCase
     /**
      * @return array
      */
-    public function generatorAdd()
+    public static function generatorAdd()
     {
         return [
             ['layout-1', 'path/to/layout-1.twig'],
@@ -54,10 +54,6 @@ class MapLoaderTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \Twig\Error\LoaderError
-     * @expectedExceptionMessage Name "layout" already exists in map
-     */
     public function testAddEx()
     {
         /**
@@ -68,6 +64,9 @@ class MapLoaderTest extends TestCase
 
         $this->assertTrue($loader->exists('layout'));
         $loader->add('layout-4', 'path/to/layout-4.twig');
+
+        $this->expectException(\Twig\Error\LoaderError::class);
+        $this->expectExceptionMessage('Name "layout" already exists in map');
 
         $this->assertTrue($loader->exists('layout'));
         $loader->add('layout', 'path/to/layout.twig');
@@ -89,27 +88,20 @@ class MapLoaderTest extends TestCase
         $this->assertNotEmpty($data->getCode());
     }
 
-    /**
-     * @expectedException \Twig\Error\LoaderError
-     * @expectedExceptionMessage Unable to find template "layout-not-exists" from template map
-     */
     public function testGetSourceNotExistsMap()
     {
-        /**
-         * @var \ZendTwig\Loader\MapLoader $loader
-         */
+        /* @var MapLoader $loader */
         $sm     = Bootstrap::getInstance()->getServiceManager();
         $loader = $sm->get(MapLoader::class);
         $layout = 'layout-not-exists';
 
         $this->assertFalse($loader->exists($layout));
+
+        $this->expectException(\Twig\Error\LoaderError::class);
+        $this->expectExceptionMessage('Unable to find template "layout-not-exists" from template map');
         $loader->getSourceContext($layout);
     }
 
-    /**
-     * @expectedException \Twig\Error\LoaderError
-     * @expectedExceptionMessage Unable to open file "path/to/not/exists/file.twig" from template map
-     */
     public function testGetSourceNotExistsFile()
     {
         /**
@@ -122,6 +114,9 @@ class MapLoaderTest extends TestCase
 
         $loader->add($layout, $path);
         $this->assertTrue($loader->exists($layout));
+
+        $this->expectException(\Twig\Error\LoaderError::class);
+        $this->expectExceptionMessage('Unable to open file "path/to/not/exists/file.twig" from template map');
         $loader->getSourceContext($layout);
     }
 
@@ -149,7 +144,7 @@ class MapLoaderTest extends TestCase
         $loader = $sm->get(MapLoader::class);
 
         $this->expectException('\Twig\Error\LoaderError');
-        $this->expectExceptionMessageRegExp('/Unable to find template/');
+        $this->expectExceptionMessageMatches('/Unable to find template/');
 
         $loader->isFresh(rand(1, PHP_INT_MAX), 0);
     }
@@ -169,7 +164,7 @@ class MapLoaderTest extends TestCase
         $loader->add($name, 'path/to/layout-1.twig');
 
         $this->expectException('\Twig\Error\LoaderError');
-        $this->expectExceptionMessageRegExp('/Unable to open file/');
+        $this->expectExceptionMessageMatches('/Unable to open file/');
 
         $loader->isFresh($name, 0);
     }

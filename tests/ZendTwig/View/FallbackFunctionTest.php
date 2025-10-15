@@ -133,7 +133,7 @@ class FallbackFunctionTest extends TestCase
     /**
      * @return array
      */
-    public function generatorFallbackToZendHelpers()
+    public static function generatorFallbackToZendHelpers()
     {
         return [
             [
@@ -156,9 +156,6 @@ class FallbackFunctionTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \Twig\Error\SyntaxError
-     */
     public function testFallbackToNotExistsZendHelpers()
     {
         $model    = new \Laminas\View\Model\ViewModel([
@@ -179,6 +176,8 @@ class FallbackFunctionTest extends TestCase
 
         $e = $view->getEventManager();
         $strategyTwig->attach($e, 100);
+
+        $this->expectException(\Twig\Error\SyntaxError::class);
 
         $view->setEventManager($e)
             ->setRequest($request)

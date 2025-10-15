@@ -2,6 +2,7 @@
 
 namespace ZendTwig\Test\Extension;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Laminas\Mvc\MvcEvent;
 use ZendTwig\Extension\Extension;
@@ -10,6 +11,7 @@ use ZendTwig\Test\Bootstrap;
 use ZendTwig\Test\Fixture\DummyClass;
 use ZendTwig\Test\Fixture\Extension\InstanceOfExtension;
 use ZendTwig\View\TwigStrategy;
+use ZendTwig\Renderer\TwigRenderer;
 
 class CustomExtensionTest extends TestCase
 {
@@ -20,16 +22,14 @@ class CustomExtensionTest extends TestCase
             realpath(__DIR__) . '/../../Fixture/config/extensions/{{,*.}instanceOf}.php',
         ];
 
-        /**
-         * @var \ZendTwig\Test\Fixture\Extension\InstanceOfExtension $extension
-         */
+        /* @var InstanceOfExtension $extension */
         $sm = Bootstrap::getInstance($config)->getServiceManager();
         $extension = $sm->get(InstanceOfExtension::class);
 
         $exRender = $extension->getRenderer();
         $exSm     = $extension->getServiceManager();
 
-        $this->assertInstanceOf('\ZendTwig\Renderer\TwigRenderer', $exRender);
+        $this->assertInstanceOf(TwigRenderer::class, $exRender);
         $this->assertInstanceOf('\Interop\Container\ContainerInterface', $exSm);
         $this->assertSame($sm, $exSm);
     }
@@ -101,7 +101,7 @@ class CustomExtensionTest extends TestCase
     /**
      * @return array
      */
-    public function generatorExtensionData()
+    public static function generatorExtensionData()
     {
         return [
             [

@@ -34,7 +34,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     protected $loader;
 
     /**
-     * @var \Laminas\View\View
+     * @var View
      */
     protected $view;
 
@@ -64,11 +64,11 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     protected $forceStandalone = false;
 
     /**
-     * @param \Laminas\View\View   $view
-     * @param Environment  $env
+     * @param View              $view
+     * @param Environment       $env
      * @param ResolverInterface $resolver
      */
-    public function __construct(View $view, Environment $env = null, ResolverInterface $resolver = null)
+    public function __construct(View $view, ?Environment $env = null, ?ResolverInterface $resolver = null)
     {
         $this->setView($view)
              ->setEnvironment($env)
@@ -111,7 +111,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return AbstractHelper|callable
      */
-    public function plugin($name, array $options = null)
+    public function plugin($name, ?array $options = null)
     {
         $helper = $this->getTwigHelpers()->setRenderer($this);
 
@@ -251,7 +251,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @return \Laminas\View\View
+     * @return View
      */
     public function getView()
     {
@@ -259,7 +259,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @param \Laminas\View\View $view
+     * @param View $view
      *
      * @return TwigRenderer
      */
@@ -339,7 +339,7 @@ class TwigRenderer implements RendererInterface, TreeRendererInterface
      *
      * @return TwigRenderer
      */
-    public function setResolver(ResolverInterface $resolver = null) : TwigRenderer
+    public function setResolver(?ResolverInterface $resolver = null) : TwigRenderer
     {
         $this->resolver = $resolver;
 
