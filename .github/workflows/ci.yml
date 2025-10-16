@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        php-version: ['7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+    
+    name: PHP ${{ matrix.php-version }} Test
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, intl
+        coverage: xdebug
+        tools: composer:v2
+    
+    - name: Validate composer.json
+      run: composer validate --strict
+    
+    - name: Install dependencies
+      run: |
+        composer require roave/security-advisories:dev-master --no-update || true
+        composer install --prefer-dist --no-progress
+    
+    - name: Display PHP version
+      run: php -v
+    
+    - name: Run code style check
+      run: vendor/bin/phpcs --standard=psr2 src/ tests/ZendTwig/ tests/Fixture/
+    
+    - name: Run tests
+      run: vendor/bin/phpunit --coverage-clover=coverage.xml
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./coverage.xml
+        fail_ci_if_error: false
+        token: ${{ secrets.CODECOV_TOKEN }}
+
