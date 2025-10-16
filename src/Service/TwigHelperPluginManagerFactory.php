@@ -19,12 +19,13 @@ class TwigHelperPluginManagerFactory implements FactoryInterface
      *
      * @return HelperPluginManager
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) : HelperPluginManager
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): HelperPluginManager
     {
         $config     = $container->get('Configuration');
         $name       = Module::MODULE_NAME;
-        $options    = $envOptions = empty($config[$name]) ? [] : $config[$name];
-        $helpers    = empty($options['helpers']) ? [] : $options['helpers'];
+
+        $envOptions = empty($config[$name]) ? [] : $config[$name];
+        $helpers    = empty($envOptions['helpers']) ? [] : $envOptions['helpers'];
         $configs    = empty($helpers['configs']) ? [] : $helpers['configs'];
         $viewHelper = new HelperPluginManager($container, $configs);
 
