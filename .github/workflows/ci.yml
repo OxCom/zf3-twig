@@ -26,7 +26,8 @@ jobs:
         extensions: mbstring, intl
         coverage: xdebug
         tools: composer:v2
-    
+        ini-values: xdebug.mode=coverage
+
     - name: Validate composer.json
       run: composer validate --strict
     
@@ -41,10 +42,14 @@ jobs:
     - name: Run code style check
       run: vendor/bin/phpcs --standard=psr2 src/ tests/ZendTwig/ tests/Fixture/
     
-    - name: Run tests
-      run: vendor/bin/phpunit --coverage-clover=coverage.xml
-    
+    - name: Run tests with coverage
+      run: vendor/bin/phpunit --coverage-clover=coverage.xml || true
+
+    - name: Check if tests passed
+      run: vendor/bin/phpunit --no-coverage
+
     - name: Upload coverage to Codecov
+      if: success()
       uses: codecov/codecov-action@v4
       with:
         files: ./coverage.xml
